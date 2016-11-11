@@ -32,9 +32,9 @@ class Terminal:
 
         await self.bot.say(box(release(), 'Bash'))
 
-    @commands.command(name="shell")
+    @commands.command()
     @checks.is_owner()
-    async def _terminal_(self, *, command : str):
+    async def shell(self, *, command : str):
         """Terminal inside Discord"""
 
         try:
