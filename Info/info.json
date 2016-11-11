@@ -1,0 +1,8 @@
+{
+    "AUTHOR" : "Sentry",
+    "INSTALL_MSG" : "Thank your for installing my revamped info commands",
+	"DISABLED" : false,
+    "NAME" : "Info",
+    "SHORT" : "revamped serverinfo and userinfo from General Cog",
+    "DESCRIPTION" : "revamped serverinfo and userinfo from General Cog"
+}
