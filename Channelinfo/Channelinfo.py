@@ -29,7 +29,7 @@ class Channelinfo:
         if channel.is_private == True:
             data += "Private: Yes\n"
         if "{}".format(channel.type)=="text":
-            if channel.topic != "" then:
+            if channel.topic != "":
                 data += """Topic:\n"{}"\n""".format(channel.topic)
         data += "Position: {}\n".format(channel.position)
         passed = (ctx.message.timestamp - channel.created_at).days
