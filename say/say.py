@@ -21,7 +21,7 @@ class say:
     async def say(self, ctx, *, text):
         """Says Something as the bot without the needs special rights"""
 
-        await self.bot.say(text + " (" + ctx.message.author.mention + ")")
+        await self.bot.say(text + " ( message by " + ctx.message.author.mention + ")")
 
 def setup(bot):
     bot.add_cog(say(bot))
