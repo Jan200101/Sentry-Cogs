@@ -17,7 +17,7 @@ class Info:
     async def channellist(self):
         """Lists all Channels"""
 
-        list = [c.name for c in server.channels
+        list = "{}".format([c.name for c in server.channels])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
@@ -25,7 +25,7 @@ class Info:
     async def userlist(self):
         """Lists all Channels"""
 
-        list = [m.name for m in server.members]
+        list = "{}".format([m.name for m in server.members])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
@@ -34,7 +34,7 @@ class Info:
     async def rolelist(self):
         """Lists all Channels"""
 
-        list = [r.name for r in server.role_hierarchy]
+        list = "{}".format([r.name for r in server.role_hierarchy])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
@@ -43,7 +43,7 @@ class Info:
     async def emojilistlist(self):
         """Lists all Channels"""
 
-        list = [e.name for e in server.emojis]
+        list = "{}".format([e.name for e in server.emojis])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
