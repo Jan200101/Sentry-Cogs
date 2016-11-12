@@ -19,20 +19,18 @@ class say:
             await self.bot.delete_message(ctx.message)
         except:
             raise Exception("I do not have the permissions needed")
-        await self.bot.say(text + "")
+        for text in pagify(text, ["\n"]):
+            await self.bot.say(text)
 
     @commands.command(pass_context=True, no_pm=True)
     async def say(self, ctx, *, text):
         """Says Something as the bot without the needs special rights"""
 
-        if ctx.message.author == "238685395838042113":
-            await self.bot.say("Stop using my bot for making it say simple stuff")
-        else:
-            text += "(message by"
-            text += ctx.message.author.mention
-            text += ")"
-            for page in pagify(text, ["\n"], shorten_by=13, page_length=2000):
-                await self.bot.say(page)
+        text += " (message by"
+        text += ctx.message.author.mention
+        text += ")"
+        for text in pagify(text, ["\n"]):
+            await self.bot.say(text)
 
 def setup(bot):
     bot.add_cog(say(bot))
