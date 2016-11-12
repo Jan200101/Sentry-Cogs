@@ -12,7 +12,7 @@ class Info:
         if self.bot.get_cog("Channelinfo") != None:
             raise Exception("This cog does not work with my Channelinfo cog")
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, alias=["chaninfo"])
     async def channelinfo(self, ctx, channel : discord.Channel = None):
         """Shows channel informations"""
         author = ctx.message.channel

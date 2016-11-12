@@ -9,7 +9,7 @@ class say:
         if self.bot.get_cog("Admin") != None:
             raise Exception("This Cog does not work with the Admin cog from Squid-Plugins")
 
-    @commands.command(pass_context=True, no_pm=True)
+    @commands.command(pass_context=True, no_pm=True, aliases=["opsay"])
     @checks.admin_or_permissions(administrator=True)
     async def adminsay(self, ctx, *, text):
         """Says Something as the bot without anyone knowing who wrote it"""
