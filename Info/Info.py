@@ -23,7 +23,7 @@ class Info:
 
     @commands.command(pass_context=True, hidden="true")
     async def userlist(self, ctx):
-        """Lists all Channels"""
+        """Lists all Users"""
 
         list = "{}".format([m.name for m in ctx.message.server.members])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
@@ -32,7 +32,7 @@ class Info:
 
     @commands.command(pass_context=True, hidden="true")
     async def rolelist(self, ctx):
-        """Lists all Channels"""
+        """Lists all Roles"""
 
         list = "{}".format([r.name for r in ctx.message.server.role_hierarchy])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
@@ -41,7 +41,7 @@ class Info:
 
     @commands.command(pass_context=True, hidden="true")
     async def emojilistlist(self, ctx):
-        """Lists all Channels"""
+        """Lists all Emojis"""
 
         list = "{}".format([e.name for e in ctx.message.server.emojis])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
