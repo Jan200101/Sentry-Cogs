@@ -36,6 +36,3 @@ class say:
 
 def setup(bot):
     bot.add_cog(say(bot))
-
-        for page in pagify(data, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, 'Prolog'))
