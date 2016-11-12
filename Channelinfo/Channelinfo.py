@@ -12,6 +12,12 @@ class Channelinfo:
         if self.bot.get_cog("Info") != None:
             raise Exception("This cog does not work with my Info cog")
 
+    @commands.command(pass_context=True, alias=["chanlist"])
+    async def channellist(self):
+        """Lists all Channels"""
+
+        await self.bot.say(box([c.name for c in server.channels], "Prolog"))
+
     @commands.command(pass_context=True, alias=["chaninfo"])
     async def channelinfo(self, ctx, channel : discord.Channel = None):
         """Shows channel informations"""
