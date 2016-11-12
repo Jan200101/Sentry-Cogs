@@ -13,18 +13,20 @@ class Info:
             raise Exception("This cog does not work with my Channelinfo cog")
 
 
-    @commands.command(alias=["chanlist"])
+    @commands.command(hidden=true, alias=["chanlist"])
     async def channellist(self):
         """Lists all Channels"""
 
-        for page in pagify([c.name for c in server.channels], ["\n"], shorten_by=13, page_length=2000):
+        list = [c.name for c in server.channels
+        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
     @commands.command()
     async def userlist(self):
         """Lists all Channels"""
 
-        for page in pagify([m.name for m in server.members], ["\n"], shorten_by=13, page_length=2000):
+        list = [m.name for m in server.members]
+        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
 
@@ -32,7 +34,8 @@ class Info:
     async def rolelist(self):
         """Lists all Channels"""
 
-        for page in pagify([r.name for r in server.role_hierarchy], ["\n"], shorten_by=13, page_length=2000):
+        list = [r.name for r in server.role_hierarchy]
+        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
 
@@ -40,7 +43,8 @@ class Info:
     async def emojilistlist(self):
         """Lists all Channels"""
 
-        for page in pagify([e.name for e in server.emojis], ["\n"], shorten_by=13, page_length=2000):
+        list = [e.name for e in server.emojis]
+        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
     @commands.command(pass_context=True, alias=["chaninfo"])
