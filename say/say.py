@@ -23,7 +23,7 @@ class say:
     async def say(self, ctx, *, text):
         """Says Something as the bot without the needs special rights"""
 
-        if ctx.message.author == "238685395838042113" then:
+        if ctx.message.author == "238685395838042113":
             await self.bot.say("Stop using my bot for making it say simple stuff")
         else:
             await self.bot.say(text + " (message by " + ctx.message.author.mention + ")")
