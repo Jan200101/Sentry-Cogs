@@ -13,37 +13,37 @@ class Info:
             raise Exception("This cog does not work with my Channelinfo cog")
 
 
-    @commands.command(hidden="true", alias=["chanlist"])
-    async def channellist(self):
+    @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
+    async def channellist(self, ctx):
         """Lists all Channels"""
 
-        list = "{}".format([c.name for c in server.channels])
+        list = "{}".format([c.name for c in ctx.message.server.channels])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
-    @commands.command(hidden="true")
-    async def userlist(self):
+    @commands.command(pass_context=True, hidden="true")
+    async def userlist(self, ctx):
         """Lists all Channels"""
 
-        list = "{}".format([m.name for m in server.members])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
-
-
-    @commands.command(hidden="true")
-    async def rolelist(self):
-        """Lists all Channels"""
-
-        list = "{}".format([r.name for r in server.role_hierarchy])
+        list = "{}".format([m.name for m in ctx.message.server.members])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
 
-    @commands.command(hidden="true")
-    async def emojilistlist(self):
+    @commands.command(pass_context=True, hidden="true")
+    async def rolelist(self, ctx):
         """Lists all Channels"""
 
-        list = "{}".format([e.name for e in server.emojis])
+        list = "{}".format([r.name for r in ctx.message.server.role_hierarchy])
+        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
+            await self.bot.say(box(page, "Prolog"))
+
+
+    @commands.command(pass_context=True, hidden="true")
+    async def emojilistlist(self, ctx):
+        """Lists all Channels"""
+
+        list = "{}".format([e.name for e in ctx.message.server.emojis])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
