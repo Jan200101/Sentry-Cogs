@@ -25,7 +25,7 @@ class Terminal:
 
         await self.bot.say(box(system(), 'Bash'))
 
-    @commands.command()
+    @commands.command(alias=["osver"])
     @checks.is_owner()
     async def osversion(self):
         """Displays your current Operating System version"""

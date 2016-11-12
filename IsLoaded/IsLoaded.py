@@ -7,7 +7,7 @@ class IsLoaded:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="CogLoaded"])
+    @commands.command(name="CogLoaded")
     @checks.is_owner()
     async def cog_loaded(self, cog: str):
         """Checks if a Cog is loaded or not"""
