@@ -29,7 +29,7 @@ class say:
             await self.bot.say("Stop using my bot for making it say simple stuff")
         else:
             text += "(message by"
-            text += ctx.message.author
+            text += ctx.message.author.mention
             text += ")"
             for page in pagify(text, ["\n"], shorten_by=13, page_length=2000):
                 await self.bot.say(page)
