@@ -13,15 +13,20 @@ class say:
     @checks.admin_or_permissions(administrator=True)
     async def adminsay(self, ctx, *, text):
         """Says Something as the bot without anyone knowing who wrote it"""
-
-        await self.bot.delete_message(ctx.message)
+        try:
+            await self.bot.delete_message(ctx.message)
+        except:
+            raise Exception("I do not have the permissions needed")
         await self.bot.say(text + "")
 
     @commands.command(pass_context=True, no_pm=True)
     async def say(self, ctx, *, text):
         """Says Something as the bot without the needs special rights"""
 
-        await self.bot.say(text + " ( message by " + ctx.message.author.mention + ")")
+        if ctx.message.author == "238685395838042113" then:
+            await self.bot.say("Stop using my bot for making it say simple stuff")
+        else:
+            await self.bot.say(text + " (message by " + ctx.message.author.mention + ")")
 
 def setup(bot):
     bot.add_cog(say(bot))
