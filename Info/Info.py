@@ -13,7 +13,7 @@ class Info:
             raise Exception("This cog does not work with my Channelinfo cog")
 
 
-    @commands.command(hidden=true, alias=["chanlist"])
+    @commands.command(hidden="true", alias=["chanlist"])
     async def channellist(self):
         """Lists all Channels"""
 
@@ -21,7 +21,7 @@ class Info:
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
-    @commands.command()
+    @commands.command(hidden="true")
     async def userlist(self):
         """Lists all Channels"""
 
@@ -30,7 +30,7 @@ class Info:
             await self.bot.say(box(page, "Prolog"))
 
 
-    @commands.command()
+    @commands.command(hidden="true")
     async def rolelist(self):
         """Lists all Channels"""
 
@@ -39,7 +39,7 @@ class Info:
             await self.bot.say(box(page, "Prolog"))
 
 
-    @commands.command()
+    @commands.command(hidden="true")
     async def emojilistlist(self):
         """Lists all Channels"""
 
