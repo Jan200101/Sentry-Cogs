@@ -13,12 +13,12 @@ class pip:
         if settings.owner == "238685395838042113":
             raise Exception("TomCreeper you are not allowed to use this cog anymore as it can do major damage to the system it is hosted on.")
 
-    @commands.command(alias=["pyver","pyversion","pythonver"])
+    @commands.command(aliases=["pyver","pyversion","pythonver"])
     @checks.is_owner()
     async def pythonversion(self):
         """prints current pip version"""
 
-        for page in pagify("version", ["\n"], shorten_by=13, page_length=2000):
+        for page in pagify(version, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, 'Python'))
 
     @commands.command()
