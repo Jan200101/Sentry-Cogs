@@ -5,17 +5,25 @@ from cogs.utils.chat_formatting import box
 from subprocess import check_output, CalledProcessError, os, call
 from __main__ import settings
 
+try:
+    from adbwrapper import ADB
+except:
+    raise Exception("Please install adbwrapper using `pip3 install adbwarpper`")
 
 class adb:
     """Android Debug Bridge for Linux in Discord"""
 
     def __init__(self, bot):
         self.bot = bot
-        if settings.owner == "238685395838042113":
-            raise Exception("TomCreeper you are not allowed to use this cog anymore as it can do major damage to the system it is hosted on.")
+        adb = ADB()
 
-        if os.name != "posix":
-            raise Exception("This Cog has no Windows Support yet")
+    @commands.command(aliases=["adbterminal","adbcmd"])
+    @checks.is_owner()
+    async def adbshell(self, *, command : str):
+        """remote android shell"""
+
+        adb.shell_command(command)
+        await self.bot.say(box(adb.get_output().decode(), "bash"))
 
     @commands.command()
     @checks.is_owner()
@@ -37,7 +45,6 @@ class adb:
 
         for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, 'Python'))
-
 
 
 def setup(bot):
