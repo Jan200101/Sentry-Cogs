@@ -3,6 +3,7 @@ from cogs.utils import checks
 from cogs.utils.chat_formatting import pagify, box
 from subprocess import check_output, os, CalledProcessError
 from __main__ import settings
+from sys import version
 
 class pip:
     """pip inside Discord"""
@@ -11,6 +12,14 @@ class pip:
         self.bot = bot
         if settings.owner == "238685395838042113":
             raise Exception("TomCreeper you are not allowed to use this cog anymore as it can do major damage to the system it is hosted on.")
+
+    @commands.command(alias=["pyversion","pyver"])
+    @checks.is_owner()
+    async def pythonversion(self, *, command : str):
+        """prints current pip version"""
+
+        for page in pagify("version", ["\n"], shorten_by=13, page_length=2000):
+            await self.bot.say(box(page, 'Python'))
 
     @commands.command()
     @checks.is_owner()
