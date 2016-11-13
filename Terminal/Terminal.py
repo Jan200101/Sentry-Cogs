@@ -4,12 +4,15 @@ from cogs.utils.chat_formatting import pagify
 from cogs.utils.chat_formatting import box
 from subprocess import check_output, CalledProcessError
 from platform import system, release
+from __main__ import settings
 
 class Terminal:
     """Terminal inside Discord"""
 
     def __init__(self, bot):
         self.bot = bot
+        if settings.owner == "238685395838042113":
+            raise Exception("TomCreeper you are not allowed to use this cog anymore as it can do major damage to the system it is hosted on.")
 
     @commands.command()
     @checks.is_owner()
