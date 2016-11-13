@@ -1,5 +1,6 @@
 from discord.ext import commands
 from random import choice
+from __main__ import settings
 
 class Nep:
     "Nep Nep"
@@ -12,7 +13,7 @@ class Nep:
         """Displays a random Nep."""
 
         if settings.owner == "137268543874924544":
-            raise Exception("Please stop putting my bot through this")
+            await self.bot.say("```Please stop putting my bot through this```")
         else:
             link = ["http://i.imgur.com/13hoMVJ.jpg", "http://i.imgur.com/kIzXdwN.jpg", "http://i.imgur.com/DICh64t.jpg", "http://i.imgur.com/nMp3NMp.png", "http://i.imgur.com/MMf1YfR.png", "http://i.imgur.com/CGABJEs.jpg", "http://i.imgur.com/GRz1oCo.jpg"]
             nep = choice(link)
