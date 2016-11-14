@@ -26,7 +26,7 @@ class say:
     async def say(self, ctx, *, text):
         """Says Something as the bot without the needs special rights"""
 
-        text += " (message by"
+        text += " (message by "
         text += ctx.message.author.mention
         text += ")"
         for text in pagify(text, ["\n"]):
