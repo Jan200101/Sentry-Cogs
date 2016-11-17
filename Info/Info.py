@@ -86,8 +86,6 @@ class Info:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
-
-
     @commands.command(pass_context=True, no_pm=True)
     async def userinfo(self, ctx, user: discord.Member=None):
         """Shows users's informations"""
@@ -108,14 +106,12 @@ class Info:
         created_on = "{}\n({} days ago)".format(user_created, since_created)
         joined_on = "{}\n({} days ago)".format(user_joined, since_joined)
 
-        game = "{}".format(user.status)
+        statususer = "{}".format(user.status)
 
         if user.game is None:
             pass
-        elif user.game.url is None:
-            game = "Playing {}".format(user.game)
         else:
-            game = "Streaming: {} ({})".format(user.game, user.game.url)
+            game = "{}".format(user.game)
 
         if roles:
             roles = sorted(roles, key=[x.name for x in server.role_hierarchy
@@ -124,12 +120,16 @@ class Info:
         else:
             roles = "None"
 
-        data = discord.Embed(description=game, colour=user.colour)
+        data = discord.Embed(description="User ID : " + user.id, colour=user.colour)
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
+        data.add_field(name="Status", value=statususer)
         data.add_field(name="Nickname", value=str(user.nick))
         data.add_field(name="Roles", value=roles, inline=False)
-        data.set_footer(text="ID: {}".format(user.id))
+        if user.game is None:
+            pass
+        else:
+            data.add_field(name="Playing", value=game)
 
         if user.avatar_url:
             data.set_author(name=user.name, url=user.avatar_url,
