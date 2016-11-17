@@ -1,8 +1,9 @@
 import discord
 from discord.ext import commands
-from cogs.utils.chat_formatting import pagify
-from cogs.utils.chat_formatting import box
-from cogs.utils.chat_formatting import escape_mass_mentions
+from .utils.chat_formatting import *
+from random import choice
+import datetime
+import time
 
 class Channelinfo:
     """Shows Channel infos."""
@@ -12,41 +13,53 @@ class Channelinfo:
         if self.bot.get_cog("Info") != None:
             raise Exception("This cog does not work with my Info cog")
 
-    @commands.command(pass_context=True, alias=["chanlist"])
-    async def channellist(self):
+    @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
+    async def channellist(self, ctx):
         """Lists all Channels"""
 
-        await self.bot.say(box([c.name for c in server.channels], "Prolog"))
+        list = "{}".format([c.name for c in ctx.message.server.channels])
+        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
+            await self.bot.say(box(page, "Prolog"))
 
-    @commands.command(pass_context=True, alias=["chaninfo"])
+
+    @commands.command(pass_context=True, no_pm=True, alias=["chaninfo"])
     async def channelinfo(self, ctx, channel : discord.Channel = None):
         """Shows channel informations"""
         author = ctx.message.channel
         server = ctx.message.server
+
         if not channel:
             channel = author
 
-        data = "Name: {}\n".format(escape_mass_mentions(str(channel)))
-        data += "ID: {}\n".format(channel.id)
-        if "{}".format(channel.is_default)=="True":
-            data += "Default Channel: Yes\n"
-        else:
-            data += "Default Channel: No\n"
-        if channel.is_private == True:
-            data += "Private: Yes\n"
-        if "{}".format(channel.type)=="text":
-            if channel.topic != "":
-                data += """Topic:\n"{}"\n""".format(channel.topic)
-        data += "Position: {}\n".format(channel.position)
         passed = (ctx.message.timestamp - channel.created_at).days
-        data += "Created: {} ({} days ago)\n".format(channel.created_at, passed)
-        data += "Type: {}\n".format(channel.type)
+        created_at = ("{} ({} days ago!)"
+                      "".format(server.created_at.strftime("%d %b %Y %H:%M"),
+                                passed))
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+
+        data = discord.Embed(description="ID: " + channel.id, colour=discord.Colour(value=colour))
+        if "{}".format(channel.is_default)=="True":
+            data.add_field(name="Default Channel", value="Yes")
+        else:
+            data.add_field(name="Default Channel", value="No")
+        data.add_field(name="Type", value=str(channel.type))
+        data.add_field(name="Created", value=str(created_at))
+        data.add_field(name="Position", value=str(channel.position))
         if "{}".format(channel.type)=="voice":
-            data += "Users: {}\n".format(len(channel.voice_members))
-            data += "User limit: {}\n".format(channel.user_limit)
-            data += "Bitrate: {}\n".format(channel.bitrate)
-        for page in pagify(data, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, 'Prolog'))
+            data.add_field(name="Users", value=len(channel.voice_members))
+            data.add_field(name="User limit", value=str(channel.user_limit))
+            data.add_field(name="Bitrate", value=str(channel.bitrate))
+
+        data.set_author(name=channel.name)
+
+        try:
+            await self.bot.say(embed=data)
+        except:
+            await self.bot.say("I need the `Embed links` permission "
+                               "to send this")
+
 
 def setup(bot):
     bot.add_cog(Channelinfo(bot))
