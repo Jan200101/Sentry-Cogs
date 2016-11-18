@@ -1,6 +1,6 @@
 {
     "AUTHOR" : "Sentry",
-    "SHORT" : " Android Debug Bridge cog",
+    "SHORT" : "Android Debug Bridge cog",
     "DESCRIPTION" : "Android Debug Bridge cog for Discord",
     "DISABLED" : false,
     "NAME" : "Channelinfo",

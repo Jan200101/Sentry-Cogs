@@ -10,8 +10,9 @@ class pip:
 
     def __init__(self, bot):
         self.bot = bot
-        if settings.owner == "238685395838042113":
-            raise Exception("TomCreeper you are not allowed to use this cog anymore as it can do major damage to the system it is hosted on.")
+        if settings.owner == "240879985492099072":
+            self.bot.say("Hey there lil fella is something wrong ?")
+            raise Exception("Contact Sentry")
 
     @commands.command(aliases=["pyver","pyversion","pythonver"])
     @checks.is_owner()
