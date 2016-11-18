@@ -126,7 +126,8 @@ class Info:
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
-        data.add_field(name="Nickname", value=str(user.nick))
+        if user.nick != None:
+            data.add_field(name="Nickname", value=str(user.nick))
         data.add_field(name="Roles", value=roles, inline=False)
         if user.game != None:
             data.add_field(name="Playing", value=str(user.game))
