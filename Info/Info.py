@@ -58,8 +58,8 @@ class Info:
             channel = author
 
         passed = (ctx.message.timestamp - channel.created_at).days
-        created_at = ("{} ({} days ago!)"
-                      "".format(server.created_at.strftime("%d %b %Y %H:%M"),
+        created_at = ("Created on {} ({} days ago!)"
+                      "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
@@ -71,13 +71,17 @@ class Info:
         else:
             data.add_field(name="Default Channel", value="No")
         data.add_field(name="Type", value=str(channel.type))
-        data.add_field(name="Created", value=str(created_at))
         data.add_field(name="Position", value=str(channel.position))
         if "{}".format(channel.type)=="voice":
             data.add_field(name="Users", value=len(channel.voice_members))
             data.add_field(name="User limit", value=str(channel.user_limit))
             data.add_field(name="Bitrate", value=str(channel.bitrate))
+        elif "{}".format(channel.type)=="text":
+            data.add_field(name="Topic", value=str(channel.topic), inline=False)
+        if channel.is_private == True:
+            data.add_field(name="Direct Message", value="yes", inline=False)
 
+        data.set_footer(text=created_at)
         data.set_author(name=channel.name)
 
         try:
@@ -108,10 +112,7 @@ class Info:
 
         statususer = "{}".format(user.status)
 
-        if user.game is None:
-            pass
-        else:
-            game = "{}".format(user.game)
+
 
         if roles:
             roles = sorted(roles, key=[x.name for x in server.role_hierarchy
@@ -126,10 +127,8 @@ class Info:
         data.add_field(name="Status", value=statususer)
         data.add_field(name="Nickname", value=str(user.nick))
         data.add_field(name="Roles", value=roles, inline=False)
-        if user.game is None:
-            pass
-        else:
-            data.add_field(name="Playing", value=game)
+        if user.game != None:
+            data.add_field(name="Playing", value=str(user.game))
 
         if user.avatar_url:
             data.set_author(name=user.name, url=user.avatar_url,

@@ -33,8 +33,8 @@ class Channelinfo:
             channel = author
 
         passed = (ctx.message.timestamp - channel.created_at).days
-        created_at = ("{} ({} days ago!)"
-                      "".format(server.created_at.strftime("%d %b %Y %H:%M"),
+        created_at = ("Created on {} ({} days ago!)"
+                      "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
@@ -46,13 +46,17 @@ class Channelinfo:
         else:
             data.add_field(name="Default Channel", value="No")
         data.add_field(name="Type", value=str(channel.type))
-        data.add_field(name="Created", value=str(created_at))
         data.add_field(name="Position", value=str(channel.position))
         if "{}".format(channel.type)=="voice":
             data.add_field(name="Users", value=len(channel.voice_members))
             data.add_field(name="User limit", value=str(channel.user_limit))
             data.add_field(name="Bitrate", value=str(channel.bitrate))
+        elif "{}".format(channel.type)=="text":
+            data.add_field(name="Topic", value=str(channel.topic), inline=False)
+        if channel.is_private == True:
+            data.add_field(name="Direct Message", value="yes", inline=False)
 
+        data.set_footer(text=created_at)
         data.set_author(name=channel.name)
 
         try:
