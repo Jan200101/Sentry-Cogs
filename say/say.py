@@ -6,7 +6,7 @@ from random import choice, randint
 import datetime
 
 class say:
-    """Makes the bot say things for you. Great with the Schedule cog"""
+    """Makes the bot say things for you now with embeds"""
 
     def __init__(self, bot):
         self.bot = bot
