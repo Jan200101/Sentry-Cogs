@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
 from cogs.utils import checks
-from cogs.utils.chat_formatting import box
-from cogs.utils.chat_formatting import pagify
-from random import choice
+from cogs.utils.chat_formatting import box,  pagify
+from random import choice, randint
 import datetime
 
 class say:
@@ -44,6 +43,10 @@ class say:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
+        randnum = randint(1,10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
         data = discord.Embed(description="", colour=discord.Colour(value=colour))
         data.add_field(name=str(text), value=u"\u2063")
         data.set_footer(text=created_at)
@@ -55,7 +58,7 @@ class say:
             data.set_author(name=ctx.message.author.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -73,11 +76,15 @@ class say:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
+        randnum = randint(1,10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
         data = discord.Embed(description="", colour=discord.Colour(value=colour))
         data.add_field(name=str(text), value=u"\u2063")
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")

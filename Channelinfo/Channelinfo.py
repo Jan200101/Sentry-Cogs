@@ -28,6 +28,10 @@ class Channelinfo:
         if not channel:
             channel = author
 
+        randnum = randint(1,10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
@@ -36,7 +40,7 @@ class Channelinfo:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        data = discord.Embed(description="ID: " + channel.id, colour=discord.Colour(value=colour))
+        data = discord.Embed(description="Channel ID: " + channel.id, colour=discord.Colour(value=colour))
         if "{}".format(channel.is_default)=="True":
             data.add_field(name="Default Channel", value="Yes")
         else:
@@ -56,7 +60,7 @@ class Channelinfo:
         data.set_author(name=channel.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")

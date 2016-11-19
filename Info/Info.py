@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
-from .utils.chat_formatting import pagify
-from .utils.chat_formatting import box
-from random import choice
+from .utils.chat_formatting import pagify, box
+from random import choice, randint
 import datetime
 import time
 
@@ -24,6 +23,10 @@ class Info:
 
         if not channel:
             channel = author
+
+        randnum = randint(1,10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
 
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"
@@ -53,7 +56,7 @@ class Info:
         data.set_author(name=channel.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -68,6 +71,10 @@ class Info:
             user = author
 
         roles = [x.name for x in user.roles if x.name != "@everyone"]
+
+        randnum = randint(1,10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
 
         joined_at = user.joined_at
         since_created = (ctx.message.timestamp - user.created_at).days
@@ -111,7 +118,7 @@ class Info:
             data.set_author(name=user.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -131,6 +138,10 @@ class Info:
         created_at = ("Created on {} ({} days ago!)"
                       "".format(server.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
+
+        randnum = randint(1,10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -153,7 +164,7 @@ class Info:
             data.set_author(name=server.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
