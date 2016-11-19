@@ -14,10 +14,6 @@ class Channelinfo:
         if self.bot.get_cog("Info") != None:
             raise Exception("This cog does not work with my Info cog")
 
-    @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
-    async def channellist(self, ctx):
-        """Lists all Channels"""
-
         list = "{}".format([c.name for c in ctx.message.server.channels])
         for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, "Prolog"))

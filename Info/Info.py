@@ -16,41 +16,6 @@ class Info:
         elif self.bot.get_cog("general") != None:
             raise Exception("This cog does not work with the general cog")
 
-
-    @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
-    async def channellist(self, ctx):
-        """Lists all Channels"""
-
-        list = "{}".format([c.name for c in ctx.message.server.channels])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
-
-    @commands.command(pass_context=True, hidden="true")
-    async def userlist(self, ctx):
-        """Lists all Users"""
-
-        list = "{}".format([m.name for m in ctx.message.server.members])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
-
-
-    @commands.command(pass_context=True, hidden="true")
-    async def rolelist(self, ctx):
-        """Lists all Roles"""
-
-        list = "{}".format([r.name for r in ctx.message.server.role_hierarchy])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
-
-
-    @commands.command(pass_context=True, hidden="true")
-    async def emojilistlist(self, ctx):
-        """Lists all Emojis"""
-
-        list = "{}".format([e.name for e in ctx.message.server.emojis])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
-
     @commands.command(pass_context=True, no_pm=True, alias=["chaninfo"])
     async def channelinfo(self, ctx, channel : discord.Channel = None):
         """Shows channel informations"""
