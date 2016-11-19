@@ -122,7 +122,10 @@ class Info:
         else:
             roles = "None"
 
-        data = discord.Embed(description="User ID : " + user.id, colour=user.colour)
+        if user.bot == False:
+            data = discord.Embed(description="User ID : " + user.id, colour=user.colour)
+        else:
+            data = discord.Embed(description="Bot | User ID : " + user.id, colour=user.colour)
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
