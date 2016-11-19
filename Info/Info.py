@@ -68,7 +68,7 @@ class Info:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        data = discord.Embed(description="ID: " + channel.id, colour=discord.Colour(value=colour))
+        data = discord.Embed(description="Channel ID: " + channel.id, colour=discord.Colour(value=colour))
         if "{}".format(channel.is_default)=="True":
             data.add_field(name="Default Channel", value="Yes")
         else:
@@ -137,13 +137,13 @@ class Info:
         if user.game != None:
             data.add_field(name="Playing", value=str(user.game))
 
-         if user.avatar_url:
+        if user.avatar_url:
             name = str(user)
             name = " ~ ".join((name, user.nick)) if user.nick else name
             data.set_author(name=name, url=user.avatar_url)
             data.set_thumbnail(url=user.avatar_url)
-         else:
-		    data.set_author(name=user.name)
+        else:
+            data.set_author(name=user.name)
 
         try:
             await self.bot.say(embed=data)
