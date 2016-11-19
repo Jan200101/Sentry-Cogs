@@ -13,6 +13,8 @@ class Info:
         self.bot = bot
         if self.bot.get_cog("Channelinfo") != None:
             raise Exception("This cog does not work with my Channelinfo cog")
+        elif self.bot.get_cog("general") != None:
+            raise Exception("This cog does not work with the general cog")
 
 
     @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
