@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from cogs.utils import checks
-from cogs.utils.chat_formatting import box,  pagify
+from cogs.utils.chat_formatting import box,  pagify, escape_mass_mentions
 from random import choice, randint
 import datetime
 
@@ -22,7 +22,7 @@ class say:
         except:
             raise Exception("I do not have the permissions needed")
         for text in pagify(text, ["\n"]):
-            await self.bot.say(text)
+            await self.bot.say(escape_mass_mentions(text))
 
     @commands.command(pass_context=True, no_pm=True)
     async def say(self, ctx, *, text):
@@ -32,7 +32,7 @@ class say:
         auth += ctx.message.author.mention
         auth += ")"
         for text in pagify(text, ["\n"]):
-            await self.bot.say(text + auth)
+            await self.bot.say(escape_mass_mentions(text) + auth)
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedsay(self, ctx, *, text : str):
