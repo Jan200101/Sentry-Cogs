@@ -50,8 +50,8 @@ class Terminal:
         if shell == "":
             shell = "No Output recieved from '{}'".format(command)
 
-        for page in pagify(shell, ["\n"], shorten_by=11, page_length=2000):
-            await self.bot.say(box(page, 'Bash'))
+        for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
+            await self.bot.say(box(page, 'Prolog'))
 
 def setup(bot):
     n = Terminal(bot)
