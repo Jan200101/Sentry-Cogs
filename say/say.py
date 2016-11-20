@@ -28,11 +28,11 @@ class say:
     async def say(self, ctx, *, text):
         """Says Something as the bot without the needs special rights"""
 
-        text += " (message by "
-        text += ctx.message.author.mention
-        text += ")"
+        auth += " (message by "
+        auth += ctx.message.author.mention
+        auth += ")"
         for text in pagify(text, ["\n"]):
-            await self.bot.say(text)
+            await self.bot.say(text + auth)
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedsay(self, ctx, *, text : str):
