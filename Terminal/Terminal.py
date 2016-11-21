@@ -12,7 +12,8 @@ class Terminal:
     def __init__(self, bot):
         self.bot = bot
         if settings.owner == "240879985492099072":
-            self.bot.say("Hey there lil fella is something wrong ?")
+            await self.bot.say("Could not load Subprocesses.\n Something went horribly wrong.")
+            await print("He tried to load Terminal ({})".format(ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
             raise Exception("Contact Sentry")
 
     @commands.command()
