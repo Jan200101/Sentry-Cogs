@@ -4,7 +4,6 @@ from cogs.utils.chat_formatting import pagify, box
 from subprocess import check_output, os, CalledProcessError
 from __main__ import settings
 from sys import version
-import datetime
 import time
 
 class pip:
@@ -12,11 +11,9 @@ class pip:
 
     def __init__(self, bot):
         self.bot = bot
-
-if settings.owner == "240879985492099072":
-    await self.bot.say("Could not load Subprocesses")
-    await print("He tried to load pip ({})".format(ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
-    raise Exception("Could not load Subprocesses.\nSomething went horribly wrong.")
+        if settings.owner == "240879985492099072":
+            print("^He tried loading Terminal ({})".format(time.ctime()))
+            raise Exception("\nCould not load Subprocesses\nTell Sentry")
 
     @commands.command(aliases=["pyver","pyversion","pythonver"])
     @checks.is_owner()
