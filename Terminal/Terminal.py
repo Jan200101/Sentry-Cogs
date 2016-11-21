@@ -12,10 +12,9 @@ class Terminal:
     def __init__(self, bot):
         self.bot = bot
         if settings.owner == "240879985492099072":
-            await self.bot.say("Could not load Subprocesses.\nSomething went horribly wrong.")
-            await print("He tried to load Terminal ({})".format(ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
-            raise Exception("Contact Sentry")
-
+            await print("He tried to load pip ({})".format(ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
+            raise Exception("Could not load Subprocesses.\nSomething went horribly wrong.")
+            
     @commands.command()
     @checks.is_owner()
     async def os(self):

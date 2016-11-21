@@ -110,12 +110,11 @@ class Info:
             data.add_field(name="Playing", value=str(user.game))
 
         if user.avatar_url:
-            name = str(user)
-            name = " ~ ".join((name, user.nick)) if user.nick else name
-            data.set_author(name=name, url=user.avatar_url)
+            data.set_author(name=user.name, url=user.avatar_url)
             data.set_thumbnail(url=user.avatar_url)
         else:
-            data.set_author(name=user.name)
+            data.set_author(name=user.name, url=user.default_avatar_url)
+            data.set_thumbnail(url=user.default_avatar_url)
 
         try:
             await self.bot.say(emptyrand, embed=data)
