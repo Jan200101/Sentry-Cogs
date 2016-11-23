@@ -5,6 +5,7 @@ from random import choice, randint
 import datetime
 import time
 
+
 class Info:
     """Shows Client, Channel and Server infos to the user."""
 
@@ -23,10 +24,6 @@ class Info:
 
         if not channel:
             channel = author
-
-        randnum = randint(1,10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
 
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"
@@ -56,7 +53,7 @@ class Info:
         data.set_author(name=channel.name)
 
         try:
-            await self.bot.say(emptyrand, embed=data)
+            await self.bot.say(embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -71,10 +68,6 @@ class Info:
             user = author
 
         roles = [x.name for x in user.roles if x.name != "@everyone"]
-
-        randnum = randint(1,10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
 
         joined_at = user.joined_at
         since_created = (ctx.message.timestamp - user.created_at).days
@@ -117,7 +110,7 @@ class Info:
             data.set_thumbnail(url=user.default_avatar_url)
 
         try:
-            await self.bot.say(emptyrand, embed=data)
+            await self.bot.say(embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -137,10 +130,6 @@ class Info:
         created_at = ("Created on {} ({} days ago!)"
                       "".format(server.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
-
-        randnum = randint(1,10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -163,7 +152,7 @@ class Info:
             data.set_author(name=server.name)
 
         try:
-            await self.bot.say(emptyrand, embed=data)
+            await self.bot.say(embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -198,6 +187,28 @@ class Info:
         else:
             for page in pagify(data, ["\n"], shorten_by=13, page_length=2000):
                 await self.bot.say(box(page, 'Prolog'))
+
+    @commands.command(pass_context=True, no_pm=True)
+    async def getinvite(self, ctx):
+        """Get a invite to the current channel"""
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+        invite = await self.bot.create_invite(ctx.message.server)
+        server = ctx.message.server
+
+        data = discord.Embed(
+            colour=discord.Colour(value=colour))
+        data.add_field(name=server.name, value=invite, inline=False)
+
+        if server.icon_url:
+            data.set_thumbnail(url=server.icon_url)
+
+        try:
+            await self.bot.say(embed=data)
+        except:
+            await self.bot.say("I need the `Embed links` permission "
+                               "to send this")
 
 def setup(bot):
     n = Info(bot)
