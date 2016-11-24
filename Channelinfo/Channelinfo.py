@@ -14,11 +14,6 @@ class Channelinfo:
         if self.bot.get_cog("Info") != None:
             raise Exception("This cog does not work with my Info cog")
 
-        list = "{}".format([c.name for c in ctx.message.server.channels])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
-
-
             @commands.command(pass_context=True, no_pm=True)
             async def channelinfo(self, ctx, channel : discord.Channel = None):
                 """Shows channel informations"""

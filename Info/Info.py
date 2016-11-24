@@ -167,7 +167,7 @@ class Info:
 
     @commands.command(pass_context=True, no_pm=True)
     async def serverinfofull(self, ctx):
-        """Shows server's full informations"""
+        """Shows server's informations and roles, channel names and emojis names"""
         server = ctx.message.server
         online = str(len([m.status for m in server.members if str(m.status) == "online" or str(m.status) == "idle"]))
         total_users = str(len(server.members))
