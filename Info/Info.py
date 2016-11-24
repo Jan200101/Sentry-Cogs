@@ -13,8 +13,8 @@ class Info:
         self.bot = bot
         if self.bot.get_cog("Channelinfo") != None:
             raise Exception("This cog does not work with my Channelinfo cog")
-        elif self.bot.get_cog("general") != None:
-            raise Exception("This cog does not work with the general cog")
+        elif self.bot.get_cog("General") != None:
+            raise Exception("This cog does not work with the General cog")
 
     @commands.command(pass_context=True, no_pm=True)
     async def channelinfo(self, ctx, channel : discord.Channel = None):
