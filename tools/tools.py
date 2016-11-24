@@ -23,7 +23,7 @@ class tools:
     async def voicechannellist(self, ctx):
         """Lists all voice Channels"""
 
-        list = ", ".join([c for c in ctx.message.server.channels if c.type == discord.ChannelType.voice])
+        list = ", ".join([c.name for c in ctx.message.server.channels if c.type == discord.ChannelType.voice])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
@@ -32,7 +32,7 @@ class tools:
     async def textchannellist(self, ctx):
         """Lists all text Channels"""
 
-        list = ", ".join([c for c in ctx.message.server.channels if c.type == discord.ChannelType.text])
+        list = ", ".join([c.name for c in ctx.message.server.channels if c.type == discord.ChannelType.text])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
