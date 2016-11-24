@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from .utils.chat_formatting import pagify
-from .utils.chat_formatting import box
+from .utils.chat_formatting import pagify, box
+from .utils import checks
 
 class tools:
     """Shows user, channel and role lists to the user."""
