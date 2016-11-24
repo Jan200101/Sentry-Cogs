@@ -30,6 +30,7 @@ class Info:
             userlist = None
         else:
             userlist = ", ".join(userlist)
+
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
@@ -53,7 +54,8 @@ class Info:
             data.add_field(name="Users", value=userlist)
             data.add_field(name="Bitrate", value=channel.bitrate)
         elif "{}".format(channel.type)=="text":
-            data.add_field(name="Topic", value=channel.topic, inline=False)
+            if channel.topic != "":
+                data.add_field(name="Topic", value=channel.topic, inline=False)
 
         data.set_footer(text=created_at)
         data.set_author(name=channel.name)
