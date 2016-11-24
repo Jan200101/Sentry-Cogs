@@ -20,6 +20,24 @@ class tools:
 
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
+    async def voicechannellist(self, ctx):
+        """Lists all voice Channels"""
+
+        list = ", ".join([c for c in server.channels if c.type == discord.ChannelType.voice])
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(box(page))
+
+    @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
+    async def textchannellist(self, ctx):
+        """Lists all text Channels"""
+
+        list = ", ".join([c for c in server.channels if c.type == discord.ChannelType.text])
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(box(page))
+
+    @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
     async def userlist(self, ctx):
         """Lists all Users"""
 
