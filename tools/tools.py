@@ -15,7 +15,7 @@ class tools:
 
         list = ", ".join([c.name for c in ctx.message.server.channels])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
+            await self.bot.say(box(page))
 
     @commands.command(pass_context=True, hidden="true")
     async def userlist(self, ctx):
@@ -23,7 +23,7 @@ class tools:
 
         list = ", ".join([m.name for m in ctx.message.server.members])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
+            await self.bot.say(box(page))
 
 
     @commands.command(pass_context=True, hidden="true")
@@ -32,7 +32,7 @@ class tools:
 
         list = ", ".join([r.name for r in ctx.message.server.role_hierarchy])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
+            await self.bot.say(box(page))
 
 
     @commands.command(pass_context=True, hidden="true")
@@ -41,7 +41,7 @@ class tools:
 
         list = ", ".join([e.name for e in ctx.message.server.emojis])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page,))
+            await self.bot.say(box(page))
 
 def setup(bot):
     n = tools(bot)
