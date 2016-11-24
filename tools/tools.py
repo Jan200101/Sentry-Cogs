@@ -10,6 +10,7 @@ class tools:
         self.bot = bot
 
     @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
+    @checks.is_owner()
     async def channellist(self, ctx):
         """Lists all Channels"""
 
@@ -18,6 +19,7 @@ class tools:
             await self.bot.say(box(page))
 
     @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
     async def userlist(self, ctx):
         """Lists all Users"""
 
@@ -27,15 +29,17 @@ class tools:
 
 
     @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
     async def rolelist(self, ctx):
         """Lists all Roles"""
 
-        list = ", ".join([r.name for r in ctx.message.server.role_hierarchy])
+        list = ", ".join([x.name for x in ctx.message.server.role_hierarchy if x.name != "@everyone"])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
 
     @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
     async def emojilist(self, ctx):
         """Lists all Emojis"""
 
