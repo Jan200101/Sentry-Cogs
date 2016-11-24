@@ -106,10 +106,9 @@ class Info:
         data.add_field(name="Status", value=statususer)
         if user.nick != None:
             data.add_field(name="Nickname", value=str(user.nick))
-        data.add_field(name="Roles", value=roles, inline=False)
         if user.game != None:
             data.add_field(name="Playing", value=str(user.game))
-
+        data.add_field(name="Roles", value=roles, inline=False)
         if user.avatar_url:
             data.set_author(name=user.name, url=user.avatar_url)
             data.set_thumbnail(url=user.avatar_url)
