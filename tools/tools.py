@@ -14,7 +14,7 @@ class tools:
         """Lists all Channels"""
 
         list = ", ".join([c.name for c in ctx.message.server.channels])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
     @commands.command(pass_context=True, hidden="true")
@@ -22,7 +22,7 @@ class tools:
         """Lists all Users"""
 
         list = ", ".join([m.name for m in ctx.message.server.members])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
 
@@ -31,17 +31,17 @@ class tools:
         """Lists all Roles"""
 
         list = ", ".join([r.name for r in ctx.message.server.role_hierarchy])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page, "Prolog"))
 
 
     @commands.command(pass_context=True, hidden="true")
-    async def emojilistlist(self, ctx):
+    async def emojilist(self, ctx):
         """Lists all Emojis"""
 
         list = ", ".join([e.name for e in ctx.message.server.emojis])
-        for page in pagify(list, ["\n"], shorten_by=13, page_length=2000):
-            await self.bot.say(box(page, "Prolog"))
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(box(page,))
 
 def setup(bot):
     n = tools(bot)
