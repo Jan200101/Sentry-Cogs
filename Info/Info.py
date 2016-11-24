@@ -48,9 +48,9 @@ class Info:
         data.add_field(name="Position", value=channel.position)
         if "{}".format(channel.type)=="voice":
             if channel.user_limit != 0:
-                data.add_field(name="Users Numbe", value="{}/{}".format(len(channel.voice_members), channel.user_limit))
+                data.add_field(name="User Number", value="{}/{}".format(len(channel.voice_members), channel.user_limit))
             else:
-                data.add_field(name="Users Numbe", value="{}".format(len(channel.voice_members)))
+                data.add_field(name="User Number", value="{}".format(len(channel.voice_members)))
             data.add_field(name="Users", value=userlist)
             data.add_field(name="Bitrate", value=channel.bitrate)
         elif "{}".format(channel.type)=="text":
