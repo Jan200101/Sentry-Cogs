@@ -16,7 +16,7 @@ class Info:
         elif self.bot.get_cog("general") != None:
             raise Exception("This cog does not work with the general cog")
 
-    @commands.command(pass_context=True, no_pm=True, alias=["chaninfo"])
+    @commands.command(pass_context=True, no_pm=True)
     async def channelinfo(self, ctx, channel : discord.Channel = None):
         """Shows channel informations"""
         author = ctx.message.channel
@@ -25,6 +25,11 @@ class Info:
         if not channel:
             channel = author
 
+        userlist = [r.name for r in channel.voice_members]
+        if userlist == []:
+            userlist = None
+        else:
+            userlist = ", ".join(userlist)
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
@@ -38,16 +43,17 @@ class Info:
             data.add_field(name="Default Channel", value="Yes")
         else:
             data.add_field(name="Default Channel", value="No")
-        data.add_field(name="Type", value=str(channel.type))
-        data.add_field(name="Position", value=str(channel.position))
+        data.add_field(name="Type", value=channel.type)
+        data.add_field(name="Position", value=channel.position)
         if "{}".format(channel.type)=="voice":
-            data.add_field(name="Users", value=len(channel.voice_members))
-            data.add_field(name="User limit", value=str(channel.user_limit))
-            data.add_field(name="Bitrate", value=str(channel.bitrate))
+            if channel.user_limit != 0:
+                data.add_field(name="Users Numbe", value="{}/{}".format(len(channel.voice_members), channel.user_limit))
+            else:
+                data.add_field(name="Users Numbe", value="{}".format(len(channel.voice_members)))
+            data.add_field(name="Users", value=userlist)
+            data.add_field(name="Bitrate", value=channel.bitrate)
         elif "{}".format(channel.type)=="text":
-            data.add_field(name="Topic", value=str(channel.topic), inline=False)
-        if channel.is_private == True:
-            data.add_field(name="Direct Message", value="yes", inline=False)
+            data.add_field(name="Topic", value=channel.topic, inline=False)
 
         data.set_footer(text=created_at)
         data.set_author(name=channel.name)

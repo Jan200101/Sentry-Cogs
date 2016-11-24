@@ -19,52 +19,53 @@ class Channelinfo:
             await self.bot.say(box(page, "Prolog"))
 
 
-    @commands.command(pass_context=True, no_pm=True, alias=["chaninfo"])
-    async def channelinfo(self, ctx, channel : discord.Channel = None):
-        """Shows channel informations"""
-        author = ctx.message.channel
-        server = ctx.message.server
+            @commands.command(pass_context=True, no_pm=True)
+            async def channelinfo(self, ctx, channel : discord.Channel = None):
+                """Shows channel informations"""
+                author = ctx.message.channel
+                server = ctx.message.server
 
-        if not channel:
-            channel = author
+                if not channel:
+                    channel = author
 
-        randnum = randint(1,10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
+                userlist = [r.name for r in channel.voice_members]
+                if userlist == []:
+                    userlist = None
+                else:
+                    userlist = ", ".join(userlist)
+                passed = (ctx.message.timestamp - channel.created_at).days
+                created_at = ("Created on {} ({} days ago!)"
+                              "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
+                                        passed))
 
-        passed = (ctx.message.timestamp - channel.created_at).days
-        created_at = ("Created on {} ({} days ago!)"
-                      "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
-                                passed))
+                colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+                colour = int(colour, 16)
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
+                data = discord.Embed(description="Channel ID: " + channel.id, colour=discord.Colour(value=colour))
+                if "{}".format(channel.is_default)=="True":
+                    data.add_field(name="Default Channel", value="Yes")
+                else:
+                    data.add_field(name="Default Channel", value="No")
+                data.add_field(name="Type", value=channel.type)
+                data.add_field(name="Position", value=channel.position)
+                if "{}".format(channel.type)=="voice":
+                    if channel.user_limit != 0:
+                        data.add_field(name="Users Numbe", value="{}/{}".format(len(channel.voice_members), channel.user_limit))
+                    else:
+                        data.add_field(name="Users Numbe", value="{}".format(len(channel.voice_members)))
+                    data.add_field(name="Users", value=userlist)
+                    data.add_field(name="Bitrate", value=channel.bitrate)
+                elif "{}".format(channel.type)=="text":
+                    data.add_field(name="Topic", value=channel.topic, inline=False)
 
-        data = discord.Embed(description="Channel ID: " + channel.id, colour=discord.Colour(value=colour))
-        if "{}".format(channel.is_default)=="True":
-            data.add_field(name="Default Channel", value="Yes")
-        else:
-            data.add_field(name="Default Channel", value="No")
-        data.add_field(name="Type", value=str(channel.type))
-        data.add_field(name="Position", value=str(channel.position))
-        if "{}".format(channel.type)=="voice":
-            data.add_field(name="Users", value=len(channel.voice_members))
-            data.add_field(name="User limit", value=str(channel.user_limit))
-            data.add_field(name="Bitrate", value=str(channel.bitrate))
-        elif "{}".format(channel.type)=="text":
-            data.add_field(name="Topic", value=str(channel.topic), inline=False)
-        if channel.is_private == True:
-            data.add_field(name="Direct Message", value="yes", inline=False)
+                data.set_footer(text=created_at)
+                data.set_author(name=channel.name)
 
-        data.set_footer(text=created_at)
-        data.set_author(name=channel.name)
-
-        try:
-            await self.bot.say(emptyrand, embed=data)
-        except:
-            await self.bot.say("I need the `Embed links` permission "
-                               "to send this")
-
+                try:
+                    await self.bot.say(embed=data)
+                except:
+                    await self.bot.say("I need the `Embed links` permission "
+                                       "to send this")
 
 def setup(bot):
     bot.add_cog(Channelinfo(bot))
