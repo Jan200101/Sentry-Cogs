@@ -72,7 +72,7 @@ class say:
 
         if color == None:
             color = colour
-        elif:
+        else:
             color = color.replace("#", "")
             color = int(color, 16)
 
