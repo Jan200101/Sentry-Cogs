@@ -20,7 +20,7 @@ class adb:
 
     @commands.command()
     @checks.is_owner()
-    async def adb(self, *, command : str):
+    async def adb(self, *, command: str):
         """adb inside Discord"""
 
         adb = "adb "
@@ -38,7 +38,6 @@ class adb:
 
         for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, 'Python'))
-
 
 
 def setup(bot):

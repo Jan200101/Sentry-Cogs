@@ -6,6 +6,7 @@ from __main__ import settings
 from sys import version
 import time
 
+
 class pip:
     """pip inside Discord"""
 
@@ -15,7 +16,7 @@ class pip:
             print("^He tried loading Terminal ({})".format(time.ctime()))
             raise Exception("\nCould not load Subprocesses\nTell Sentry")
 
-    @commands.command(aliases=["pyver","pyversion","pythonver"])
+    @commands.command(aliases=["pyver", "pyversion", "pythonver"])
     @checks.is_owner()
     async def pythonversion(self):
         """prints current pip version"""
@@ -25,7 +26,7 @@ class pip:
 
     @commands.command()
     @checks.is_owner()
-    async def sudopip(self, *, command : str):
+    async def sudopip(self, *, command: str):
         """sudo pip inside Discord"""
 
         if os.name == "posix":
@@ -49,7 +50,7 @@ class pip:
 
     @commands.command()
     @checks.is_owner()
-    async def sudopip3(self, *, command : str):
+    async def sudopip3(self, *, command: str):
         """sudo pip3 inside Discord"""
 
         if os.name == "posix":
@@ -73,7 +74,7 @@ class pip:
 
     @commands.command()
     @checks.is_owner()
-    async def pip(self, *, command : str):
+    async def pip(self, *, command: str):
         """pip inside Discord"""
 
         pip = "pip "
@@ -92,7 +93,7 @@ class pip:
 
     @commands.command()
     @checks.is_owner()
-    async def pip3(self, *, command : str):
+    async def pip3(self, *, command: str):
         """pip3 inside Discord"""
 
         pip = "pip3 "
@@ -108,6 +109,7 @@ class pip:
 
         for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, 'Python'))
+
 
 def setup(bot):
     n = pip(bot)

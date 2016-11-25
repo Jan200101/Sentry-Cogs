@@ -1,6 +1,7 @@
 from discord.ext import commands
 from cogs.utils import checks
 
+
 class IsLoaded:
     "Checks if a Cog is loaded or not"
 
@@ -22,10 +23,11 @@ class IsLoaded:
     async def class_loaded(self, cog: str):
         """Checks if a Cogs class is loaded or not (unmaintained)"""
 
-        if self.bot.get_cog(cog)== None:
+        if self.bot.get_cog(cog) == None:
             await self.bot.say("""```Py\nClass "{}" is not loaded```""".format(cog))
         else:
             await self.bot.say("""```Py\nClass "{}" is loaded```""".format(cog))
+
 
 def setup(bot):
     n = IsLoaded(bot)

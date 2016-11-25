@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from random import choice
 
+
 class Bottlespin:
     """Spins a bottle and lands on a random user."""
 
@@ -14,7 +15,9 @@ class Bottlespin:
         author = ctx.message.author
         server = ctx.message.server
         target = choice(list([m.mention for m in ctx.message.server.members if str(m.status) == "online" or str(m.status) == "idle"]))
+        
         await self.bot.say("{} spinned the bottle and it landed on {}".format(ctx.message.author.mention, target))
+
 
 def setup(bot):
     n = Bottlespin(bot)

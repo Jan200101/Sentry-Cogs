@@ -6,6 +6,7 @@ from platform import system, release
 from __main__ import settings
 import time
 
+
 class Terminal:
     """Terminal inside Discord"""
 
@@ -36,9 +37,9 @@ class Terminal:
 
         await self.bot.say(box(release(), 'Bash'))
 
-    @commands.command(aliases=["cmd","terminal"])
+    @commands.command(aliases=["cmd", "terminal"])
     @checks.is_owner()
-    async def shell(self, *, command : str):
+    async def shell(self, *, command: str):
         """Terminal inside Discord"""
 
         try:
@@ -52,6 +53,7 @@ class Terminal:
 
         for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, 'Prolog'))
+
 
 def setup(bot):
     n = Terminal(bot)

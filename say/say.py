@@ -5,6 +5,7 @@ from cogs.utils.chat_formatting import box,  pagify, escape_mass_mentions
 from random import choice, randint
 import datetime
 
+
 class say:
     """Makes the bot say things for you now with embeds"""
 
@@ -34,52 +35,23 @@ class say:
         for text in pagify(text, ["\n"]):
             await self.bot.say(escape_mass_mentions(text) + auth)
 
-        @commands.command(pass_context=True, no_pm=True)
-        async def embedsay(self, ctx, *, text : str):
-            """Says Something as the bot without the needs special rights and in a embed"""
-
-            colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-            colour = int(colour, 16)
-
-            randnum = randint(1,10)
-            empty = u"\u2063"
-            emptyrand = empty * randnum
-
-            data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
-
-            if ctx.message.author.avatar_url:
-                data.set_author(name=ctx.message.author.name, url=ctx.message.author.avatar_url, icon_url=ctx.message.author.avatar_url)
-            else:
-                data.set_author(name=ctx.message.author.name)
-
-            try:
-                await self.bot.say(emptyrand, embed=data)
-            except:
-                await self.bot.say("I need the `Embed links` permission to send this")
-
     @commands.command(pass_context=True, no_pm=True)
-    async def embedcolorsay(self, ctx, color : str, *, text : str):
+    async def embedsay(self, ctx, *, text: str):
         """Says Something as the bot without the needs special rights and in a embed"""
-
-        created_at = ("Created on {}".format(ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        if color == None:
-            color = colour
-        else:
-            color = color.replace("#", "")
-            color = int(color, 16)
-
-        randnum = randint(1,10)
+        randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=color))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
-            data.set_author(name=ctx.message.author.name, url=ctx.message.author.avatar_url, icon_url=ctx.message.author.avatar_url)
+            data.set_author(name=ctx.message.author.name,
+                            url=ctx.message.author.avatar_url, icon_url=ctx.message.author.avatar_url)
         else:
             data.set_author(name=ctx.message.author.name)
 
@@ -88,6 +60,39 @@ class say:
         except:
             await self.bot.say("I need the `Embed links` permission to send this")
 
+    @commands.command(pass_context=True, no_pm=True)
+    async def embedcolorsay(self, ctx, color: str, *, text: str):
+        """Says Something as the bot without the needs special rights and in a embed"""
+
+        created_at = ("Created on {}".format(
+            ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+
+        if color == None:
+            color = colour
+        elif
+            color = color.replace("#", "")
+            color = int(color, 16)
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=color))
+
+        if ctx.message.author.avatar_url:
+            data.set_author(name=ctx.message.author.name,
+                            url=ctx.message.author.avatar_url, icon_url=ctx.message.author.avatar_url)
+        else:
+            data.set_author(name=ctx.message.author.name)
+
+        try:
+            await self.bot.say(emptyrand, embed=data)
+        except:
+            await self.bot.say("I need the `Embed links` permission to send this")
 
     @commands.command(pass_context=True, no_pm=True, aliases=["embedopsay"])
     @checks.admin_or_permissions(administrator=True)
@@ -102,11 +107,12 @@ class say:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        randnum = randint(1,10)
+        randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description="", colour=discord.Colour(value=colour))
+        data = discord.Embed(
+            description="", colour=discord.Colour(value=colour))
         data.add_field(name=str(text), value=u"\u2063")
 
         try:
@@ -117,7 +123,7 @@ class say:
 
     @commands.command(pass_context=True, no_pm=True, aliases=["embedcoloropsay"])
     @checks.admin_or_permissions(administrator=True)
-    async def embedcoloradminsay(self, ctx, color : str, *, text : str):
+    async def embedcoloradminsay(self, ctx, color: str, *, text: str):
         """Says Something as the bot without the needs special rights and in a embed"""
 
         try:
@@ -134,16 +140,18 @@ class say:
             color = color.replace("#", "")
             color = int(color, 16)
 
-        randnum = randint(1,10)
+        randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=color))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=color))
 
         try:
             await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission to send this")
+
 
 def setup(bot):
     bot.add_cog(say(bot))

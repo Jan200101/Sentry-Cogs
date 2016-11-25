@@ -15,7 +15,7 @@ class Channelinfo:
             raise Exception("This cog does not work with my Info cog")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def channelinfo(self, ctx, channel : discord.Channel = None):
+    async def channelinfo(self, ctx, channel: discord.Channel=None):
         """Shows channel informations"""
         author = ctx.message.channel
         server = ctx.message.server
@@ -37,21 +37,24 @@ class Channelinfo:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        data = discord.Embed(description="Channel ID: " + channel.id, colour=discord.Colour(value=colour))
-        if "{}".format(channel.is_default)=="True":
+        data = discord.Embed(description="Channel ID: " +
+                             channel.id, colour=discord.Colour(value=colour))
+        if "{}".format(channel.is_default) == "True":
             data.add_field(name="Default Channel", value="Yes")
         else:
             data.add_field(name="Default Channel", value="No")
         data.add_field(name="Type", value=channel.type)
         data.add_field(name="Position", value=channel.position)
-        if "{}".format(channel.type)=="voice":
+        if "{}".format(channel.type) == "voice":
             if channel.user_limit != 0:
-                data.add_field(name="User Number", value="{}/{}".format(len(channel.voice_members), channel.user_limit))
+                data.add_field(
+                    name="User Number", value="{}/{}".format(len(channel.voice_members), channel.user_limit))
             else:
-                data.add_field(name="User Number", value="{}".format(len(channel.voice_members)))
+                data.add_field(name="User Number", value="{}".format(
+                    len(channel.voice_members)))
             data.add_field(name="Users", value=userlist)
             data.add_field(name="Bitrate", value=channel.bitrate)
-        elif "{}".format(channel.type)=="text":
+        elif "{}".format(channel.type) == "text":
             if channel.topic != "":
                 data.add_field(name="Topic", value=channel.topic, inline=False)
 
@@ -63,6 +66,7 @@ class Channelinfo:
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
+
 
 def setup(bot):
     bot.add_cog(Channelinfo(bot))
