@@ -26,6 +26,10 @@ class Info:
         if not channel:
             channel = author
 
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
         userlist = [r.display_name for r in channel.voice_members]
         if userlist == []:
             userlist = None
@@ -65,7 +69,7 @@ class Info:
         data.set_author(name=channel.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -78,6 +82,10 @@ class Info:
 
         if not user:
             user = author
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
 
         roles = [x.name for x in user.roles if x.name != "@everyone"]
 
@@ -125,7 +133,7 @@ class Info:
             data.set_thumbnail(url=user.default_avatar_url)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -145,6 +153,10 @@ class Info:
         created_at = ("Created on {} ({} days ago!)"
                       "".format(server.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -167,7 +179,7 @@ class Info:
             data.set_author(name=server.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
@@ -217,6 +229,10 @@ class Info:
         invite = await self.bot.create_invite(ctx.message.server)
         server = ctx.message.server
 
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
         data = discord.Embed(
             colour=discord.Colour(value=colour))
         data.add_field(name=server.name, value=invite, inline=False)
@@ -225,7 +241,7 @@ class Info:
             data.set_thumbnail(url=server.icon_url)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
