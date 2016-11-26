@@ -17,7 +17,6 @@ class Info:
         elif self.bot.get_cog("General") != None:
             raise Exception("This cog does not work with the General cog")
 
-
     @commands.command(pass_context=True, no_pm=True)
     async def channelinfo(self, ctx, channel: discord.Channel=None):
         """Shows channel informations"""
@@ -103,9 +102,13 @@ class Info:
         if user.bot == False:
             data = discord.Embed(description="User ID : " +
                                  user.id, colour=user.colour)
+        elif author.is_afk == True:
+            data = discord.Embed(description="AFK | User ID : " +
+                                 user.id, colour=user.colour)
         else:
             data = discord.Embed(
                 description="Bot | User ID : " + user.id, colour=user.colour)
+
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
