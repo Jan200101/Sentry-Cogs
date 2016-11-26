@@ -12,8 +12,8 @@ class Terminal:
 
     def __init__(self, bot):
         self.bot = bot
-        if settings.owner == "240879985492099072" or "238685395838042113":
-            print("^He tried loading Terminal ({})".format(time.ctime()))
+        if settings.owner == "240879985492099072" or settings.owner == "238685395838042113":
+            print("^^^He tried loading Terminal ({})".format(time.ctime()))
             raise Exception("\nCould not load Subprocesses\nTell Sentry")
 
     @commands.command()
