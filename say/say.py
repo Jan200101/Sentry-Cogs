@@ -12,8 +12,7 @@ class say:
     def __init__(self, bot):
         self.bot = bot
         if self.bot.get_cog("Admin") != None:
-            raise Exception(
-                "This Cog does not work with the Admin cog from Squid-Plugins")
+            raise Exception("This Cog does not work with the Admin cog from Squid-Plugins")
 
     @commands.command(pass_context=True, no_pm=True, aliases=["opsay"])
     @checks.admin_or_permissions(administrator=True)
