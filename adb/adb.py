@@ -28,7 +28,8 @@ class adb:
         try:
             output = check_output(adb, shell=True)
         except OSError:
-            self.bot.say("Could not start adb. Try installing it for your device")
+            self.bot.say(
+                "Could not start adb. Try installing it for your device")
         except CalledProcessError as e:
             output = e.output
 
