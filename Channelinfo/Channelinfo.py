@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from .utils.chat_formatting import *
-from random import choice
+from .utils.chat_formatting import pagify, box
+from random import choice, randint
 import datetime
 import time
 
@@ -34,6 +34,10 @@ class Channelinfo:
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
 
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
@@ -62,7 +66,7 @@ class Channelinfo:
         data.set_author(name=channel.name)
 
         try:
-            await self.bot.say(embed=data)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")

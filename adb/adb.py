@@ -1,6 +1,6 @@
 from discord.ext import commands
 from cogs.utils import checks
-from cogs.utils.chat_formatting import pagify
+from cogs.utils.chat_formatting import pagify, box
 from cogs.utils.chat_formatting import box
 from subprocess import check_output, CalledProcessError, os, call
 from __main__ import settings

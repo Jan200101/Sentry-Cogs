@@ -26,9 +26,6 @@ class Info:
         if not channel:
             channel = author
 
-        randnum = randint(1, 10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
 
         userlist = [r.display_name for r in channel.voice_members]
         if userlist == []:
@@ -40,6 +37,10 @@ class Info:
         created_at = ("Created on {} ({} days ago!)"
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
