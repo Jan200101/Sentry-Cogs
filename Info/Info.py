@@ -224,7 +224,7 @@ class Info:
 
         data = discord.Embed(
             colour=server.me.colour)
-        data.add_field(name=server.name, value=invite, inline=False)
+        data.add_field(name="{} #{}".format(server.me.name, server.me.discriminator), value=invite, inline=False)
 
         if server.me.avatar_url:
             data.set_thumbnail(url=server.me.avatar_url)
