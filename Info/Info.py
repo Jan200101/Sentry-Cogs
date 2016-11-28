@@ -26,7 +26,6 @@ class Info:
         if not channel:
             channel = author
 
-
         userlist = [r.display_name for r in channel.voice_members]
         if userlist == []:
             userlist = None
@@ -186,47 +185,12 @@ class Info:
                                "to send this")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def serverinfofull(self, ctx):
-        """Shows server's informations and roles, channel names and emojis names"""
-        server = ctx.message.server
-        online = str(len([m.status for m in server.members if str(
-            m.status) == "online" or str(m.status) == "idle"]))
-        total_users = str(len(server.members))
-        text_channels = len(
-            [x for x in server.channels if str(x.type) == "text"])
-        voice_channels = len(server.channels) - text_channels
-
-        data = "Name: {}\n".format(server.name)
-        data += "ID: {}\n".format(server.id)
-        data += "Region: {}\n".format(server.region)
-        data += "Users: {}/{}\n".format(online, total_users)
-        data += "Text channels: {}\n".format(text_channels)
-        data += "Voice channels: {}\n".format(voice_channels)
-        data += "Channel names:\n{}\n".format(
-            [c.name for c in server.channels])
-        data += "Emojis: {}\n{}\n".format(len(server.emojis),
-                                          [e.name for e in server.emojis])
-        data += "Roles: {} \n{}\n".format(len(server.roles),
-                                          [r.name for r in server.role_hierarchy])
-        passed = (ctx.message.timestamp - server.created_at).days
-        data += "Created: {} ({} days ago)\n".format(server.created_at, passed)
-        data += "Owner: {}\n".format(server.owner)
-        if server.icon_url != "":
-            data += "Icon:"
-            for page in pagify(data, ["\n"], shorten_by=13, page_length=2000):
-                await self.bot.say(box(page, 'Prolog'))
-
-            await self.bot.say("{}".format(server.icon_url))
-        else:
-            for page in pagify(data, ["\n"], shorten_by=13, page_length=2000):
-                await self.bot.say(box(page, 'Prolog'))
-
-    @commands.command(pass_context=True, no_pm=True)
-    async def getinvite(self, ctx):
-        """Get a invite to the current channel"""
+    async def getserverinvite(self, ctx):
+        """Get a invite to the current server"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
+
         invite = await self.bot.create_invite(ctx.message.server)
         server = ctx.message.server
 
@@ -240,6 +204,32 @@ class Info:
 
         if server.icon_url:
             data.set_thumbnail(url=server.icon_url)
+
+        try:
+            await self.bot.say(emptyrand, embed=data)
+        except:
+            await self.bot.say("I need the `Embed links` permission "
+                               "to send this")
+
+    @commands.command(pass_context=True, no_pm=True, aliases=["getbotinvite"])
+    async def getinvite(self, ctx):
+        """Get a invite to the bot"""
+
+        invite = self.bot.oauth_url
+        server = ctx.message.server
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
+        data = discord.Embed(
+            colour=server.me.colour)
+        data.add_field(name=server.name, value=invite, inline=False)
+
+        if server.me.avatar_url:
+            data.set_thumbnail(url=server.me.avatar_url)
+        else:
+            data.set_thumbnail(url=server.me.default_avatar_url)
 
         try:
             await self.bot.say(emptyrand, embed=data)
