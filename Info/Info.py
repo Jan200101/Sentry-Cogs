@@ -139,9 +139,13 @@ class Info:
                                "to send this")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def serverinfo(self, ctx):
+    async def serverinfo(self, ctx, server=None):
         """Shows server's informations"""
-        server = ctx.message.server
+
+        server = self.bot.get_server(server)
+        if server is None:
+            server = ctx.message.server
+
         online = len([m.status for m in server.members
                       if m.status == discord.Status.online or
                       m.status == discord.Status.idle])
