@@ -17,7 +17,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True, aliases=["opsay"])
     @checks.admin_or_permissions(administrator=True)
     async def adminsay(self, ctx, *, text):
-        """Says Something as the bot without anyone knowing who wrote it"""
+        """Says Something as the bot without any trace of the message author"""
         try:
             await self.bot.delete_message(ctx.message)
         except:
@@ -27,7 +27,7 @@ class say:
 
     @commands.command(pass_context=True, no_pm=True)
     async def say(self, ctx, *, text):
-        """Says Something as the bot without the needs special rights"""
+        """Says Something as the bot """
 
         auth = " (message by "
         auth += ctx.message.author.mention
@@ -37,7 +37,7 @@ class say:
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedsay(self, ctx, *, text: str):
-        """Says Something as the bot without the needs special rights and in a embed"""
+        """Says Something as the bot in a embed"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -62,7 +62,7 @@ class say:
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedcolorsay(self, ctx, color: str, *, text: str):
-        """Says Something as the bot without the needs special rights and in a embed"""
+        """Says Something as the bot in a colored embed"""
 
         created_at = ("Created on {}".format(
             ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
@@ -97,7 +97,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True, aliases=["embedopsay"])
     @checks.admin_or_permissions(administrator=True)
     async def embedadminsay(self, ctx, *, text):
-        """Says Something as the bot without the needs special rights"""
+        """Says Something as the bot without any trace of the message author in a embed"""
 
         try:
             await self.bot.delete_message(ctx.message)
@@ -124,7 +124,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True, aliases=["embedcoloropsay"])
     @checks.admin_or_permissions(administrator=True)
     async def embedcoloradminsay(self, ctx, color: str, *, text: str):
-        """Says Something as the bot without the needs special rights and in a embed"""
+        """Says Something as the bot without any trace of the message author in a colored embed"""
 
         try:
             await self.bot.delete_message(ctx.message)
