@@ -23,7 +23,7 @@ class Channelinfo:
         if not channel:
             channel = author
 
-        userlist = [r.name for r in channel.voice_members]
+        userlist = [r.display_name for r in channel.voice_members]
         if userlist == []:
             userlist = None
         else:

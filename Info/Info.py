@@ -146,6 +146,7 @@ class Info:
         if server is None:
             server = ctx.message.server
 
+
         online = len([m.status for m in server.members
                       if m.status == discord.Status.online or
                       m.status == discord.Status.idle])
