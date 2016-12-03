@@ -177,6 +177,32 @@ class say:
         except:
             await self.bot.say("I need the `Embed links` permission to send this")
 
+    @commands.command(pass_context=True, no_pm=True, aliases=["embedcolorop"])
+    @checks.is_owner()
+    async def embedcolorclear(self, ctx, color: str, *, text: str):
+        """Says Something as the bot without any trace of the message author in a colored embed"""
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+
+        if color == None:
+            color = colour
+        else:
+            color = color.replace("#", "")
+            color = int(color, 16)
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=color))
+
+        try:
+            await self.bot.say(emptyrand, embed=data)
+        except:
+            await self.bot.say("I need the `Embed links` permission to send this")
+
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedurl(self, ctx, text: str, url: str = None):
