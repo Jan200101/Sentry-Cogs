@@ -196,7 +196,12 @@ class Info:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        invite = await self.bot.create_invite(ctx.message.server)
+        try:
+            invite = await self.bot.create_invite(ctx.message.server)
+        except:
+            await self.bot.say("I do not have the `Create Instant Invite` Permission")
+            return
+            
         server = ctx.message.server
 
         randnum = randint(1, 10)
