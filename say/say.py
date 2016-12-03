@@ -37,7 +37,7 @@ class say:
         for text in pagify(text, ["\n"]):
             await self.bot.say(escape_mass_mentions(text))
 
-    @commands.command(pass_context=True, no_pm=True, aliases=["sayop"])
+    @commands.command(pass_context=True, no_pm=True)
     @checks.admin_or_permissions(administrator=True)
     async def sayclear(self, ctx, *, text):
         """Says Something as the bot without any trace of the message author"""
@@ -195,6 +195,7 @@ class say:
             color = colour
         else:
             color = color.replace("#", "")
+            color = color.replace("0x", "")
             color = int(color, 16)
 
         randnum = randint(1, 10)
