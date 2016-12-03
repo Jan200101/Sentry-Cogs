@@ -223,13 +223,6 @@ class say:
             else:
                 data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
 
-
-        if ctx.message.author.avatar_url:
-            data.set_author(name=ctx.message.author.name,
-                            url=ctx.message.author.avatar_url, icon_url=ctx.message.author.avatar_url)
-        else:
-            data.set_author(name=ctx.message.author.name)
-
         try:
             await self.bot.say(emptyrand, embed=data)
         except:
