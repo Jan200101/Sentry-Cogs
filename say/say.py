@@ -14,6 +14,16 @@ class say:
         if self.bot.get_cog("Admin") != None:
             raise Exception("This Cog does not work with the Admin cog from Squid-Plugins")
 
+    @commands.command(pass_context=True, no_pm=True)
+    async def say(self, ctx, *, text):
+        """Says Something as the bot"""
+
+        auth = " (message by {})".format(ctx.message.author.mention)
+
+        for text in pagify(text, ["\n"]):
+            await self.bot.say(escape_mass_mentions(text) + auth)
+
+
     @commands.command(pass_context=True, no_pm=True, aliases=["sayop"])
     @checks.admin_or_permissions(administrator=True)
     async def sayadmin(self, ctx, *, text):
@@ -27,14 +37,13 @@ class say:
         for text in pagify(text, ["\n"]):
             await self.bot.say(escape_mass_mentions(text))
 
-    @commands.command(pass_context=True, no_pm=True)
-    async def say(self, ctx, *, text):
-        """Says Something as the bot"""
-
-        auth = " (message by {})".format(ctx.message.author.mention)
+    @commands.command(pass_context=True, no_pm=True, aliases=["sayop"])
+    @checks.admin_or_permissions(administrator=True)
+    async def sayclear(self, ctx, *, text):
+        """Says Something as the bot without any trace of the message author"""
 
         for text in pagify(text, ["\n"]):
-            await self.bot.say(escape_mass_mentions(text) + auth)
+            await self.bot.say(escape_mass_mentions(text))
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedsay(self, ctx, *, text: str):
@@ -47,8 +56,7 @@ class say:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
-            text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -101,9 +109,7 @@ class say:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(
-            description="", colour=discord.Colour(value=colour))
-        data.add_field(name=str(text), value=u"\u2063")
+        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
 
         try:
             await self.bot.say(emptyrand, embed=data)
