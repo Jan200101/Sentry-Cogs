@@ -89,8 +89,8 @@ class say:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
-    @commands.command(pass_context=True, no_pm=True, aliases=["embedsayop"])
-    @checks.admin_or_permissions(administrator=True)
+    @commands.command(pass_context=True, no_pm=True)
+    @checks.is_owner()
     async def embedsayclear(self, ctx, *, text):
         """Says Something as the bot without any trace of the message author in a embed"""
 
