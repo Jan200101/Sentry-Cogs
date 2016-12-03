@@ -40,7 +40,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True)
     @checks.admin_or_permissions(administrator=True)
     async def sayclear(self, ctx, *, text):
-        """Says Something as the bot without any trace of the message author"""
+        """sayadmin command for selfbots"""
 
         for text in pagify(text, ["\n"]):
             await self.bot.say(escape_mass_mentions(text))
@@ -100,7 +100,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True)
     @checks.is_owner()
     async def embedsayclear(self, ctx, *, text):
-        """Says Something as the bot without any trace of the message author in a embed"""
+        """embedsayadmin for selfbots"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -186,7 +186,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True)
     @checks.is_owner()
     async def embedcolorclear(self, ctx, color: str, *, text: str):
-        """Says Something as the bot without any trace of the message author in a colored embed"""
+        """embedcoloradmin for selfbots"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -286,7 +286,7 @@ class say:
     @commands.command(pass_context=True, no_pm=True)
     @checks.admin_or_permissions(administrator=True)
     async def embedurlclear(self, ctx, text: str, url: str = None):
-        """Embed links into a embed without knowing who wrote it"""
+        """embedurladmin for selfbots"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
