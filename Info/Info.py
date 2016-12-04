@@ -201,7 +201,7 @@ class Info:
         except:
             await self.bot.say("I do not have the `Create Instant Invite` Permission")
             return
-            
+
         server = ctx.message.server
 
         randnum = randint(1, 10)
@@ -225,6 +225,11 @@ class Info:
     async def getinvite(self, ctx):
         """Get a invite to the bot"""
 
+        if not self.bot.user.bot:
+            await self.bot.say("This is not a bot account\n"
+                                "It only works with bot accounts")
+            return
+
         invite = self.bot.oauth_url
         server = ctx.message.server
 
@@ -232,8 +237,7 @@ class Info:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(
-            colour=server.me.colour)
+        data = discord.Embed(colour=server.me.colour)
         data.add_field(name="{} #{}".format(server.me.name, server.me.discriminator), value=invite, inline=False)
 
         if server.me.avatar_url:
