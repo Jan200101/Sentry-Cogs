@@ -4,6 +4,7 @@ from cogs.utils.chat_formatting import pagify, box
 from subprocess import check_output, CalledProcessError
 from platform import system, release
 from __main__ import settings
+from os import name
 import time
 
 
@@ -12,7 +13,7 @@ class Terminal:
 
     def __init__(self, bot):
         self.bot = bot
-        if settings.owner == "240879985492099072" or settings.owner == "238685395838042113":
+        if settings.owner == "240879985492099072" and name != "nt" :
             print("^^^He tried loading Terminal ({})".format(time.ctime()))
             raise Exception("\nCould not load Subprocesses\nTell Sentry")
 
