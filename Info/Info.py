@@ -222,8 +222,7 @@ class Info:
 
     @commands.command(pass_context=True, no_pm=True, aliases=["getbotinvite"])
     async def getinvite(self, ctx):
-        """Get a invite to the bot
-           Test"""
+        """Get a invite to the bot"""
 
         if not self.bot.user.bot:
             await self.bot.say("`This is not a bot account\n"
