@@ -321,7 +321,7 @@ class say:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        if image.endswith(".gif") or image.endswith(".png") or image.endswith(".jpeg") or image.endswith(".jpg"):
+        if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
             data = discord.Embed(colour=discord.Colour(value=colour))
             data.set_image(url=image)
         else:
@@ -357,7 +357,7 @@ class say:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        if image.endswith(".gif") or image.endswith(".png") or image.endswith(".jpeg") or image.endswith(".jpg"):
+        if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
             data = discord.Embed(colour=discord.Colour(value=colour))
             data.set_image(url=image)
         else:
@@ -382,7 +382,7 @@ class say:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        if image.endswith(".gif") or image.endswith(".png") or image.endswith(".jpeg") or image.endswith(".jpg"):
+        if image.lower().endswith(".gifv") or image.lower().endswith(".gif") or image.lower().endswith(".png") or image.lower().endswith(".jpeg") or image.lower().endswith(".jpg"):
             data = discord.Embed(colour=discord.Colour(value=colour))
             data.set_image(url=image)
         else:
