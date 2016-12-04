@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from .utils.chat_formatting import pagify, box
 from random import choice, randint
 import datetime
 import time
@@ -223,11 +222,12 @@ class Info:
 
     @commands.command(pass_context=True, no_pm=True, aliases=["getbotinvite"])
     async def getinvite(self, ctx):
-        """Get a invite to the bot"""
+        """Get a invite to the bot
+           Test"""
 
         if not self.bot.user.bot:
-            await self.bot.say("This is not a bot account\n"
-                                "It only works with bot accounts")
+            await self.bot.say("`This is not a bot account\n"
+                                "It only works with bot accounts`")
             return
 
         invite = self.bot.oauth_url
