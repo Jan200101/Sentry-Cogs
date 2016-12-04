@@ -7,43 +7,10 @@ import datetime
 
 
 class say:
-    """Makes the bot say things for you now with embeds"""
+    """Makes the bot say things for in embeds"""
 
     def __init__(self, bot):
         self.bot = bot
-        if self.bot.get_cog("Admin") != None:
-            raise Exception("This Cog does not work with the Admin cog from Squid-Plugins")
-
-    @commands.command(pass_context=True, no_pm=True)
-    async def say(self, ctx, *, text: str):
-        """Says Something as the bot"""
-
-        auth = " (message by {})".format(ctx.message.author.mention)
-
-        for text in pagify(text, ["\n"]):
-            await self.bot.say(escape_mass_mentions(text) + auth)
-
-
-    @commands.command(pass_context=True, no_pm=True, aliases=["sayop"])
-    @checks.admin_or_permissions(administrator=True)
-    async def sayadmin(self, ctx, *, text: str):
-        """Says Something as the bot without any trace of the message author"""
-        try:
-            await self.bot.delete_message(ctx.message)
-        except:
-            await self.bot.say("I do not have the `Manage Messages` permissions")
-            return
-
-        for text in pagify(text, ["\n"]):
-            await self.bot.say(escape_mass_mentions(text))
-
-    @commands.command(pass_context=True, no_pm=True)
-    @checks.admin_or_permissions(administrator=True)
-    async def sayclear(self, ctx, *, text):
-        """sayadmin for selfbots"""
-
-        for text in pagify(text, ["\n"]):
-            await self.bot.say(escape_mass_mentions(text))
 
     @commands.command(pass_context=True, no_pm=True)
     async def embedsay(self, ctx, *, text: str):
