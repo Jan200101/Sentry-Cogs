@@ -17,7 +17,7 @@ class Info:
             raise Exception("This cog does not work with the General cog")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def channelinfo(self, ctx, channel: discord.Channel=None):
+    async def channelinfo(self, ctx, *, channel: discord.Channel=None):
         """Shows channel informations"""
         author = ctx.message.channel
         server = ctx.message.server
@@ -225,8 +225,8 @@ class Info:
         """Get a invite to the bot"""
 
         if not self.bot.user.bot:
-            await self.bot.say("`This is not a bot account\n"
-                                "It only works with bot accounts`")
+            await self.bot.say("``This is not a bot account\n"
+                                "It only works with bot accounts")
             return
 
         invite = self.bot.oauth_url
