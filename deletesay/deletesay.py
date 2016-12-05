@@ -18,5 +18,5 @@ class deletesay:
             await self.bot.say(escape_mass_mentions(text))
 
 def setup(bot):
-    n = deltesay(bot)
+    n = deletesay(bot)
     bot.add_cog(n)
