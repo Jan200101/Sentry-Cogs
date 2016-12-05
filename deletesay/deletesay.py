@@ -6,7 +6,7 @@ class deletesay:
     """says a message and deletes it"""
 
     @commands.command(pass_context=True, no_pm=True, aliases=["sayop"])
-    async def sayadmin(self, ctx, *, text: str):
+    async def deletesay(self, ctx, *, text: str):
         """Says Something as the bot without any trace of the message author"""
         try:
             await self.bot.delete_message(ctx.message)
@@ -18,4 +18,4 @@ class deletesay:
             await self.bot.say(escape_mass_mentions(text))
 
 def setup(bot):
-    bot.add_cog(deltesay(bot))
+    bot.add_cog(deletesay(bot))
