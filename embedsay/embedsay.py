@@ -23,7 +23,8 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -47,7 +48,8 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -78,7 +80,8 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         try:
             await self.bot.say(emptyrand, embed=data)
@@ -98,7 +101,8 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         try:
             await self.bot.say(emptyrand, embed=data)
@@ -113,20 +117,15 @@ class embesay:
         created_at = ("Created on {}".format(
             ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
-
-        if color == None:
-            color = colour
-        else:
-            color = color.replace("#", "")
-            color = int(color, 16)
+        color = color.replace("#", "")
+        color = int(color, 16)
 
         randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -146,20 +145,15 @@ class embesay:
         created_at = ("Created on {}".format(
             ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
-
-        if color == None:
-            color = colour
-        else:
-            color = color.replace("#", "")
-            color = int(color, 16)
+        color = color.replace("#", "")
+        color = int(color, 16)
 
         randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+        data = discord.Embed(description=str(
+            text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -231,9 +225,8 @@ class embesay:
         except:
             await self.bot.say("I need the `Embed links` permission to send this")
 
-
     @commands.command(pass_context=True, no_pm=True)
-    async def embedurl(self, ctx, text: str, url: str = None):
+    async def embedurl(self, ctx, text: str, url: str=None):
         """Embed links into a embed"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
@@ -244,18 +237,20 @@ class embesay:
         emptyrand = empty * randnum
 
         if not url:
-            data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+            data = discord.Embed(description=str(
+                text), colour=discord.Colour(value=colour))
         else:
             if text.find("]") != -1:
                 textnumber = text.find("]") + 1
                 url = "({})".format(url)
-                text = text[:textnumber] + url  + text[textnumber:]
+                text = text[:textnumber] + url + text[textnumber:]
 
-                data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+                data = discord.Embed(description=str(
+                    text), colour=discord.Colour(value=colour))
 
             else:
-                data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
-
+                data = discord.Embed(description=str(
+                    text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -270,7 +265,7 @@ class embesay:
 
     @commands.command(pass_context=True, no_pm=True)
     @checks.admin_or_permissions(administrator=True)
-    async def embedurladmin(self, ctx, text: str, url: str = None):
+    async def embedurladmin(self, ctx, text: str, url: str=None):
         """Embed links into a embed without knowing who wrote it"""
 
         try:
@@ -287,17 +282,20 @@ class embesay:
         emptyrand = empty * randnum
 
         if not url:
-            data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+            data = discord.Embed(description=str(
+                text), colour=discord.Colour(value=colour))
         else:
             if text.find("]") != -1:
                 textnumber = text.find("]") + 1
                 url = "({})".format(url)
-                text = text[:textnumber] + url  + text[textnumber:]
+                text = text[:textnumber] + url + text[textnumber:]
 
-                data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+                data = discord.Embed(description=str(
+                    text), colour=discord.Colour(value=colour))
 
             else:
-                data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+                data = discord.Embed(description=str(
+                    text), colour=discord.Colour(value=colour))
 
         try:
             await self.bot.say(emptyrand, embed=data)
@@ -306,7 +304,7 @@ class embesay:
 
     @commands.command(pass_context=True, no_pm=True)
     @checks.admin_or_permissions(administrator=True)
-    async def embedurlclear(self, ctx, text: str, url: str = None):
+    async def embedurlclear(self, ctx, text: str, url: str=None):
         """embedurladmin for selfbots"""
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
@@ -317,17 +315,20 @@ class embesay:
         emptyrand = empty * randnum
 
         if not url:
-            data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+            data = discord.Embed(description=str(
+                text), colour=discord.Colour(value=colour))
         else:
             if text.find("]") != -1:
                 textnumber = text.find("]") + 1
                 url = "({})".format(url)
-                text = text[:textnumber] + url  + text[textnumber:]
+                text = text[:textnumber] + url + text[textnumber:]
 
-                data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+                data = discord.Embed(description=str(
+                    text), colour=discord.Colour(value=colour))
 
             else:
-                data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+                data = discord.Embed(description=str(
+                    text), colour=discord.Colour(value=colour))
 
         try:
             await self.bot.say(emptyrand, embed=data)
@@ -418,6 +419,7 @@ class embesay:
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
+
 
 def setup(bot):
     bot.add_cog(embesay(bot))
