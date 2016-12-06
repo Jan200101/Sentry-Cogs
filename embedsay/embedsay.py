@@ -36,6 +36,30 @@ class embesay:
         except:
             await self.bot.say("I need the `Embed links` permission to send this")
 
+    @commands.command(pass_context=True, no_pm=True)
+    async def embedsayto(self, ctx, channel: discord.Channel, *, text: str):
+        """Says Something as the bot in a embed"""
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
+        data = discord.Embed(description=str(text), colour=discord.Colour(value=colour))
+
+        if ctx.message.author.avatar_url:
+            data.set_author(name=ctx.message.author.name,
+                            url=ctx.message.author.avatar_url, icon_url=ctx.message.author.avatar_url)
+        else:
+            data.set_author(name=ctx.message.author.name)
+
+        try:
+            await self.bot.send_message(channel, emptyrand, embed=data)
+        except:
+            await self.bot.say("I need the `Embed links` permission to send this")
+
     @commands.command(pass_context=True, no_pm=True, aliases=["embedsayop"])
     @checks.admin_or_permissions(administrator=True)
     async def embedsayadmin(self, ctx, *, text: str):
