@@ -119,16 +119,21 @@ class Info:
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
-        if user.nick != None:
+        data.add_field(name="Deafed", value=str(user.deaf))
+        data.add_field(name="Muted", value=str(user.mute))
+        if user.voice_channel:
+            data.add_field(name="In Voicechannel", value=user.voice_channel)
+        if user.nick:
             data.add_field(name="Nickname", value=str(user.nick))
-        if user.game != None:
+        if user.game:
             data.add_field(name="Playing", value=str(user.game))
         data.add_field(name="Roles", value=roles, inline=False)
+
         if user.avatar_url:
-            data.set_author(name=user.name, url=user.avatar_url)
+            data.set_author(name="{} {}".format(user.name, user.discriminator), url=user.avatar_url)
             data.set_thumbnail(url=user.avatar_url)
         else:
-            data.set_author(name=user.name, url=user.default_avatar_url)
+            data.set_author(name="{} {}".format(user.name, user.discriminator), url=user.default_avatar_url)
             data.set_thumbnail(url=user.default_avatar_url)
 
         try:
@@ -173,7 +178,14 @@ class Info:
         data.add_field(name="Text Channels", value=text_channels)
         data.add_field(name="Voice Channels", value=voice_channels)
         data.add_field(name="Roles", value=len(server.roles))
+        data.add_field(name="Emojis", value=len(server.emojis))
+        if server.afk_channel:
+            data.add_field(name="Afk Channel", value=str(server.afk_channel))
+            data.add_field(name="Afk Timeout", value="{} ms".format(server.afk_timeout))
+        data.add_field(name="Verification Level", value =str(server.verification_level))
         data.add_field(name="Owner", value=str(server.owner))
+        if server.unavailable:
+            data.add_field(name="Unavailabe", value=str(server.unavailable))
         data.set_footer(text=created_at)
 
         if server.icon_url:
