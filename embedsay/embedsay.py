@@ -118,6 +118,7 @@ class embesay:
             ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
 
         color = color.replace("#", "")
+        color = color.replace("0x", "")
         color = int(color, 16)
 
         randnum = randint(1, 10)
@@ -125,7 +126,7 @@ class embesay:
         emptyrand = empty * randnum
 
         data = discord.Embed(description=str(
-            text), colour=discord.Colour(value=colour))
+            text), colour=discord.Colour(value=color))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -146,6 +147,7 @@ class embesay:
             ctx.message.timestamp.strftime("%d %b %Y %H:%M")))
 
         color = color.replace("#", "")
+        color = color.replace("0x", "")
         color = int(color, 16)
 
         randnum = randint(1, 10)
@@ -153,7 +155,7 @@ class embesay:
         emptyrand = empty * randnum
 
         data = discord.Embed(description=str(
-            text), colour=discord.Colour(value=colour))
+            text), colour=discord.Colour(value=color))
 
         if ctx.message.author.avatar_url:
             data.set_author(name=ctx.message.author.name,
@@ -177,14 +179,9 @@ class embesay:
             await self.bot.say("I do not have the `Manage Messages` permissions")
             return
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
-
-        if color == None:
-            color = colour
-        else:
-            color = color.replace("#", "")
-            color = int(color, 16)
+        color = color.replace("#", "")
+        color = color.replace("0x", "")
+        color = int(color, 16)
 
         randnum = randint(1, 10)
         empty = u"\u2063"
@@ -206,12 +203,10 @@ class embesay:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        if color == None:
-            color = colour
-        else:
-            color = color.replace("#", "")
-            color = color.replace("0x", "")
-            color = int(color, 16)
+        color = color.replace("#", "")
+        color = color.replace("0x", "")
+        color = int(color, 16)
+
 
         randnum = randint(1, 10)
         empty = u"\u2063"
