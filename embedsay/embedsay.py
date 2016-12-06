@@ -6,7 +6,7 @@ from random import choice, randint
 import datetime
 
 
-class say:
+class embesay:
     """Makes the bot say things for in embeds"""
 
     def __init__(self, bot):
@@ -363,4 +363,4 @@ class say:
                                "to send this")
 
 def setup(bot):
-    bot.add_cog(say(bot))
+    bot.add_cog(embesay(bot))
