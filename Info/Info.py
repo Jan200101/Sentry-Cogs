@@ -119,7 +119,7 @@ class Info:
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
-        data.add_field(name="Deafed", value=str(user.deaf))
+        data.add_field(name="Deafened", value=str(user.deaf))
         data.add_field(name="Muted", value=str(user.mute))
         if user.voice_channel:
             data.add_field(name="In Voicechannel", value=user.voice_channel)
@@ -185,7 +185,7 @@ class Info:
         data.add_field(name="Verification Level", value =str(server.verification_level))
         data.add_field(name="Owner", value=str(server.owner))
         if server.unavailable:
-            data.add_field(name="Unavailabe", value=str(server.unavailable))
+            data.add_field(name="Unavailable", value=str(server.unavailable))
         data.set_footer(text=created_at)
 
         if server.icon_url:
