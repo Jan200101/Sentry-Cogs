@@ -87,7 +87,10 @@ def main():
         eve = event['summary']
         start = start.replace("-06:00", "")
         start = start.replace("T", " ")
-        time = datetime.datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
+        try:
+            time = datetime.datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
+        except:
+            time = datetime.datetime.strptime(start, '%Y-%m-%d')
 
 
         return
@@ -110,10 +113,12 @@ class googlecallendartest:
 
         try:
             test_at = time.strftime("%d %b %Y %H:%M")
-            test_in = datetime.datetime.strptime(start, '%Y-%m-%d %H:%M:%S') - datetime.datetime.now()
+            test_ub = time = datetime.datetime.strptime(start, '%Y-%m-%d %H:%M:%S') - datetime.datetime.utcnow().isoformat()
+
+
 
             data = discord.Embed(colour=discord.Colour(value=colour))
-            data.add_field(name=str(eve), value="At **{}**\n*(in {})*".format(test_at, test_in))
+            data.add_field(name=str(eve), value="At **{}**".format(test_at)
             await self.bot.say(embed=data)
         except:
             await self.bot.say("error")
