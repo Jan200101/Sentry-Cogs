@@ -65,6 +65,27 @@ class tools:
 
         list = ", ".join([e.name for e in ctx.message.server.emojis])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(box(page))#
+
+    @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
+    async def banlist(self, ctx):
+        """Lists all banned users"""
+
+        try:
+            x = await self.bot.get_bans(ctx.message.server)
+        except discord.HTTPException:
+            await self.bot.say("I need the `Ban Members` Permission for this.")
+            return
+        except:
+            await self.bot.say("A error that shouldnt have happend")
+            return
+
+        if x:
+            list = ", ".join(x)
+        else:
+            list = None
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
 
