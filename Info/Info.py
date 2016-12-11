@@ -142,6 +142,42 @@ class Info:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
+    @commands.command(no_pm=True)
+    async def globaluserinfo(self, *, user: str):
+        """Gives you the name of a any user"""
+
+        if not self.bot.user.bot:
+            await self.bot.say("``This is not a bot account\n"
+                                "It only works with bot accounts")
+            return
+
+        if not user.isdigit():
+            await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544` (Id of Sentry)")
+            return
+
+        user = await self.bot.get_user_info(user)
+
+        randnum = randint(1, 10)
+        empty = u"\u2063"
+        emptyrand = empty * randnum
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+
+        if not user:
+            await self.bot.say("Could not find {}".format(user))
+            return
+
+        embed = discord.Embed(colour=colour)
+        embed.add_field(name="I found", value=str(user))
+
+        try:
+            await self.bot.say(emptyrand, embed=embed)
+        except:
+            await self.bot.say("I need the `Embed links` permission "
+                               "to send this")
+
+
     @commands.command(pass_context=True, no_pm=True)
     async def serverinfo(self, ctx, server=None):
         """Shows server's informations"""
