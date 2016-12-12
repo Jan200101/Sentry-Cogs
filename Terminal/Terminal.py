@@ -43,14 +43,14 @@ class Terminal:
     async def shell(self, *, command: str):
         """Terminal inside Discord"""
 
-        if command.index("pip") != -1:
+        if command.find("pip") != -1:
             await self.bot.say("`You cannot use pip with this cog`")
             return
 
-        if command.index("apt") != -1:
+        if command.find("apt") != -1:
             await self.bot.say("`You cannot use apt with this cog`")
             return
-            
+
         try:
             output = check_output(command, shell=True)
         except CalledProcessError as e:
