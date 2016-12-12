@@ -1,7 +1,0 @@
-{
-    "AUTHOR" : "Sentry",
-    "INSTALL_MSG" : "Thank you for installing pip.\nThis command should work on any os.\nIf it doesnt contact Sentry.",
-    "NAME" : "pip",
-    "SHORT" : "pip inside Discord",
-    "DESCRIPTION" : "pip aka 'pip installs packages' inside Discord"
-}
