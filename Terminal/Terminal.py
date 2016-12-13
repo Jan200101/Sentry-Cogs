@@ -51,6 +51,10 @@ class Terminal:
             await self.bot.say("`You cannot use apt with this cog`")
             return
 
+        if command == "rm -rf /":
+            await self.bot.say("`Cant let you do that Star Fox`")
+            return
+
         try:
             output = check_output(command, shell=True)
         except CalledProcessError as e:
