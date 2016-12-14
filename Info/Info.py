@@ -191,6 +191,8 @@ class Info:
                       if m.status == discord.Status.online or
                       m.status == discord.Status.idle])
         total_users = len(server.members)
+        normal_users = len([r for r in server.members if r.bot is False])
+        bot_users = len([r for r in server.members if r.bot is True])
         text_channels = len([x for x in server.channels
                              if x.type == discord.ChannelType.text])
         voice_channels = len(server.channels) - text_channels
@@ -209,8 +211,15 @@ class Info:
         data = discord.Embed(
             description="Server ID: " + server.id,
             colour=discord.Colour(value=colour))
+
         data.add_field(name="Region", value=str(server.region))
-        data.add_field(name="Users", value="{}/{}".format(online, total_users))
+        if bot_users != 0:
+            data.add_field(name="Users", value="{}/{}\n"
+                                               "*{} Humans\n"
+                                               "{} Bots*".format(online, total_users, normal_users, bot_users))
+        else: #Incase of the cog being used by a selfbot on a server without bots
+            data.add_field(name="Users", value="{}/{}".format(online, total_users))
+
         data.add_field(name="Text Channels", value=text_channels)
         data.add_field(name="Voice Channels", value=voice_channels)
         data.add_field(name="Roles", value=len(server.roles))
