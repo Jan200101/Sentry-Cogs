@@ -19,6 +19,15 @@ class tools:
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
+    @commands.command(pass_context=True, hidden="true", alias=["chanlist"])
+    @checks.is_owner()
+    async def playinglist(self, ctx):
+        """Lists all games being played on this server"""
+
+        list = "{} People are playing".format(len([c.game for c in ctx.message.server.members if c.game and not c.bot]))
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(box(page))
+
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
     async def voicechannellist(self, ctx):
@@ -44,7 +53,16 @@ class tools:
     async def userlist(self, ctx):
         """Lists all Users"""
 
-        list = ", ".join([m.name for m in ctx.message.server.members])
+        list = ", ".join([m.name for m in ctx.message.server.members and not m.bot])
+        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(box(page))
+
+    @commands.command(pass_context=True, hidden="true")
+    @checks.is_owner()
+    async def botlist(self, ctx):
+        """Lists all Users"""
+
+        list = ", ".join([m.name for m in ctx.message.server.members and m.bot])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
