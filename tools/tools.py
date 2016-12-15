@@ -65,9 +65,9 @@ class tools:
 
         x = -1
         l =  []
-        while x < len([r for r in ctx.message.server()]) -1:
+        while x < len([r for r in ctx.message.server.emojis()]) -1:
             x = x + 1
-            l.append("<:{}:{}>".format([r.name for r in ctx.message.server()][x], [r.id for r in ctx.message.server()][x]))
+            l.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis()][x], [r.id for r in ctx.message.server.emojis()][x]))
 
             l = ", ".join(l)
 
