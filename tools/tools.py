@@ -65,9 +65,9 @@ class tools:
 
         x = -1
         l =  []
-        while x < len(bot.get_all_emojis()) -1:
+        while x < len(self.bot.get_all_emojis()) -1:
             x = x + 1
-            l.append("<:{}:{}>".format([r for r in bot.get_all_emojis()][x].name, [r for r in bot.get_all_emojis()][x].id))
+            l.append("<:{}:{}>".format([r for r in self.bot.get_all_emojis()][x].name, [r for r in self.bot.get_all_emojis()][x].id))
 
         l = " ".join(l)
         for page in pagify(l, ["\n"], shorten_by=7, page_length=2000):
