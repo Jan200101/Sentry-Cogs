@@ -69,8 +69,7 @@ class tools:
             x = x + 1
             l.append("<:{}:{}>".format([r for r in self.bot.get_all_emojis()][x].name, [r for r in self.bot.get_all_emojis()][x].id))
 
-        l = " ".join(l)
-        for page in pagify(l, ["\n"], shorten_by=7, page_length=2000):
+        for page in pagify(l, ["\n"], shorten_by=2, page_length=2000):
             await self.bot.say(page)
 
     @commands.command(pass_context=True, hidden="true")
