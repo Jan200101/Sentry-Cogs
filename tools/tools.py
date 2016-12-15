@@ -24,9 +24,9 @@ class tools:
     async def playinglist(self, ctx):
         """Lists all games being played on this server"""
 
-        list = "{} People are playing".format(len([c.game for c in ctx.message.server.members if c.game and not c.bot]))
+        list = "{} People are playing a game".format(len([c.game for c in ctx.message.server.members if c.game and not c.bot]))
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page))
+            await self.bot.say(box(page, "Prolog"))
 
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
