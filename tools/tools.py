@@ -63,9 +63,15 @@ class tools:
     async def emojilist(self, ctx):
         """Lists all Emojis"""
 
-        list = ", ".join([e.name for e in ctx.message.server.emojis])
-        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page))#
+        x = -1
+        l =  []
+        while x < len(bot.get_all_emojis()) -1:
+            x = x + 1
+            l.append("<:{}:{}>".format([r for r in bot.get_all_emojis()][x].name, [r for r in bot.get_all_emojis()][x].id))
+
+        l = " ".join(l)
+        for page in pagify(l, ["\n"], shorten_by=7, page_length=2000):
+            await self.bot.say(page)
 
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
