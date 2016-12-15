@@ -64,12 +64,12 @@ class tools:
         """Lists all Emojis"""
 
         x = -1
-        l =  []
+        emojis =  []
         while x < len([r for r in ctx.message.server.emojis]) -1:
             x = x + 1
-            l.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][x], [r.id for r in ctx.message.server.emojis][x]))
+            emojis.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][x], [r.id for r in ctx.message.server.emojis][x]))
 
-            l = ", ".join(l)
+        emojis = ", ".join(emojis)
 
         for page in pagify(l, ["\n"], shorten_by=2, page_length=2000):
             await self.bot.say(page)
