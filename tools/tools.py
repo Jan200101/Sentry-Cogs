@@ -65,7 +65,7 @@ class tools:
 
         x = -1
         l =  []
-        while x < len(self.bot.get_all_emojis()) -1:
+        while x < len([r for r in self.bot.get_all_emojis()]) -1:
             x = x + 1
             l.append("<:{}:{}>".format([r for r in self.bot.get_all_emojis()][x].name, [r for r in self.bot.get_all_emojis()][x].id))
 
