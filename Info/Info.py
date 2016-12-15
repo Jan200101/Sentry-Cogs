@@ -114,13 +114,13 @@ class Info:
                                  user.id, colour=user.colour)
         else:
             data = discord.Embed(
-                description="Bot | User ID : " + user.id, colour=user.colour)
+                description="**Bot** | User ID : " + user.id, colour=user.colour)
 
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
-        data.add_field(name="Deafened", value=str(user.deaf))
-        data.add_field(name="Muted", value=str(user.mute))
+        data.add_field(name="Serverwide Deafened", value=str(user.deaf))
+        data.add_field(name="Serverwide Muted", value=str(user.mute))
         if user.voice_channel:
             data.add_field(name="In Voicechannel", value=user.voice_channel)
         if user.nick:
