@@ -60,7 +60,7 @@ class tools:
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
     async def botlist(self, ctx):
-        """Lists all Users"""
+        """Lists all banned Users"""
 
         list = ", ".join([m.name for m in ctx.message.server.members and m.bot])
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
