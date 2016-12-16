@@ -155,7 +155,12 @@ class Info:
             await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544` (Id of Sentry)")
             return
 
-        user = await self.bot.get_user_info(user)
+        try:
+            user = await self.bot.get_user_info(user)
+        except discord.errors.NotFound:
+            await self.bot.say("No user with the id `{}` found.".format(id))
+        except:
+            await self.bot.say("a error has occured. Tell Sentry")
 
         randnum = randint(1, 10)
         empty = u"\u2063"
