@@ -156,11 +156,13 @@ class Info:
             return
 
         try:
-            user = await self.bot.get_user_info(id)
+            globaluser = await self.bot.get_user_info(id)
         except discord.errors.NotFound:
             await self.bot.say("No user with the id `{}` found.".format(id))
+            return
         except:
             await self.bot.say("a error has occured. Tell Sentry")
+            return
 
         randnum = randint(1, 10)
         empty = u"\u2063"
@@ -169,12 +171,8 @@ class Info:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-        if not user:
-            await self.bot.say("Could not find {}".format(user))
-            return
-
         embed = discord.Embed(colour=colour)
-        embed.add_field(name="I found", value=str(user))
+        embed.add_field(name="I found", value=str(globaluser))
 
         try:
             await self.bot.say(emptyrand, embed=embed)
