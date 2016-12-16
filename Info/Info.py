@@ -210,7 +210,7 @@ class Info:
             x = x + 1
             emojis.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][x], [r.id for r in ctx.message.server.emojis][x]))
 
-        emojis = "".join(emojis)
+        emojis = ", ".join(emojis)
 
         randnum = randint(1, 10)
         empty = u"\u2063"
@@ -234,6 +234,7 @@ class Info:
         data.add_field(name="Text Channels", value=text_channels)
         data.add_field(name="Voice Channels", value=voice_channels)
         data.add_field(name="Roles", value=len(server.roles))
+        data.add_field(name="Emojis", value=len(server.emojis))
         if server.afk_channel:
             data.add_field(name="Afk Channel", value=str(server.afk_channel))
             data.add_field(name="Afk Timeout", value="{} ms".format(server.afk_timeout))
@@ -241,7 +242,6 @@ class Info:
         data.add_field(name="Owner", value="{}#{}".format(server.owner.display_name, server.owner.discriminator))
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
-        data.add_field(name="Emojis", value="{}\n{}".format(len(server.emojis), str(emojis)), inline=False)
         data.set_footer(text=created_at)
 
         if server.icon_url:
