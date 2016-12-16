@@ -143,7 +143,7 @@ class Info:
                                "to send this")
 
     @commands.command(no_pm=True)
-    async def globaluserinfo(self, *, user: str):
+    async def globaluserinfo(self, *, id: str):
         """Gives you the name of a any user"""
 
         if not self.bot.user.bot:
@@ -151,12 +151,12 @@ class Info:
                                 "It only works with bot accounts")
             return
 
-        if not user.isdigit():
+        if not id.isdigit():
             await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544` (Id of Sentry)")
             return
 
         try:
-            user = await self.bot.get_user_info(user)
+            user = await self.bot.get_user_info(id)
         except discord.errors.NotFound:
             await self.bot.say("No user with the id `{}` found.".format(id))
         except:
