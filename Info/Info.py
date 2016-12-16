@@ -241,8 +241,7 @@ class Info:
         data.add_field(name="Owner", value="{}#{}".format(server.owner.display_name, server.owner.discriminator))
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
-        data.add_field(name="Emojis", value="{}\n{}".format(len(server.emojis), str(emojis)))
-        data.add_field(name=u"\u2063", value=, inline=False)
+        data.add_field(name="Emojis", value="{}\n{}".format(len(server.emojis), str(emojis)), inline=False)
         data.set_footer(text=created_at)
 
         if server.icon_url:
