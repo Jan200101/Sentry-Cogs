@@ -63,8 +63,7 @@ class tools:
         """Lists the number of users"""
 
         list = len([m.name for m in ctx.message.server.members if not m.bot])
-        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page))
+        await self.bot.say(box(list, "Prolog"))
 
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
@@ -90,8 +89,7 @@ class tools:
         """Lists all Roles"""
 
         list = len([x.name for x in ctx.message.server.role_hierarchy if x.name != "@everyone"])
-        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page))
+        await self.bot.say(box(list, "Prolog"))
 
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
@@ -122,8 +120,7 @@ class tools:
 
         emojis = len(emojis)
 
-        for page in pagify(emojis, ["\n"], shorten_by=2, page_length=2000):
-            await self.bot.say(page)
+        await self.bot.say(box(emojis, "Prolog"))
 
     @commands.command(pass_context=True, hidden="true")
     @checks.is_owner()
@@ -144,6 +141,7 @@ class tools:
             list = ", ".join(x)
         else:
             list = "None"
+
         for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
             await self.bot.say(box(page))
 
