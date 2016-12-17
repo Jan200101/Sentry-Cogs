@@ -7,7 +7,7 @@ class math:
     def __init__(self, bot):
         self.bot = bot
 
-    @commmands.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def math(self, ctx, math):
         """Does math you are too lazy for"""
 
