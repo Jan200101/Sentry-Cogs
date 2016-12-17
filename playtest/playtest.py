@@ -142,7 +142,7 @@ class playtest:
                     color = int(color, 16)
 
             if z.days != 0:
-                if z.day > 6:
+                if z.days > 6:
                     color = "fafafa"
                     color = int(color, 16)
                 else:
