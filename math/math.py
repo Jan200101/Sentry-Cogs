@@ -9,14 +9,14 @@ class math:
         self.bot = bot
 
     @commands.command(pass_context=True)
-    async def math(self, ctx, math):
+    async def math(self, ctx, *, math):
         """Does math you are too lazy for"""
 
         math = math.replace(" ", "")
 
         calculation = eval(math)
 
-        await self.bot.say(box("{} **=** **{}**".format(math, calculation,), "Prolog"))
+        await self.bot.say(box("{} = {}".format(math, calculation,), "Prolog"))
 
 
 
