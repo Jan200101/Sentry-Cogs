@@ -14,9 +14,13 @@ class math:
 
         math = math.replace(" ", "")
 
-        calculation = eval(math)
+        try:
+            calculation = eval(math)
+        except:
+            await self.bot.say("Could not do math with `{}`".format(math))
+            return
 
-        await self.bot.say(box("{} = {}".format(math, calculation,), "Prolog"))
+        await self.bot.say(box("{}={}".format(math, calculation,), "Prolog"))
 
 
 
