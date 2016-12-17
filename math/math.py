@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from cogs.utils.chat_formatting import box
 
 class math:
     """Math interpreter in Discord"""
@@ -15,7 +16,7 @@ class math:
 
         calculation = eval(math)
 
-        await self.bot.say("{} **=** {}".format(math, calculation))
+        await self.bot.say(box("{} **=** **{}**".format(math, calculation,), "Prolog"))
 
 
 
