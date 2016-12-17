@@ -15,7 +15,7 @@ class Channelinfo:
             raise Exception("This cog does not work with my Info cog")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def channelinfo(self, ctx, channel: discord.Channel=None):
+    async def channelinfo(self, ctx, *, channel: discord.Channel=None):
         """Shows channel informations"""
         author = ctx.message.channel
         server = ctx.message.server
@@ -27,7 +27,7 @@ class Channelinfo:
         if not userlist:
             userlist = None
         else:
-            userlist = ", ".join(userlist)
+            userlist = "\n".join(userlist)
 
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"

@@ -29,7 +29,7 @@ class Info:
         if not userlist:
             userlist = None
         else:
-            userlist = ", ".join(userlist)
+            userlist = "\n".join(userlist)
 
         passed = (ctx.message.timestamp - channel.created_at).days
         created_at = ("Created on {} ({} days ago!)"
