@@ -122,30 +122,6 @@ class tools:
 
         await self.bot.say(box(emojis, "Prolog"))
 
-    @commands.command(pass_context=True, hidden="true")
-    @checks.is_owner()
-    async def banlist(self, ctx):
-        """Lists all banned users"""
-        x = None
-
-        try:
-            x = await self.bot.get_bans(ctx.message.server)
-        except discord.HTTPException:
-            await self.bot.say("I need the `Ban Members` permission to do this")
-            return
-        except:
-            await self.bot.say("Unkown error")
-            return
-
-        if x:
-            list = ", ".join(x)
-        else:
-            list = "None"
-
-        for page in pagify(list, ["\n"], shorten_by=7, page_length=2000):
-            await self.bot.say(box(page))
-
-
 def setup(bot):
     n = tools(bot)
     bot.add_cog(n)
