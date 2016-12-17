@@ -1,7 +1,7 @@
 {
     "AUTHOR" : "Sentry",
     "INSTALL_MSG" : "Thanks for installing math. This is probably gonna get updates to add more things like pi or sinus tanges etc.",
-    "NAME" : "math",
+    "NAME" : "matha",
     "SHORT" : "Math command for Discord",
     "DESCRIPTION" : "math in discord :D"
 }
