@@ -294,7 +294,7 @@ class Info:
 
         if not self.bot.user.bot:
             await self.bot.say("`This is not a bot account.\n"
-                                "use the build in {}join command instead`".format(self.bot.settings.prefixes[0]))
+                                "use the build in join command instead`")
             return
 
         invite = self.bot.oauth_url
