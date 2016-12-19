@@ -131,10 +131,6 @@ class playtest:
         if z.minutes != 0:
             k += "{} minutes ".format(z.minutes)
 
-        if z.seconds != 0:
-            k += "{} seconds ".format(z.seconds)
-
-
 
         if z.seconds != 0: #Bunch of color code stuff for certain times
             color = discord.colour.Color.blue()
