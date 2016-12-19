@@ -185,8 +185,8 @@ class playtest:
     async def playtestrefreshrate(self, seconds: int): #By Paddo
         """Sets how often the playtest information gets updated"""
         if await self._int(seconds):
-            if seconds < 5:
-                message = '`I can\'t do that, the refresh rate has to be above 5 seconds`'
+            if seconds < 10:
+                message = '`I can\'t do that, the refresh rate has to 10 seconds or above to not angry the Google Api`'
             else:
                 self.refresh_rate = seconds
                 self.settings['REFRESH_RATE'] = self.refresh_rate
