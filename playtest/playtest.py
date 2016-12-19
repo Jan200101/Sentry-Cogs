@@ -131,6 +131,9 @@ class playtest:
         if z.minutes != 0:
             k += "{} minutes ".format(z.minutes)
 
+        if z.seconds != 0:
+            k += "{} minutes ".format(z.seconds)
+
 
         if z.seconds != 0: #Bunch of color code stuff for certain times
             color = discord.colour.Color.blue()
@@ -179,7 +182,7 @@ class playtest:
 
     @commands.command()
     @checks.serverowner_or_permissions(manage_server=True)
-    async def playtestrefresh(self, seconds: int): #By Paddo
+    async def playtestrefreshrate(self, seconds: int): #By Paddo
         """Sets how often the playtest information gets updated"""
         if await self._int(seconds):
             if seconds < 5:
