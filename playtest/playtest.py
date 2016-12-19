@@ -79,7 +79,6 @@ class playtest:
         service = discovery.build('calendar', 'v3', http=http)
 
         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-        time = None
 
         eventsResult = service.events().list(
             calendarId='fkcvr5iio1kgdib061u7tgkg5o@group.calendar.google.com', timeMin=now, maxResults=10, singleEvents=True,
@@ -92,28 +91,24 @@ class playtest:
             eve = u"\u2063"
             found = False
             x = start
-            time = datetime.datetime.utcnow()
 
         for event in events:
-            if not time:
-                start = event['start'].get('dateTime', event['start'].get('date'))
-                eve = event['summary']
-                found = True
-                x = start
-                x = x.replace("T", " ")
-                x = x.replace("-06:00", "")
-                if len(x) > 10:
-                    try:
-                        time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
-                    except:
-                        time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
-
-        if not time:
-            start = "No upcoming events found or there has been a error"
-            eve = u"\u2063"
-            found = False
+            start = event['start'].get('dateTime', event['start'].get('date'))
+            eve = event['summary']
+            found = True
             x = start
-            time = datetime.datetime.utcnow()
+            x = x.replace("T", " ")
+            x = x.replace("-06:00", "")
+            x = x.replace("00:00:00", "")
+
+            if len(x) < 11:
+                time = datetime.datetime.strptime(x, '%Y-%m-%d')
+            else:
+                try:
+                    time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
+                except:
+                    time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
+
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
         z = relativedelta(time, datetime.datetime.utcnow())
@@ -135,6 +130,9 @@ class playtest:
 
         if z.minutes != 0:
             k += "{} minutes ".format(z.minutes)
+
+        if z.seconds != 0:
+            k += "{} seconds ".format(z.seconds)
 
 
         if z.seconds != 0: #Bunch of color code stuff for certain times
@@ -171,8 +169,8 @@ class playtest:
 
         return data
 
-    @commands.command(aliases=["nextplaytest","playtest"])
-    async def playtestinfo(self):
+    @commands.command()
+    async def playtest(self):
         """"""
 
         msg = await self.get_playtest()
@@ -187,8 +185,8 @@ class playtest:
     async def playtestrefreshrate(self, seconds: int): #By Paddo
         """Sets how often the playtest information gets updated"""
         if await self._int(seconds):
-            if seconds < 10:
-                message = '`I can\'t do that, the refresh rate has to 10 seconds or above to not make the Google API angry`'
+            if seconds < 5:
+                message = '`I can\'t do that, the refresh rate has to be above 5 seconds`'
             else:
                 self.refresh_rate = seconds
                 self.settings['REFRESH_RATE'] = self.refresh_rate
@@ -205,12 +203,12 @@ class playtest:
         if len(channel) > 0:
             self.settings['CHANNEL_ID'] = str(channel[0].id)
             dataIO.save_json('data/statistics/settings.json', self.settings)
-            message = "`Channel set to #{}`".format(channel[0].name)
+            message = 'Channel set to {}'.format(channel[0].mention)
         elif not self.settings['CHANNEL_ID']:
             message = 'No channel set!'
         else:
             channel = discord.utils.get(self.bot.get_all_channels(), id=self.settings['CHANNEL_ID'])
-            message = '`Current channel is #{}`'.format(channel.name)
+            message = 'Current channel is {}'.format(channel.mention)
         await self.bot.say(message)
 
     async def reload_playtest(self): #Reloads the automated playtest. Thank Paddo
