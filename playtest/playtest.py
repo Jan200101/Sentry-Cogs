@@ -79,6 +79,7 @@ class playtest:
         service = discovery.build('calendar', 'v3', http=http)
 
         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+        time = None
 
         eventsResult = service.events().list(
             calendarId='fkcvr5iio1kgdib061u7tgkg5o@group.calendar.google.com', timeMin=now, maxResults=10, singleEvents=True,
@@ -91,24 +92,28 @@ class playtest:
             eve = u"\u2063"
             found = False
             x = start
+            time = datetime.datetime.utcnow()
 
         for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            eve = event['summary']
-            found = True
+            if not time:
+                start = event['start'].get('dateTime', event['start'].get('date'))
+                eve = event['summary']
+                found = True
+                x = start
+                x = x.replace("T", " ")
+                x = x.replace("-06:00", "")
+                if len(x) > 10:
+                    try:
+                        time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
+                    except:
+                        time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
+
+        if not time:
+            start = "No upcoming events found or there has been a error"
+            eve = u"\u2063"
+            found = False
             x = start
-            x = x.replace("T", " ")
-            x = x.replace("-06:00", "")
-            x = x.replace("00:00:00", "")
-
-            if len(x) < 11:
-                time = datetime.datetime.strptime(x, '%Y-%m-%d')
-            else:
-                try:
-                    time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
-                except:
-                    time = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
-
+            time = datetime.datetime.utcnow()
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
         z = relativedelta(time, datetime.datetime.utcnow())
