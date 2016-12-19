@@ -22,6 +22,7 @@ try:
 except ImportError:
     flags = None
 
+__VERSION__ = "0.1.0"
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
@@ -171,9 +172,16 @@ class playtest:
 
         return data
 
+    @commands.command()
+    @checks.is_owner()
+    async def playtestversion(self):
+        """Prints out the playtest cogs version"""
+
+        await self.bot.say("`{}`".format(__VERSION__))
+
     @commands.command(aliases=["nextplaytest","playtest"])
     async def playtestinfo(self):
-        """"""
+        """Gives out information for the nextp playtest"""
 
         msg = await self.get_playtest()
 
