@@ -94,7 +94,7 @@ class Info:
         user_joined = joined_at.strftime("%d %b %Y %H:%M")
         user_created = user.created_at.strftime("%d %b %Y %H:%M")
 
-        created_on = "{}\n({} days go)".format(user_created, since_created)
+        created_on = "{}\n({} days ago)".format(user_created, since_created)
         joined_on = "{}\n({} days ago)".format(user_joined, since_joined)
 
         statususer = "{}".format(user.status)
@@ -152,7 +152,7 @@ class Info:
             return
 
         if not id.isdigit():
-            await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544` (Id of Sentry)")
+            await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544`")
             return
 
         try:
