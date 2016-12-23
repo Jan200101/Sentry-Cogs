@@ -164,7 +164,8 @@ class Info:
             await self.bot.say("No user with the id `{}` found.".format(id))
             return
         except discord.HTTPException:
-            await self.bot.say("A Error has occured (HTTP)")
+            await self.bot.say("No user with the id `{}` found.".format(id))
+            return
         except:
             await self.bot.say("A Error has occured")
             return
