@@ -154,14 +154,19 @@ class Info:
         if not id.isdigit():
             await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544`")
             return
+        elif len(id) < 17:
+            await self.bot.say("`{}` is not long enough to be a ID.\nIDs have to be 17 numbers long".format(id))
+            return
 
         try:
             globaluser = await self.bot.get_user_info(id)
         except discord.errors.NotFound:
             await self.bot.say("No user with the id `{}` found.".format(id))
             return
+        except discord.HTTPException:
+            await self.bot.say("A Error has occured (HTTP)")
         except:
-            await self.bot.say("a error has occured. Tell Sentry")
+            await self.bot.say("A Error has occured")
             return
 
         randnum = randint(1, 10)

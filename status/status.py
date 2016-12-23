@@ -36,13 +36,13 @@ class status:
 
     def _get_behind(self):
 
-        checkout = os.popen(r'git checkout')
-        checkout = checkout.read().strip()
+        checkout = os.popen(r'git status -uno')
+        checkout = checkout.read().strip("\n")[11 + len(branch):-52]
         if checkout.find("Your branch is up-to-date") != -1:
             embed = discord.Embed(title="Your Bot is up to date",
                                   colour=discord.Colour.green())
         else:
-            embed = discord.Embed(title="Your Bot is not up to date",
+            embed = discord.Embed(title=checkout,
                                   colour=discord.Colour.green())
 
         return embed
