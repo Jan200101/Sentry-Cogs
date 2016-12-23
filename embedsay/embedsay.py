@@ -23,7 +23,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
@@ -48,7 +48,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
@@ -80,7 +80,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=colour))
 
         try:
@@ -101,7 +101,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=colour))
 
         try:
@@ -125,7 +125,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=color))
 
         if ctx.message.author.avatar_url:
@@ -154,7 +154,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=color))
 
         if ctx.message.author.avatar_url:
@@ -187,7 +187,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=color))
 
         try:
@@ -212,7 +212,7 @@ class embesay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(description=str(
+        data = discord.Embed(title=str(
             text), colour=discord.Colour(value=color))
 
         try:
