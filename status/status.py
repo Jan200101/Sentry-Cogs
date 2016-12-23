@@ -51,6 +51,7 @@ class status:
         url = os.popen(r'git config --get remote.origin.url')
         url = url.read().strip()[:-4]
         repo_name = url.split("/")[-1]
+        author_name = url.split("/")[-2]
         branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
         branch = branch.read().strip()
         allbranches = os.popen(r'git branch')
@@ -65,11 +66,11 @@ class status:
 
 
         if defaultbranch:
-            embed = discord.Embed(title="travis-ci build status of {}".format(repo_name),
+            embed = discord.Embed(title="travis-ci build status of {} by {}".format(repo_name, author_name),
                                   colour=discord.Colour.orange(),
                                   url=url)
         else:
-            embed = discord.Embed(title="travis-ci build status of {} in {}".format(branch, repo_name),
+            embed = discord.Embed(title="travis-ci build status of {} in {} by {}".format(branch, repo_name, author_name),
                                   colour=discord.Colour.orange(),
                                   url=url)
 
