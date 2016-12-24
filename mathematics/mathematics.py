@@ -2,13 +2,13 @@ import discord
 from discord.ext import commands
 from cogs.utils.chat_formatting import box
 
-class math:
+class mathematics:
     """Math interpreter in Discord"""
 
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=["mathematics"])
     async def math(self, ctx, *, math):
         """Does math you are too lazy for"""
 
@@ -25,4 +25,4 @@ class math:
 
 
 def setup(bot):
-    bot.add_cog(math(bot))
+    bot.add_cog(mathematics(bot))
