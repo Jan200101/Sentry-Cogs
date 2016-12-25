@@ -1,6 +1,6 @@
-import discord
 from discord.ext import commands
 from cogs.utils.chat_formatting import box
+
 
 class mathematics:
     """Math interpreter in Discord"""
@@ -8,21 +8,28 @@ class mathematics:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True, aliases=["mathematics"])
-    async def math(self, ctx, *, math):
-        """Does math you are too lazy for"""
-
-        math = math.replace(" ", "")
-
+    async def __calculation__(self, n):  # For people to use as a example
         try:
-            calculation = eval(math)
+            result = eval(n)
         except:
-            await self.bot.say("Could not do math with `{}`".format(math))
-            return
+            result = None
 
-        await self.bot.say(box("{}={}".format(math, calculation,), "Prolog"))
+        return result
 
+    @commands.command()
+    async def math(self, *, math: str):
+        """Does math for you inside Discord"""
+
+        # puts what is in math into the __calculation__ definition and takes
+        # the mathematical result of it
+        calculation = await self.__calculation__(math)
+
+        if not calculation:
+            await self.bot.say("Could not do math with " + math)
+        else:
+            await self.bot.say(box(calculation, "Prolog"))
 
 
 def setup(bot):
-    bot.add_cog(mathematics(bot))
+    n = mathematics(bot)
+    bot.add_cog(n)
