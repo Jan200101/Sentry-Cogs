@@ -25,7 +25,7 @@ class mathematics:
         calculation = await self.__calculation__(math)
 
         if not calculation:
-            await self.bot.say("Could not do math with " + math)
+            await self.bot.say("Could not do math with `" + math + "`")
         else:
             await self.bot.say(box(calculation, "Prolog"))
 
