@@ -134,7 +134,7 @@ class Info:
             data.add_field(name="Nickname", value=str(user.nick))
         if user.game:
             data.add_field(name="Playing", value=str(user.game))
-        if author.id == "57287406247743488"
+        if author.id == "57287406247743488":
             data.add_field(name="This is a easter egg", value="that happens when you use this on Kowlin")
         data.add_field(name="Roles", value=roles, inline=False)
 
