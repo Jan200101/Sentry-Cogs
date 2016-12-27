@@ -36,6 +36,12 @@ class status:
 
     def _get_behind(self):
 
+        embed = "Thisis still broken. So it has no use yet"
+
+        return embed
+        
+        branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
+        branch = branch.read().strip()
         checkout = os.popen(r'git status -uno')
         checkout = checkout.read().strip("\n")[11 + len(branch):-52]
         if checkout.find("Your branch is up-to-date") != -1:
@@ -48,6 +54,7 @@ class status:
         return embed
 
     def _get_version(self):
+
         branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
         branch = branch.read().strip()
         allbranches = os.popen(r'git branch')

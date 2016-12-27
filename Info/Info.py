@@ -36,6 +36,7 @@ class Info:
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
 
+
         randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
@@ -99,6 +100,8 @@ class Info:
 
         statususer = "{}".format(user.status)
 
+        nitro = author.avatar_url.endswith("gif")
+
         if roles:
             roles = sorted(roles, key=[x.name for x in server.role_hierarchy
                                        if x.name != "@everyone"].index)
@@ -119,6 +122,7 @@ class Info:
         data.add_field(name="Joined Discord on", value=created_on)
         data.add_field(name="Joined this server on", value=joined_on)
         data.add_field(name="Status", value=statususer)
+        data.add_field(name="Nitro", value=nitro)
         data.add_field(name="Serverwide Deafened", value=str(user.deaf))
         data.add_field(name="Serverwide Muted", value=str(user.mute))
         if user.voice_channel:
@@ -143,7 +147,7 @@ class Info:
                                "to send this")
 
     @commands.command(no_pm=True)
-    async def globaluserinfo(self, *, id: str):
+    async def getuser(self, *, id: str):
         """Gives you the name of a any user"""
 
         if not self.bot.user.bot:
@@ -194,7 +198,6 @@ class Info:
         server = self.bot.get_server(server)
         if server is None:
             server = ctx.message.server
-
 
         online = len([m.status for m in server.members
                       if m.status == discord.Status.online or
