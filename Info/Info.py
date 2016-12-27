@@ -100,7 +100,10 @@ class Info:
 
         statususer = "{}".format(user.status)
 
-        nitro = author.avatar_url.endswith("gif")
+        if user .avatar_url.find("gif") != -1:
+            nitro = True
+        else:
+            nitro = False
 
         if roles:
             roles = sorted(roles, key=[x.name for x in server.role_hierarchy
