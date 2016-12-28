@@ -2,9 +2,11 @@ language: python
 python:
   - "3.5.2"
 install:
-  - pip install -r requirements.txt
+  - pip install python-dateutil
 script:
-  - python -m compileall ./
+  - git clone https://github.com/Twentysix26/Red-DiscordBot red
+  - cp ./*/*.py ./red/cogs
+  - python -m compileall ./red/cogs
 cache: pip
 notifications:
   email: false
