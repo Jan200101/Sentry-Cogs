@@ -208,9 +208,9 @@ class playtest:
                     self.refresh_rate)
         await self.bot.say(message)
 
-    @commands.command(no_pm=True)
+    @commands.command(no_pm=True, pass_context=True)
     @checks.serverowner_or_permissions(manage_server=True)
-    async def playtestchannel(self, channel: discord.Channel=None):  # Also by Paddo
+    async def playtestchannel(self, ctx, channel: discord.Channel=None):  # Also by Paddo
         """
         Set the channel to which the bot will sent its continues updates.
         """
