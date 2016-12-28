@@ -3,6 +3,8 @@ import discord
 from discord.ext import commands
 from cogs.utils import checks
 from cogs.utils.dataIO import dataIO
+from cogs.utils.chat_formatting import box
+from __main__ import send_cmd_help
 import httplib2
 import asyncio
 import os
@@ -22,7 +24,9 @@ try:
 except ImportError:
     flags = None
 
-__VERSION__ = "0.1.0"
+__VERSION__ = "0.2.1\n"
+__VERSION__ += "Changed the way playtestchannel and playtestrefreshrate worked"
+
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
@@ -64,13 +68,6 @@ class playtest:
         self.bot = bot
         self.settings = dataIO.load_json('data/playtest/settings.json')
         self.refresh_rate = self.settings['REFRESH_RATE']
-
-    async def _int(self, n):
-        try:
-            int(n)
-            return True
-        except ValueError:
-            return False
 
     async def get_playtest(self):
 
@@ -193,19 +190,26 @@ class playtest:
         except:
             await self.bot.say("a unkown error has occured")
 
-    @commands.command()
+    @commands.command(pass_context=True)
     @checks.serverowner_or_permissions(manage_server=True)
-    async def playtestrefreshrate(self, seconds: int):  # By Paddo
+    async def playtestrefreshrate(self, ctx, seconds: int=0):  # By Paddo
         """Sets how often the playtest information gets updated"""
-        if await self._int(seconds):
-            if seconds < 10:
-                message = '`I can\'t do that, the refresh rate has to 10 seconds or above to not make the Google API angry`'
-            else:
-                self.refresh_rate = seconds
-                self.settings['REFRESH_RATE'] = self.refresh_rate
-                dataIO.save_json('data/playtest/settings.json', self.settings)
-                message = '`Changed refresh rate to {} seconds`'.format(
-                    self.refresh_rate)
+
+        if not self.refresh_rate:  # If statement incase someone removes it or sets it to 0
+            self.refresh_rate = 5
+
+        if seconds == 0:
+            message = box(
+                "Current refresh rate is {}".format(self.refresh_rate))
+            await send_cmd_help(ctx)
+        elif seconds < 5:
+            message = '`I can\'t do that, the refresh rate has to be above 5 seconds`'
+        else:
+            self.refresh_rate = seconds
+            self.settings['REFRESH_RATE'] = self.refresh_rate
+            dataIO.save_json('data/playtest/settings.json', self.settings)
+            message = '`Changed refresh rate to {} seconds`'.format(
+                self.refresh_rate)
         await self.bot.say(message)
 
     @commands.command(no_pm=True, pass_context=True)
@@ -216,18 +220,22 @@ class playtest:
         """
         if channel:
             self.settings['CHANNEL_ID'] = str(channel.id)
-            dataIO.save_json('data/statistics/settings.json', self.settings)
+            dataIO.save_json('data/playtest/settings.json', self.settings)
             message = 'Channel set to {}'.format(channel.mention)
         elif not self.settings['CHANNEL_ID']:
-            message = 'No Channel set.\nUse `{}playtestchannel [Channel]` to set a channel'.format(ctx.prefix)
+            message = box("No Channel set")
+            await send_cmd_help(ctx)
         else:
             channel = discord.utils.get(
                 self.bot.get_all_channels(), id=self.settings['CHANNEL_ID'])
             if channel:
-                message = 'Current channel is #{}'.format(channel)
+                message = box('Current channel is #{}'.format(channel))
+                await send_cmd_help(ctx)
             else:
-                message = 'Current channel got deleted.'
                 self.settings['CHANNEL_ID'] = None
+                message = box("No Channel set")
+                await send_cmd_help(ctx)
+
         await self.bot.say(message)
 
     # Reloads the automated playtest. Thank Paddo
