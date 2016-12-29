@@ -2,7 +2,7 @@ from discord.ext import commands
 from cogs.utils.chat_formatting import box
 
 
-class mathematics:
+class math:
     """Math interpreter in Discord"""
 
     def __init__(self, bot):
@@ -31,5 +31,5 @@ class mathematics:
 
 
 def setup(bot):
-    n = mathematics(bot)
+    n = math(bot)
     bot.add_cog(n)
