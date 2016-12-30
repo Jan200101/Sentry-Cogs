@@ -251,7 +251,10 @@ class Info:
             data.add_field(name="Afk Channel", value=str(server.afk_channel))
             data.add_field(name="Afk Timeout", value="{} ms".format(server.afk_timeout))
         data.add_field(name="Verification Level", value =str(server.verification_level))
-        data.add_field(name="Owner", value="{}#{}".format(server.owner.display_name, server.owner.discriminator))
+        if server.owner:
+            data.add_field(name="Owner", value="{}#{}".format(server.owner.display_name, server.owner.discriminator))
+        else:
+            data.add_field(name="Owner", value="Could not be found.\nPossible error in API")
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
         data.set_footer(text=created_at)
