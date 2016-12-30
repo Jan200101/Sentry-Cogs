@@ -14,7 +14,8 @@ class status:
     async def behind(self):
         """Shows how many commits you are behind"""
         response = self.bot.loop.run_in_executor(None, self._get_behind)
-        result = await asyncio.wait_for(response, timeout=10)
+        result = await asyncio.wait_for(response, timeout=20)
+
         try:
             await self.bot.say(embed=result)
         except discord.HTTPException:
@@ -26,7 +27,8 @@ class status:
     async def travis(self):
         """Shows travis status of your reds installation"""
         response = self.bot.loop.run_in_executor(None, self._get_version)
-        result = await asyncio.wait_for(response, timeout=10)
+        result = await asyncio.wait_for(response, timeout=20)
+        
         try:
             await self.bot.say(embed=result)
         except discord.HTTPException:
@@ -45,10 +47,10 @@ class status:
         status = status.read().strip()
 
         if status.find("Your branch is behind") != -1:
-            behind = "Red is out of date by {} commits".format("".join([str(s) for s in status.split() if s.isdigit()]))
+            behind = "Your bot is out of date by {} commits".format("".join([str(s) for s in status.split() if s.isdigit()]))
             color = discord.Colour.red()
         elif status.find("Your branch is up-to-date") != -1:
-            behind = "Red is up to date"
+            behind = "Your bot is up to date"
             color = discord.Colour.green()
         else:
             behind = "Unable to check if out of date"
