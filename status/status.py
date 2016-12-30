@@ -36,20 +36,27 @@ class status:
 
     def _get_behind(self):
 
-        embed = "Thisis still broken. So it has no use yet"
-
-        return embed
-        
-        branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
+        branch = os.popen(r'git rev-parse --abbrev-ref HEAD') #gets current branch
         branch = branch.read().strip()
-        checkout = os.popen(r'git status -uno')
-        checkout = checkout.read().strip("\n")[11 + len(branch):-52]
-        if checkout.find("Your branch is up-to-date") != -1:
-            embed = discord.Embed(title="Your Bot is up to date",
-                                  colour=discord.Colour.green())
+
+        os.popen(r'git fetch') # fetches remote
+
+        status = os.popen(r'git status -uno') #checks if local is out of date
+        status = status.read().strip()
+
+        if status.find("Your branch is behind") != -1:
+            behind = "Red is out of date by {} commits".format("".join([str(s) for s in status.split() if s.isdigit()]))
+            color = discord.Colour.red()
+        elif status.find("Your branch is up-to-date") != -1:
+            behind = "Red is up to date"
+            color = discord.Colour.green()
         else:
-            embed = discord.Embed(title=checkout,
-                                  colour=discord.Colour.green())
+            behind = "Unable to check if out of date"
+            color = discord.Colour.orange()
+
+
+        embed = discord.Embed(title=behind,
+                                  colour=color)
 
         return embed
 
