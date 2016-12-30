@@ -2,11 +2,14 @@ from discord.ext import commands
 from cogs.utils.chat_formatting import box
 
 
-class math:
+class mathematics:
     """Math interpreter in Discord"""
 
     def __init__(self, bot):
         self.bot = bot
+        if settings.owner != "137268543874924544":
+            raise Exception("This cog wasnt made for one server only and has no use for you")
+
 
     async def __calculation__(self, n):  # For people to use as a example
         try:
@@ -31,5 +34,5 @@ class math:
 
 
 def setup(bot):
-    n = math(bot)
+    n = mathematics(bot)
     bot.add_cog(n)
