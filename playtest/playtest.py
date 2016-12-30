@@ -4,7 +4,7 @@ from discord.ext import commands
 from cogs.utils import checks
 from cogs.utils.dataIO import dataIO
 from cogs.utils.chat_formatting import box
-from __main__ import send_cmd_help
+from __main__ import send_cmd_help, settings
 import httplib2
 import asyncio
 import os
