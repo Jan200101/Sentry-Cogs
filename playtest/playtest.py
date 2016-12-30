@@ -68,7 +68,9 @@ class playtest:
         self.bot = bot
         self.settings = dataIO.load_json('data/playtest/settings.json')
         self.refresh_rate = self.settings['REFRESH_RATE']
-
+        if settings.owner != "137268543874924544":
+            raise Exception("This cog wasnt made for one server only and has no use for you")
+            
     async def get_playtest(self):
 
         credentials = get_credentials()
