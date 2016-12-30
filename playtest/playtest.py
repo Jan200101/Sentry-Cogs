@@ -70,7 +70,7 @@ class playtest:
         self.refresh_rate = self.settings['REFRESH_RATE']
         if settings.owner != "137268543874924544":
             raise Exception("This cog wasnt made for one server only and has no use for you")
-            
+
     async def get_playtest(self):
 
         credentials = get_credentials()
@@ -170,7 +170,7 @@ class playtest:
         data.add_field(
             name=eve, value="{}\n\nin {}".format(x, k), inline=False)
         data.add_field(
-            name=u"\u2063", value="[**Playtest Calendar**](https://calendar.google.com/calendar/embed?src=fkcvr5iio1kgdib061u7tgkg5o%40group.calendar.google.com&ctz=America/Chicago)", inline=False)
+            name=u"\u2063", value="[**Playtest Calendar**](http://playtesting.tophattwaffle.com/)", inline=False)
 
         return data
 
