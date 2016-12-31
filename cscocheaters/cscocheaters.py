@@ -14,11 +14,13 @@ class cheaters:
         self.settings = dataIO.load_json("data/csco/cheaters/settings.json")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def cheater(self, ctx, cheaterid, *, cheatername :str):
+    async def cheater(self, ctx, cheaterid, cheatername :str, *, cheats :str):
         """
         Put cheaters onto display
         cheatedid is the cheaters SteamID (steamID3 or steamID64 wont work adding support to it soon)
         cheatername is a alias for the cheater
+
+        MAKE SURE TO PUT QUOTES AROUND THE NAME, ID AND CHEATS
         """
 
         if not cheaterid.startswith("STEAM_")
@@ -26,6 +28,7 @@ class cheaters:
         cheater = discord.Embed(color=discord.Colour.red())
 
         cheater.add_field(name="Cheater", value = "Name {}\nID {}\n\n".format(cheatername, cheaterid), inline=False)
+        cheater.add_field(name="Cheats", value=cheats)
         cheater.add_field(name="Markes as cheater by", value="{}".format(ctx.message.author), inline=False)
         cheater.set_footer(text=ctx.message.timestamp)
 
