@@ -13,6 +13,11 @@ class cheaters:
         self.bot = bot
         self.settings = dataIO.load_json("data/csco/cheaters/settings.json")
 
+    @commands.command(pass_context=True, hidden=True)
+    async def hoopda(self, ctx):
+
+        await self.bot.send_message(ctx.message.author, "How did you find this ??")
+
     @commands.command(pass_context=True, no_pm=True)
     async def cheater(self, ctx, cheaterid, cheatername :str, *, cheats :str):
         """
