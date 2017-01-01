@@ -79,7 +79,9 @@ class status:
         allbranches = allbranches.read().strip()
 
         url = os.popen(r'git config --get remote.origin.url')
-        url = url.read().strip()[:-4]
+        url = url.read().strip()
+        if url.endswith(".git"):
+            url = url[:-4]
 
         # formats the url and branch together to get the branches repo link
         branchurl = "{}/tree/{}".format(url, branch)
