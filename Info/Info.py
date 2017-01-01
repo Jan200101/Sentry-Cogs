@@ -238,6 +238,7 @@ class Info:
             colour=discord.Colour(value=colour))
 
         data.add_field(name="Region", value=str(server.region))
+        data.add_field(name="Roles", value=len(server.roles))
         if bot_users != 0:
             data.add_field(name="Users", value="{}/{}\n"
                                                "*{} Humans\n"
@@ -246,7 +247,6 @@ class Info:
             data.add_field(name="Users", value="{}/{}".format(online, total_users))
 
         data.add_field(name="Channels", value="{}\n{} Text Channels\n{} Voice Channels".format(len(server.channels), text_channels, voice_channels))
-        data.add_field(name="Roles", value=len(server.roles))
         data.add_field(name="Emojis", value=len(server.emojis))
         if server.afk_channel:
             data.add_field(name="Afk Channel", value=str(server.afk_channel))
