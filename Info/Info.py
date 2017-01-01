@@ -259,11 +259,9 @@ class Info:
         data.add_field(name="Vip", value=vip)
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
-        if server.features:
-            data.add_field(name="features", value="\n".join(server.features))
         if server.splash_url:
-            data.add_field(name="Splash screen", value=empty, inline=False)
-            data.set_image(url=server.splash_url.replace("size=2048", "size=128"))
+            data.add_field(name="Splash screen", value="[Full Image]({})".format(server.splash_url), inline=False)
+            data.set_image(url=server.splash_url.replace("size=2048", "size=64"))
 
         data.set_footer(text=created_at)
 
