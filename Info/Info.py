@@ -244,8 +244,6 @@ class Info:
             data.add_field(name="Users", value="{}/{}".format(online, total_users))
 
         data.add_field(name="Channels", value="{}\n{} Text Channels\n{} Voice Channels".format(len(server.channels), text_channels, voice_channels))
-        data.add_field(name="Text Channels", value=)
-        data.add_field(name="Voice Channels", value=)
         data.add_field(name="Roles", value=len(server.roles))
         data.add_field(name="Emojis", value=len(server.emojis))
         if server.afk_channel:
