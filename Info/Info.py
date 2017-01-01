@@ -243,6 +243,7 @@ class Info:
         else: #Incase of the cog being used by a selfbot on a server without bots
             data.add_field(name="Users", value="{}/{}".format(online, total_users))
 
+        data.add_field(name="Channels", value=len(server.channels))
         data.add_field(name="Text Channels", value=text_channels)
         data.add_field(name="Voice Channels", value=voice_channels)
         data.add_field(name="Roles", value=len(server.roles))
@@ -257,6 +258,12 @@ class Info:
             data.add_field(name="Owner", value="Could not be found.\nPossible error in API")
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
+        if server.features:
+            data.add_field(name="features", value=server.features)
+        if server.splash_url:
+            data.add_field(name="Splash screen", value=empty)
+            data.set_image(url=server.splash_url)
+
         data.set_footer(text=created_at)
 
         if server.icon_url:
