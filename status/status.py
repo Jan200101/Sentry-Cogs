@@ -32,7 +32,7 @@ class status:
     @commands.command(aliases=["travis-ci"])
     async def travis(self):
         """Shows travis status of your reds installation"""
-        response = self.bot.loop.run_in_executor(None, self._get_version)
+        response = self.bot.loop.run_in_executor(None, self._get_travis)
         result = await asyncio.wait_for(response, timeout=20)
 
         try:
@@ -71,8 +71,7 @@ class status:
 
         return embed
 
-    def _get_version(self):
-
+    def _get_travis(self):
         branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
         branch = branch.read().strip()
 
@@ -119,7 +118,7 @@ class status:
 
         return embed
 
-def check_folder(): 
+def check_folder():
     if not os.path.exists(".git"):
         raise Exception("\n\nThis is not a valid git clone. Please return to the guide and follow it")
 
