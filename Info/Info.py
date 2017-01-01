@@ -257,10 +257,10 @@ class Info:
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
         if server.features:
-            data.add_field(name="features", value=server.features)
+            data.add_field(name="features", value="".join(server.features))
         if server.splash_url:
             data.add_field(name="Splash screen", value=empty)
-            data.set_image(url=server.splash_url)
+            data.set_image(url=server.splash_url.replace("size=2048", "size=128"))
 
         data.set_footer(text=created_at)
 
