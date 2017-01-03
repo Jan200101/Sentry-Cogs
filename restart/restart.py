@@ -6,7 +6,7 @@ import subprocess
 import os
 
 class restart:
-"""Cog to restart the bot without the need of any special tools."""
+    """Cog to restart the bot without the need of any special tools."""
 
     def __init__(self, bot):
         self.bot = bot
