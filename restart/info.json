@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "Sentry",
+    "INSTALL_MSG" : "Thank you for installing restart\nMake sure to use [p]shutdown when you are running the bot with systemd or similar",
+    "NAME" : "restart",
+    "SHORT" : "adds a command to restart Red",
+    "DESCRIPTION" : "adds a command to restart Red"
+}

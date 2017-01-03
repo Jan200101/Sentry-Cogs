@@ -6,6 +6,7 @@ import subprocess
 import os
 
 class restart:
+"""Cog to restart the bot without the need of any special tools."""
 
     def __init__(self, bot):
         self.bot = bot
@@ -13,6 +14,8 @@ class restart:
     @commands.command(pass_context=True)
     @checks.is_owner()
     async def restart(self, ctx):
+        """Restarts the bot"""
+
         await self.bot.say("Do you really want to restart? (yes/no)")
         answer = await self.bot.wait_for_message(timeout=10,
                                                  author=ctx.message.author)
