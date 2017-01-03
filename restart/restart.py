@@ -19,8 +19,8 @@ class restart:
 
         if answer == None:
             await self.bot.say("Canceling restart...")
-        elif answer.content.lower().strip() == "yes":
 
+        elif answer.content.lower().strip() == "yes":
             await self.bot.say("Restarting now.")
             time.sleep(2)
             cd = "{}/{}".format(os.getcwd(), sys.argv[0])
