@@ -25,6 +25,7 @@ class restart:
 
         elif answer.content.lower().strip() == "yes":
             await self.bot.say("Restarting now.")
+            print("\n\n{0}\nRestaring Red.\n{0}\n".format("\\" * 30))
             time.sleep(2)
             cd = "{}/{}".format(os.getcwd(), sys.argv[0])
             child = subprocess.Popen(["{} {}".format(sys.executable, cd)],shell=True,stdout=subprocess.PIPE)
