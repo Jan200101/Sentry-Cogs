@@ -36,7 +36,6 @@ class Info:
                       "".format(channel.created_at.strftime("%d %b %Y %H:%M"),
                                 passed))
 
-
         randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
@@ -137,10 +136,12 @@ class Info:
         data.add_field(name="Roles", value=roles, inline=False)
 
         if user.avatar_url:
-            data.set_author(name="{} {}".format(user.name, user.discriminator), url=user.avatar_url)
+            data.set_author(name="{} {}".format(
+                user.name, user.discriminator), url=user.avatar_url)
             data.set_thumbnail(url=user.avatar_url)
         else:
-            data.set_author(name="{} {}".format(user.name, user.discriminator), url=user.default_avatar_url)
+            data.set_author(name="{} {}".format(
+                user.name, user.discriminator), url=user.default_avatar_url)
             data.set_thumbnail(url=user.default_avatar_url)
 
         try:
@@ -155,7 +156,7 @@ class Info:
 
         if not self.bot.user.bot:
             await self.bot.say("``This is not a bot account\n"
-                                "It only works with bot accounts")
+                               "It only works with bot accounts")
             return
 
         if not id.isdigit():
@@ -193,7 +194,6 @@ class Info:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
-
     @commands.command(pass_context=True, no_pm=True)
     async def serverinfo(self, ctx, server=None):
         """Shows server's informations"""
@@ -201,6 +201,13 @@ class Info:
         server = self.bot.get_server(server)
         if server is None:
             server = ctx.message.server
+
+        if server.splash_url:
+            splash = server.splash_url
+            splashsmall = splash
+            while not splashsmall.endswith("?"):
+                splashsmall = splashsmall[:-10]
+            splashsmall = splashsmall + "size=128"
 
         online = len([m.status for m in server.members
                       if m.status == discord.Status.online or
@@ -217,10 +224,11 @@ class Info:
                                 passed))
 
         x = -1
-        emojis =  []
-        while x < len([r for r in ctx.message.server.emojis]) -1:
+        emojis = []
+        while x < len([r for r in ctx.message.server.emojis]) - 1:
             x = x + 1
-            emojis.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][x], [r.id for r in ctx.message.server.emojis][x]))
+            emojis.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][
+                          x], [r.id for r in ctx.message.server.emojis][x]))
 
         emojis = ", ".join(emojis)
 
@@ -230,38 +238,53 @@ class Info:
 
         vip = "vip" in "\n".join(server.features).lower()
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
+        colour = [r.color for r in server.role_hierarchy][0]
 
         data = discord.Embed(
             description="Server ID: " + server.id,
-            colour=discord.Colour(value=colour))
+            colour=colour)
 
         data.add_field(name="Region", value=str(server.region))
         data.add_field(name="Roles", value=len(server.roles))
+
         if bot_users != 0:
             data.add_field(name="Users", value="{}/{}\n"
                                                "*{} Humans\n"
                                                "{} Bots*".format(online, total_users, normal_users, bot_users))
-        else: #Incase of the cog being used by a selfbot on a server without bots
-            data.add_field(name="Users", value="{}/{}".format(online, total_users))
 
-        data.add_field(name="Channels", value="{}\n{} Text Channels\n{} Voice Channels".format(len(server.channels), text_channels, voice_channels))
+        else:  # Incase of the cog being used by a selfbot on a server without bots
+            data.add_field(
+                name="Users", value="{}/{}".format(online, total_users))
+
+        data.add_field(name="Channels", value="{}\n{} Text Channels\n{} Voice Channels".format(
+            len(server.channels), text_channels, voice_channels))
         data.add_field(name="Emojis", value=len(server.emojis))
         if server.afk_channel:
             data.add_field(name="Afk Channel", value=str(server.afk_channel))
-            data.add_field(name="Afk Timeout", value="{} ms".format(server.afk_timeout))
-        data.add_field(name="Verification Level", value =str(server.verification_level))
+            data.add_field(name="Afk Timeout",
+                           value="{} ms".format(server.afk_timeout))
+
+        data.add_field(name="Verification Level",
+                       value=str(server.verification_level))
+
         if server.owner:
-            data.add_field(name="Owner", value="{}#{}".format(server.owner.display_name, server.owner.discriminator))
+            data.add_field(name="Owner", value="{}#{}".format(
+                server.owner.display_name, server.owner.discriminator))
+
         else:
-            data.add_field(name="Owner", value="Could not be found.\nPossible error in API")
+            # Incase of discordpy failing again
+            data.add_field(
+                name="Owner", value="Could not be found.\nPossible error in API")
+
         data.add_field(name="Vip", value=vip)
+
         if server.unavailable:
             data.add_field(name="Unavailable", value=str(server.unavailable))
+
         if server.splash_url:
-            data.add_field(name="Splash screen", value="[Full Image]({})".format(server.splash_url), inline=False)
-            data.set_image(url=server.splash_url.replace("size=2048", "size=128"))
+            data.add_field(name="Splash screen",
+                           value="[Full Image]({})".format(splash), inline=False)
+            data.set_image(url=splashsmall)
 
         data.set_footer(text=created_at)
 
@@ -315,7 +338,7 @@ class Info:
 
         if not self.bot.user.bot:
             await self.bot.say("`This is not a bot account.\n"
-                                "use the build in join command instead`")
+                               "use the build in join command instead`")
             return
 
         invite = self.bot.oauth_url
@@ -326,7 +349,8 @@ class Info:
         emptyrand = empty * randnum
 
         data = discord.Embed(colour=server.me.colour)
-        data.add_field(name="{} #{}".format(server.me.name, server.me.discriminator), value=invite, inline=False)
+        data.add_field(name="{} #{}".format(
+            server.me.name, server.me.discriminator), value=invite, inline=False)
 
         if server.me.avatar_url:
             data.set_thumbnail(url=server.me.avatar_url)
