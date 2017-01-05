@@ -13,7 +13,7 @@ class restart:
 
     @commands.command(pass_context=True)
     @checks.is_owner()
-    async def restart(self, ctx):
+    async def quickrestart(self, ctx):
         """Restarts the bot"""
 
         await self.bot.say("Do you really want to restart? (yes/no)")
