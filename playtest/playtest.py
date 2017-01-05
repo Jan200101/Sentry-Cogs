@@ -11,8 +11,7 @@ import os
 from random import choice
 
 from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
+from oauth2client import client, tools
 from oauth2client.file import Storage
 
 import datetime

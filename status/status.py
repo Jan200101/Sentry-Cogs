@@ -4,10 +4,6 @@ from discord.ext import commands
 import asyncio
 import requests
 
-if not os.path.isdir(".s"):
-    gitexist = False
-else:
-    gitexist = True
 
 class status:
     """See infos about your current red installation"""
@@ -44,14 +40,12 @@ class status:
 
     def _get_behind(self):
 
-        branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
-        branch = branch.read().strip()
+        branch = os.popen(r'git rev-parse --abbrev-ref HEAD').read().strip()
 
         os.popen(r'git fetch')
 
         # checks if local is out of date, needs the fetch first
-        status = os.popen(r'git status -uno')
-        status = status.read().strip()
+        status = os.popen(r'git status -uno').read().strip()
 
         if status.find("Your branch is up-to-date") != -1:
             behind = "Your bot is up to date"
