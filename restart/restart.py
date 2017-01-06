@@ -5,6 +5,7 @@ import sys
 import subprocess
 import os
 
+
 class restart:
     """Cog to restart the bot without the need of any special tools."""
 
@@ -13,7 +14,7 @@ class restart:
 
     @commands.command(pass_context=True)
     @checks.is_owner()
-    async def quickrestart(self, ctx):
+    async def restart(self, ctx):
         """Restarts the bot"""
 
         await self.bot.say("Do you really want to restart? (yes/no)")
@@ -38,4 +39,5 @@ class restart:
 
 def setup(bot):
     n = restart(bot)
+    bot.remove_command("restart")
     bot.add_cog(n)
