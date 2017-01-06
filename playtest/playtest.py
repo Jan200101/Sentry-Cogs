@@ -118,7 +118,7 @@ class playtest:
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
         z = relativedelta(time, datetime.datetime.utcnow())
-        color = "000000"
+        color = "585858"
         color = int(color, 16)
         k = ""
 
