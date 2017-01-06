@@ -118,8 +118,10 @@ class playtest:
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
         z = relativedelta(time, datetime.datetime.utcnow())
+        
         color = "585858"
         color = int(color, 16)
+
         k = ""
 
         if z.years != 0:  # just adding the certain time if it exist
