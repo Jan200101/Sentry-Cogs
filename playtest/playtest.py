@@ -149,7 +149,7 @@ class playtest:
         if z.hours != 0:
             if z.hours < 2:
                 color = discord.colour.Color.red()
-            elif z.hours > -1:
+            elif z.hours < 0:
                 color = "0047ab"
                 color = int(color, 16)
             else:
