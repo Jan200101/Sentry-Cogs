@@ -117,7 +117,7 @@ class playtest:
             time = datetime.datetime.utcnow()
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
-        z = relativedelta(time, datetime.datetime.utcnow())
+        z = relativedelta(time, datetime.datetime.utcnow() - datetime.timedelta(hours=6))
 
         color = "585858"
         color = int(color, 16)
@@ -134,7 +134,7 @@ class playtest:
             k += "{} days ".format(z.days)
 
         if z.hours != 0:
-            k += "{} hours ".format(z.hours - 6)
+            k += "{} hours ".format(z.hours)
 
         if z.minutes != 0:
             k += "{} minutes ".format(z.minutes)
