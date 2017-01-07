@@ -23,8 +23,8 @@ try:
 except ImportError:
     flags = None
 
-__VERSION__ = "0.2.1\n"
-__VERSION__ += "Changed the way playtestchannel and playtestrefreshrate worked"
+__VERSION__ = "0.2.2\n"
+__VERSION__ += "Changed colors"
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
@@ -88,33 +88,35 @@ class playtest:
         if not events:
             start = "No upcoming events found."
             eve = u"\u2063"
-            found = False
             x = start
             time = datetime.datetime.utcnow()
+            description = "None"
 
         for event in events:
             if not time:
                 start = event['start'].get(
                     'dateTime', event['start'].get('date'))
                 eve = event['summary']
-                found = True
+
+                description = event['description']
+                description = description.replace("Discord Name:", "**Discord Name:**")
+                description = description.replace("Map Images:", "**Map Images:**")
+                description = description.replace("Workshop Link:", "**Workshop Link:**")
+                description = description.replace("Steam Group Event:", "**Steam Group Event:**")
+
                 x = start
                 x = x.replace("T", " ")
                 x = x.replace("-06:00", "")
-                if len(x) > 10:
-                    try:
-                        time = datetime.datetime.strptime(
-                            x, '%Y-%m-%d %H:%M:%S')
-                    except:
-                        time = datetime.datetime.strptime(
-                            x, '%Y-%m-%d %H:%M:%S')
+                time = datetime.datetime.strptime(
+                    x, '%Y-%m-%d %H:%M:%S')
+
 
         if not time:
             start = "No upcoming events found or there has been a error"
             eve = u"\u2063"
-            found = False
             x = start
             time = datetime.datetime.utcnow()
+            description = "None"
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
         z = relativedelta(time, datetime.datetime.utcnow() - datetime.timedelta(hours=6))
@@ -143,7 +145,9 @@ class playtest:
             color = discord.colour.Color.blue()
 
         if z.minutes != 0:
-            if z.minutes < 16:
+            if z.minutes < 0:
+                color = discord.colour.Color.blue()
+            elif z.minutes < 16:
                 color = discord.colour.Color.green()
             else:
                 color = discord.colour.Color.red()
@@ -166,7 +170,9 @@ class playtest:
         data = discord.Embed(description="Next Playtest is", color=color)
 
         data.add_field(
-            name=eve, value="{}\n\nin {}".format(x, k), inline=False)
+            name=eve, value="{}\nin {}\n\n{}".format(x, k, u"\u2063"), inline=False)
+        data.add_field(
+            name="Description", value=description, inline=False)
         data.add_field(
             name=u"\u2063", value="[**Playtest Calendar**](http://playtesting.tophattwaffle.com/)", inline=False)
 
