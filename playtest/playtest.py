@@ -134,7 +134,7 @@ class playtest:
             k += "{} days ".format(z.days)
 
         if z.hours != 0:
-            k += "{} hours ".format(z.hours)
+            k += "{} hours ".format(z.hours - 6)
 
         if z.minutes != 0:
             k += "{} minutes ".format(z.minutes)
