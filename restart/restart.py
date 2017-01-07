@@ -14,6 +14,12 @@ class restart:
 
     @commands.command(pass_context=True)
     @checks.is_owner()
+    async def ttest(self, ctx):
+
+        await self.bot.say("This is `oldrestart`\n{}".format(oldrestart))
+
+    @commands.command(pass_context=True)
+    @checks.is_owner()
     async def restart(self, ctx):
         """Restarts the bot"""
 
@@ -37,7 +43,17 @@ class restart:
         else:
             await self.bot.say("Canceling restart...")
 
+def __unload(self):
+    print("This shows you didnt screw up. Hooray")
+
 def setup(bot):
+
+    global oldrestart
+    oldrestart = bot.get_command("restart")
+
+    if oldrestart:
+        bot.remove_command(oldrestart.name)
+
+    bot.say("Beep Boop, Load")
     n = restart(bot)
-    bot.remove_command("restart")
     bot.add_cog(n)

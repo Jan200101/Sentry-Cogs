@@ -118,7 +118,7 @@ class playtest:
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
         z = relativedelta(time, datetime.datetime.utcnow())
-        
+
         color = "585858"
         color = int(color, 16)
 
@@ -149,11 +149,8 @@ class playtest:
                 color = discord.colour.Color.red()
 
         if z.hours != 0:
-            if z.hours < 2:
+            if z.hours < 1:
                 color = discord.colour.Color.red()
-            elif z.hours < 0:
-                color = "0047ab"
-                color = int(color, 16)
             else:
                 color = "f49e42"
                 color = int(color, 16)
