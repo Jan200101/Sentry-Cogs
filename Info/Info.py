@@ -150,46 +150,68 @@ class Info:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
-    @commands.command(no_pm=True)
-    async def getuser(self, *, id: str):
-        """Gives you the name of a any user"""
+    @commands.command(aliases=["getglobaluser"], pass_context=True)
+    async def globaluserinfo(self, ctx, id: str):
+        """Gives you the info of ANY user."""
 
         if not self.bot.user.bot:
             await self.bot.say("``This is not a bot account\n"
-                               "It only works with bot accounts")
+                                "It only works with bot accounts")
             return
 
         if not id.isdigit():
-            await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544`")
-            return
-        elif len(id) < 17:
-            await self.bot.say("`{}` is not long enough to be a ID.\nIDs have to be 17 numbers long".format(id))
+            await self.bot.say("You can only use IDs from a user\nExample: `137268543874924544` (ID of Sentry)")
             return
 
         try:
-            globaluser = await self.bot.get_user_info(id)
+            user = await self.bot.get_user_info(id)
         except discord.errors.NotFound:
             await self.bot.say("No user with the id `{}` found.".format(id))
             return
-        except discord.HTTPException:
-            await self.bot.say("No user with the id `{}` found.".format(id))
-            return
         except:
-            await self.bot.say("A Error has occured")
+            await self.bot.say("An error has occured.")
             return
+
+        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+
 
         randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
+        user_created = user.created_at.strftime("%d %b %Y %H:%M")
+        since_created = (ctx.message.timestamp - user.created_at).days
 
-        embed = discord.Embed(colour=colour)
-        embed.add_field(name="I found", value=str(globaluser))
+
+        created_on = "{}\n({} days ago)".format(user_created, since_created)
+
+        if user .avatar_url.find("gif") != -1:
+            nitro = True
+        else:
+            nitro = False
+
+        if user.bot == False:
+            data = discord.Embed(description="User ID : " +
+                                 user.id, colour=colour)
+        else:
+            data = discord.Embed(
+                description="**Bot** | User ID : " + user.id, colour=colour)
+
+        data.add_field(name="Joined Discord on", value=created_on)
+        data.add_field(name="Nitro", value=nitro)
+
+        if user.avatar_url:
+            data.set_author(name="{} {}".format(
+                user.name, user.discriminator), url=user.avatar_url)
+            data.set_thumbnail(url=user.avatar_url)
+        else:
+            data.set_author(name="{} {}".format(
+                user.name, user.discriminator), url=user.default_avatar_url)
+            data.set_thumbnail(url=user.default_avatar_url)
 
         try:
-            await self.bot.say(emptyrand, embed=embed)
+            await self.bot.say(emptyrand, embed=data)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
