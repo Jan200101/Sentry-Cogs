@@ -3,7 +3,7 @@ from discord.ext import commands
 from random import choice
 
 
-class BottleSpin:
+class Bottlespin:
     """Spins a bottle and lands on a random user."""
 
     def __init__(self, bot):
@@ -16,9 +16,9 @@ class BottleSpin:
         server = ctx.message.server
         target = choice(list([m.name for m in ctx.message.server.members if str(m.status) == "online" or str(m.status) == "idle"]))
 
-        await self.bot.say("{} spinned the bottle and it landed on {}!!".format(ctx.message.author.mention, target))
+        await self.bot.say("{} spinned the bottle and it landed on {}".format(ctx.message.author.mention, target))
 
 
 def setup(bot):
-    n = BottleSpin(bot)
+    n = Bottlespin(bot)
     bot.add_cog(n)

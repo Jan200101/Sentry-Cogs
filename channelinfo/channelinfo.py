@@ -6,7 +6,7 @@ import datetime
 import time
 
 
-class ChannelInfo:
+class Channelinfo:
     """Shows Channel infos."""
 
     def __init__(self, bot):
@@ -73,4 +73,4 @@ class ChannelInfo:
 
 
 def setup(bot):
-    bot.add_cog(ChannelInfo(bot))
+    bot.add_cog(Channelinfo(bot))
