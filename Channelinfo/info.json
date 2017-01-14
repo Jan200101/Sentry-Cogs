@@ -1,8 +1,8 @@
 {
     "AUTHOR" : "Sentry",
-    "SHORT" : "Selfmade Channelinfo command",
-    "DESCRIPTION" : "Selfmade Channelinfo command",
+    "SHORT" : "a Channelinfo command",
+    "DESCRIPTION" : "a Channelinfo command",
     "DISABLED" : false,
-    "NAME" : "Channelinfo",
+    "NAME" : "channelinfo",
     "INSTALL_MSG" : "Thanks for installing my Channelinfo command"
 }
