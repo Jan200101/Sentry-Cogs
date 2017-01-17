@@ -5,14 +5,14 @@ import urllib.request
 import sys
 
 class lenny:
-    """┬─┬ノ( ´ᗝ`ノ)"""
+    """Lenny Cog"""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def lenny(self):
-        """( ͡° ͜ʖ ͡°)"""
+        """Lenny Command"""
 
         regex = r':"(\S+)"'
         lenny = urllib.request.urlopen('http://lenny.today/api/v1/random?limit=1').read().decode('utf-8')
