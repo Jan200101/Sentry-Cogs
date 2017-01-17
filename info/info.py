@@ -132,7 +132,7 @@ class Info:
         if user.nick:
             data.add_field(name="Nickname", value=str(user.nick))
         if user.game:
-            data.add_field(name="Playing", value=str(user.game)[:10])
+            data.add_field(name="Playing", value=str(user.game))
         data.add_field(name="Roles", value=roles, inline=False)
 
         if user.avatar_url:
