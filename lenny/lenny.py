@@ -15,7 +15,7 @@ class lenny:
         """Lenny Command"""
 
         if count > 20:
-            await self.bot.say("Cannot post more than 10 lennys")
+            await self.bot.say("Cannot post more than 20 lennys")
             return
 
         gateway = 'http://lenny.today/api/v1/random?limit={}'.format(count)
