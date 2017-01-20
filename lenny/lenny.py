@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-import re
-import urllib.request
+import aiohttp
+import asyncio
 import sys
 
 class lenny:
@@ -11,19 +11,34 @@ class lenny:
         self.bot = bot
 
     @commands.command()
-    async def lenny(self):
+    async def lenny(self, count:int=1):
         """Lenny Command"""
 
         regex = r':"(\S+)"'
-        lenny = urllib.request.urlopen('http://lenny.today/api/v1/random?limit=1').read().decode('utf-8')
 
-        matches = re.findall(regex, lenny)
+        gateway = 'http://lenny.today/api/v1/random?limit={}'.format(count)
+        payload = {}
+        payload['limit'] = 1
+        headers = {'user-agent': 'Red-cog/1.0'}
+        session = aiohttp.ClientSession()
+        async with session.get(gateway, params=payload, headers=headers) as r:
+            lenny = await r.json()
+        session.close()
 
-        for match in matches:
-            try:
-                await self.bot.say(match)
-            except:
-                await self.bot.say("Could Lenny")
+        try:
+            lennylist = []
+            for x in lenny:
+                lennylist.append("{}\n".format(x['face']))
+
+            lenny = "".join(lennylist)
+
+            await self.bot.say(lenny)
+            return
+        except:
+            return
+
+
+
 
 
 def setup(bot):
