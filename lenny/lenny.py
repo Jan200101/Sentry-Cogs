@@ -14,7 +14,9 @@ class lenny:
     async def lenny(self, count:int=1):
         """Lenny Command"""
 
-        regex = r':"(\S+)"'
+        if count > 10:
+            await self.bot.say("Cannot post more then 10 lennys")
+            return
 
         gateway = 'http://lenny.today/api/v1/random?limit={}'.format(count)
         payload = {}
