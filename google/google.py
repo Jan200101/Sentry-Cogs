@@ -3,14 +3,14 @@ from random import randint
 from discord.ext import commands
 
 class google:
-    """My custom cog that does stuff!"""
+    """Get any info quickly"""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def google(self, searchterm:str):
-        """This does stuff!"""
+        """Search things on the Internet"""
 
         maxsearch = 3 # Defines the max amounts of search. Has to be integer.
         # TODO make maxsearch changable
@@ -26,7 +26,7 @@ class google:
             if maxsearch < 1:
                 break
 
-        await self.bot.say("\n".join(results)) # Post all results.
+        await self.bot.say("\n".join(results)) # Post all results.n
 
 def setup(bot):
     bot.add_cog(google(bot))
