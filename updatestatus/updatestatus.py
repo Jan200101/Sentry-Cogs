@@ -5,7 +5,7 @@ import asyncio
 import requests
 
 
-class Status:
+class UpdateStatus:
     """See infos about your current red installation"""
 
     def __init__(self, bot):
@@ -25,7 +25,7 @@ class Status:
         except:
             await self.bot.say("a error happend")
 
-    @commands.command(aliases=["travis-ci"])
+    @commands.command(aliases=["travis-ci"], hidden=True)
     async def travis(self):
         """Shows travis status of your reds installation"""
         response = self.bot.loop.run_in_executor(None, self._get_travis)
@@ -116,9 +116,9 @@ class Status:
 
 def check_folder():
     if not os.path.exists(".git"):
-        raise Exception("\n\nThis is not a valid git clone. Please return to the guide and follow it")
+        raise Exception("\n\n You did not clone red using git. Please return to the guide and follow its instructions")
 
 def setup(bot):
     check_folder()
-    n = Status(bot)
+    n = UpdateStatus(bot)
     bot.add_cog(n)
