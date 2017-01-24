@@ -228,7 +228,9 @@ class Info:
             splash = server.splash_url
             splashsmall = splash
             while not splashsmall.endswith("?"):
-                splashsmall = splashsmall[:-10]
+                if not splashsmall:
+                    await self.bot.say("a error with splash screens happend.\nTell Sentry")
+                splashsmall = splashsmall[:-1]
             splashsmall = splashsmall + "size=128"
 
         online = len([m.status for m in server.members
