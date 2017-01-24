@@ -33,7 +33,7 @@ class src:
 
         servername = info.values['server_name']
 
-        playernumber = str(info.values['player_count'])
+        playernumber = str(info.values['player_count'] - info.values['bot_count'])
         botnumber = str(info.values['bot_count'])
         maxplayers = str(info.values['max_players'])
 
@@ -43,7 +43,7 @@ class src:
         em.add_field(name="Gamemode", value=gamemode)
         em.add_field(name="servername", value=servername)
         if botnumber != '0':
-            em.add_field(name="Playernumber", value="{}/{}\n{}".format(playernumber, maxplayers, botnumber))
+            em.add_field(name="Playernumber", value="{}/{}\n*{} Bots*".format(playernumber, maxplayers, botnumber))
         else:
             em.add_field(name="Playernumber", value="{}/{}\n".format(playernumber, maxplayers))
         em.add_field(name="Map", value=map)
