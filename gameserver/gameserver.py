@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from __main__ import send_cmd_help
 import valve.source.a2s
+from socket import gethostbyname_ex
 
 def validate_ip(s):
     a = s.split('.')
@@ -29,13 +30,18 @@ class GameServer:
                                "Example : `123.123.123.123.25701`")
             return
 
-        serverc = serverip.replace(":", " ")
-        serverc = serverc.split()
-        serverc = [str(serverc[0]), int(serverc[1])]
+        serverc = serverip.split(":")
+        if not serverc[0][0].isdigit():
+            ip = gethostbyname_ex(serverc[0])[2][0]
+            servercheck = ip
+            serverc = [str(ip), int(serverc[1])]
+        else:
+            servercheck = serverc[0]
+            serverc = [str(serverc[0]), int(serverc[1])]
         serverc = tuple(serverc)
 
 
-        if not validate_ip(str(serverc[0])):
+        if not validate_ip(str(servercheck)):
             await send_cmd_help(ctx)
             return
 
@@ -71,7 +77,7 @@ class GameServer:
         else:
             em.add_field(name="Playernumber", value="{}/{}\n".format(playernumber, maxplayers))
         em.add_field(name="Map", value=map)
-        em.add_field(name=u"\u2063", value="[Connect](steam://connect/{})".format(serverip), inline=False)
+        em.add_field(name=u"\u2063", value="[Connect](steam://connect/{})(starting the game over this link may result in lag)".format(serverip), inline=False)
 
         await self.bot.say(embed=em)
 

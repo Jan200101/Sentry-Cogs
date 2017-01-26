@@ -66,11 +66,13 @@ class Terminal:
 
 
         if shell == "" and not error:
+            # in the case no output is given but no error has happened
             return
         elif shell == "" and error:
+            # debug error. Some commands like sudo will resolve to this
             shell = "a error has occured"
 
-        for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
+        for page in pagify(shell, shorten_by=20):
             await self.bot.say(box(page, 'Prolog'))
 
 
