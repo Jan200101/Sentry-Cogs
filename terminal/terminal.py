@@ -13,9 +13,6 @@ class Terminal:
 
     def __init__(self, bot):
         self.bot = bot
-        if settings.owner == "240879985492099072" and name != "nt" :
-            print("^^^He tried loading Terminal ({})".format(time.ctime()))
-            raise Exception("\nCould not load Subprocesses\nTell Sentry")
 
     @commands.command()
     @checks.is_owner()
@@ -43,26 +40,35 @@ class Terminal:
     async def shell(self, *, command: str):
         """Terminal inside Discord"""
 
-        if command.find("pip") != -1:
-            await self.bot.say("`You cannot use pip with this cog`")
-            return
+        # List of blocked commands
+        blacklist = []
 
-        if command.find("apt") != -1:
-            await self.bot.say("`You cannot use apt with this cog`")
-            return
+        if command.find("&") != -1:
+            command = command.split("&")[0]
 
-        if command == "rm -rf /":
-            await self.bot.say("`Cant let you do that Star Fox`")
-            return
+        for x in blacklist:
+            if command.lower().find(x) != -1:
+                await self.bot.say("You cannot execute '{}'".format(command))
+                return
+
+        if command.lower().find("apt-get") != -1 and command.lower().find("-y") == -1:
+            command = "{} -y".format(command)
 
         try:
             output = check_output(command, shell=True)
+            error = False
         except CalledProcessError as e:
             output = e.output
+            error = True
 
+        # Decode to unicode for full character support
         shell = output.decode('utf_8')
-        if shell == "":
-            shell = "No Output recieved from '{}'".format(command)
+
+
+        if shell == "" and not error:
+            return
+        elif shell == "" and error:
+            shell = "a error has occured"
 
         for page in pagify(shell, ["\n"], shorten_by=13, page_length=2000):
             await self.bot.say(box(page, 'Prolog'))
