@@ -55,7 +55,12 @@ class GameServer:
             await self.bot.say("Could not fetch Server")
             return
 
+
         map = info.values['map']
+
+        if map.lower().startswith("workshop"):
+            link = "https://steamcommunity.com/sharedfiles/filedetails/?id={}".format(map.split("/")[1])
+            map = "{} [(Workshop map)]({})".format(map.split("/")[2], link)
 
         game = info.values['folder']
         gamemode = info.values['game']
@@ -77,7 +82,7 @@ class GameServer:
         else:
             em.add_field(name="Playernumber", value="{}/{}\n".format(playernumber, maxplayers))
         em.add_field(name="Map", value=map)
-        em.add_field(name=u"\u2063", value="[Connect](steam://connect/{})(starting the game over this link may result in lag)".format(serverip), inline=False)
+        em.add_field(name=u"\u2063", value="[Connect](steam://connect/{})\n(starting the game over this link may result in lag)".format(serverip), inline=False)
 
         await self.bot.say(embed=em)
 
