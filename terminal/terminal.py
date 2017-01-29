@@ -64,7 +64,6 @@ class Terminal:
         # Decode to unicode for full character support
         shell = output.decode('utf_8')
 
-
         if shell == "" and not error:
             # in the case no output is given but no error has happened
             return

@@ -4,6 +4,7 @@ from __main__ import send_cmd_help
 import valve.source.a2s
 from socket import gethostbyname_ex
 
+
 def validate_ip(s):
     a = s.split('.')
     if len(a) != 4:
@@ -16,19 +17,19 @@ def validate_ip(s):
             return False
     return True
 
+
 class GameServer:
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(pass_context=True)
-    async def getserver(self, ctx, serverip:str):
+    async def getserver(self, ctx, serverip: str):
         """Get infos about a gameserver"""
 
-        if serverip.find(":") == -1:
-            await self.bot.say("You also need to specify a port\n"
-                               "Example : `123.123.123.123.25701`")
-            return
+        while serverip.find(":") == -1:
+            print("No port specified using 27015")
+            serverip = serverip + ":27015"
 
         serverc = serverip.split(":")
         if not serverc[0][0].isdigit():
@@ -40,7 +41,6 @@ class GameServer:
             serverc = [str(serverc[0]), int(serverc[1])]
         serverc = tuple(serverc)
 
-
         if not validate_ip(str(servercheck)):
             await send_cmd_help(ctx)
             return
@@ -49,17 +49,18 @@ class GameServer:
             server = valve.source.a2s.ServerQuerier(serverc)
             info = server.info()
         except valve.source.a2s.NoResponseError:
-            em = discord.Embed(title="Could not fetch Server",colour=discord.Colour.red())
+            em = discord.Embed(title="Could not fetch Server",
+                               colour=discord.Colour.red())
             return
         except:
             await self.bot.say("Could not fetch Server")
             return
 
-
         map = info.values['map']
 
         if map.lower().startswith("workshop"):
-            link = "https://steamcommunity.com/sharedfiles/filedetails/?id={}".format(map.split("/")[1])
+            link = "https://steamcommunity.com/sharedfiles/filedetails/?id={}".format(
+                map.split("/")[1])
             map = "{} [(Workshop map)]({})".format(map.split("/")[2], link)
 
         game = info.values['folder']
@@ -67,10 +68,10 @@ class GameServer:
 
         servername = info.values['server_name'].strip()
 
-        playernumber = str(info.values['player_count'] - info.values['bot_count'])
+        playernumber = str(
+            info.values['player_count'] - info.values['bot_count'])
         botnumber = str(info.values['bot_count'])
         maxplayers = str(info.values['max_players'])
-
 
         em = discord.Embed(colour=discord.Colour.green())
         em.add_field(name="Game", value=game)
@@ -78,13 +79,17 @@ class GameServer:
         em.add_field(name="servername", value=servername)
         em.add_field(name="IP", value=serverc[0])
         if botnumber != '0':
-            em.add_field(name="Playernumber", value="{}/{}\n*{} Bots*".format(playernumber, maxplayers, botnumber))
+            em.add_field(
+                name="Playernumber", value="{}/{}\n*{} Bots*".format(playernumber, maxplayers, botnumber))
         else:
-            em.add_field(name="Playernumber", value="{}/{}\n".format(playernumber, maxplayers))
+            em.add_field(name="Playernumber",
+                         value="{}/{}\n".format(playernumber, maxplayers))
         em.add_field(name="Map", value=map)
-        em.add_field(name=u"\u2063", value="[Connect](steam://connect/{})\n(starting the game over this link may result in lag)".format(serverip), inline=False)
+        em.add_field(
+            name=u"\u2063", value="[Connect](steam://connect/{})\n(starting the game over this link may result in lag)".format(serverip), inline=False)
 
         await self.bot.say(embed=em)
+
 
 def setup(bot):
     bot.add_cog(GameServer(bot))

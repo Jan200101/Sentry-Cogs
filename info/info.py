@@ -156,7 +156,7 @@ class Info:
 
         if not self.bot.user.bot:
             await self.bot.say("``This is not a bot account\n"
-                                "It only works with bot accounts")
+                               "It only works with bot accounts")
             return
 
         if not id.isdigit():
@@ -175,14 +175,12 @@ class Info:
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
 
-
         randnum = randint(1, 10)
         empty = u"\u2063"
         emptyrand = empty * randnum
 
         user_created = user.created_at.strftime("%d %b %Y %H:%M")
         since_created = (ctx.message.timestamp - user.created_at).days
-
 
         created_on = "{}\n({} days ago)".format(user_created, since_created)
 

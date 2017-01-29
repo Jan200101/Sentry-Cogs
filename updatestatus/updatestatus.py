@@ -11,7 +11,6 @@ class UpdateStatus:
     def __init__(self, bot):
         self.bot = bot
 
-
     @commands.command()
     async def behind(self):
         """Shows how many commits you are behind"""
@@ -53,11 +52,11 @@ class UpdateStatus:
 
         elif status.find("Your branch is behind") != -1:
             behind = "Your bot is out of date by {} commits".format(
-                "".join([str(s) for s in status.split() if s.isdigit()])) # finds the number of commits behind and adds it
+                "".join([str(s) for s in status.split() if s.isdigit()]))  # finds the number of commits behind and adds it
             color = discord.Colour.red()
 
         else:
-            behind = "Unable to check if out of date" # just here in the worst case
+            behind = "Unable to check if out of date"  # just here in the worst case
             color = discord.Colour.orange()
 
         embed = discord.Embed(title=behind,
@@ -104,7 +103,8 @@ class UpdateStatus:
                                   colour=discord.Colour.orange(),
                                   url=branchurl)
 
-        # makes a quick test if the image is even accessable if not gives out a error
+        # makes a quick test if the image is even accessable if not gives out a
+        # error
         request = requests.get(travisbuildstatus)
         if request.status_code == 200:
             embed.set_image(url=travisbuildstatus)
@@ -114,9 +114,12 @@ class UpdateStatus:
 
         return embed
 
+
 def check_folder():
     if not os.path.exists(".git"):
-        raise Exception("\n\n You did not clone red using git. Please return to the guide and follow its instructions")
+        raise Exception(
+            "\n\n You did not clone red using git. Please return to the guide and follow its instructions")
+
 
 def setup(bot):
     check_folder()

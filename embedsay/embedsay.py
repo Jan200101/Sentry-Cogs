@@ -315,5 +315,6 @@ class EmbedSay:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
+
 def setup(bot):
     bot.add_cog(EmbedSay(bot))
