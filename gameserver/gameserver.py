@@ -33,7 +33,11 @@ class GameServer:
 
         serverc = serverip.split(":")
         if not serverc[0][0].isdigit():
-            ip = gethostbyname_ex(serverc[0])[2][0]
+            try:
+                ip = gethostbyname_ex(serverc[0])[2][0]
+            except:
+                await self.bot.say("The specified domain is not valid")
+                return
             servercheck = ip
             serverc = [str(ip), int(serverc[1])]
         else:
@@ -47,13 +51,12 @@ class GameServer:
 
         try:
             server = valve.source.a2s.ServerQuerier(serverc)
-            info = server.info()
+            info = server.get_info()
         except valve.source.a2s.NoResponseError:
-            em = discord.Embed(title="Could not fetch Server",
-                               colour=discord.Colour.red())
+            await self.bot.say("Could not fetch Server or the Server is not on the Steam masterlist")
             return
         except:
-            await self.bot.say("Could not fetch Server")
+            await self.bot.say("Unkown Error has occured")
             return
 
         map = info.values['map']
@@ -79,8 +82,12 @@ class GameServer:
         em.add_field(name="servername", value=servername)
         em.add_field(name="IP", value=serverc[0])
         if botnumber != '0':
-            em.add_field(
-                name="Playernumber", value="{}/{}\n*{} Bots*".format(playernumber, maxplayers, botnumber))
+            if botnumber == "1":
+                em.add_field(
+                    name="Playernumber", value="{}/{}\n{} Bot".format(playernumber, maxplayers, botnumber))
+            else:
+                em.add_field(
+                    name="Playernumber", value="{}/{}\n{} Bots".format(playernumber, maxplayers, botnumber))
         else:
             em.add_field(name="Playernumber",
                          value="{}/{}\n".format(playernumber, maxplayers))
