@@ -4,5 +4,6 @@
     "NAME" : "google",
     "SHORT" : "google quickly for things",
     "DESCRIPTION" : "google quickly for things",
-    "REQUIREMENTS" : ["google"]
+    "REQUIREMENTS" : ["google"],
+    "TAGS": ["google"]
 }

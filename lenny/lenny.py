@@ -6,14 +6,14 @@ import sys
 
 
 class lenny:
-    """Lenny Cog"""
+    """Lenny Cog ( ͡° ͜ʖ ͡°)"""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def lenny(self, count: int=1):
-        """Lenny Command"""
+        """(╯°□°）╯︵ ┻━┻"""
 
         # edit this number for a higher lenny count (updating will reset the
         # cog)

@@ -4,5 +4,6 @@
     "NAME" : "gameserver",
     "SHORT" : "Fetch game servers in Discord",
     "DESCRIPTION" : "Fetch game servers in Discord",
-    "REQUIREMENTS" : ["python-valve"]
+    "REQUIREMENTS" : ["python-valve"],
+    "TAGS": ["source","engine","csgo","tf2"]
 }
