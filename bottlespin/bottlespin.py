@@ -28,9 +28,9 @@ class Bottlespin:
             return
 
         if roleexist:
-            target = [m.name for m in server.members if m != author and role in [s.name for s in m.roles] and str(m.status) == "online" or str(m.status) == "idle"]
+            target = [m for m in server.members if m != author and role in [s.name for s in m.roles] and str(m.status) == "online" or str(m.status) == "idle"]
         else:
-            target = [m.name for m in server.members if m != author and str(m.status) == "online" or str(m.status) == "idle"]
+            target = [m for m in server.members if m != author and str(m.status) == "online" or str(m.status) == "idle"]
 
         if not target:
             if role:
@@ -42,7 +42,7 @@ class Bottlespin:
             target = choice(list(target))
 
 
-        await self.bot.say("`{} spinned the bottle and it landed on {}`".format(author, target))
+        await self.bot.say("`{0.display_name}#{0.discriminator} spinned the bottle and it landed on {1.display_name}#{1.discriminator}`".format(author, target))
 
 
 def setup(bot):
