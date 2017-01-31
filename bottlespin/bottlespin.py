@@ -9,7 +9,7 @@ class Bottlespin:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True, no_pm=True)
+    @commands.command(pass_context=True, no_pm=True, alias=["bottlespin"])
     async def spin(self, ctx, role:str='@everyone'):
         """Spin the bottle"""
 
