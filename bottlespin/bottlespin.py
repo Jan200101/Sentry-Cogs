@@ -14,7 +14,7 @@ class Bottlespin:
         """Spin the bottle"""
         author = ctx.message.author
         server = ctx.message.server
-        target = choice(list([m.name for m in ctx.message.server.members if str(
+        target = choice(list([m.name for m in ctx.message.server.members if m != ctx.message.author and str(
             m.status) == "online" or str(m.status) == "idle"]))
 
         await self.bot.say("{} spinned the bottle and it landed on {}".format(ctx.message.author.mention, target))
