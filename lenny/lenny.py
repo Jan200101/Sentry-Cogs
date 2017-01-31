@@ -43,6 +43,8 @@ class lenny:
 
             lenny = "".join(lennylist)  # merges the list into a string
 
+            lenny = lenny.replace("*","\*")
+
             await self.bot.say(lenny)  # says the lennys
             return
         except:
