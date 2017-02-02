@@ -51,7 +51,7 @@ class GameServer:
 
         try:
             server = valve.source.a2s.ServerQuerier(serverc)
-            info = server.get_info()
+            info = server.info()
         except valve.source.a2s.NoResponseError:
             await self.bot.say("Could not fetch Server or the Server is not on the Steam masterlist")
             return
@@ -76,11 +76,16 @@ class GameServer:
         botnumber = str(info.values['bot_count'])
         maxplayers = str(info.values['max_players'])
 
+        vac = not not int(info.values['vac_enabled'])
+        os = str(info.values['platform'])
+
         em = discord.Embed(colour=discord.Colour.green())
         em.add_field(name="Game", value=game)
         em.add_field(name="Gamemode", value=gamemode)
         em.add_field(name="servername", value=servername)
         em.add_field(name="IP", value=serverc[0])
+        em.add_field(name="Operating System", value=os)
+        em.add_field(name="VAC", value=vac)
         if botnumber != '0':
             if botnumber == "1":
                 em.add_field(
