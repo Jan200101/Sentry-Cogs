@@ -28,8 +28,8 @@ class GameServer:
         """Get infos about a gameserver"""
 
         while serverip.find(":") == -1:
-            print("No port specified using 27015")
-            serverip = serverip + ":27015"
+            print("No port specified using 27015\n")
+            serverip += ":27015"
 
         serverc = serverip.split(":")
         if not serverc[0][0].isdigit():
