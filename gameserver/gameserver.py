@@ -51,7 +51,11 @@ class GameServer:
 
         try:
             server = valve.source.a2s.ServerQuerier(serverc)
-            info = server.info()
+            try:
+                info = server.get_info() # workaround for old version ADD GIT SUPPORT 26
+            except:
+                info = server.info()
+
         except valve.source.a2s.NoResponseError:
             await self.bot.say("Could not fetch Server or the Server is not on the Steam masterlist")
             return
