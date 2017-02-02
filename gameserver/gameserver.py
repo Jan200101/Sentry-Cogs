@@ -80,13 +80,16 @@ class GameServer:
         botnumber = str(info.values['bot_count'])
         maxplayers = str(info.values['max_players'])
 
-        vac = not not int(info.values['vac_enabled'])
+        if int(info.values['vac_enabled']):
+            vac = "enabled"
+        else:
+            vac = "disabled"
         os = str(info.values['platform'])
 
         em = discord.Embed(colour=discord.Colour.green())
         em.add_field(name="Game", value=game)
         em.add_field(name="Gamemode", value=gamemode)
-        em.add_field(name="servername", value=servername)
+        em.add_field(name="servername", value=servername, inline=False)
         em.add_field(name="IP", value=serverc[0])
         em.add_field(name="Operating System", value=os)
         em.add_field(name="VAC", value=vac)
@@ -100,7 +103,7 @@ class GameServer:
         else:
             em.add_field(name="Playernumber",
                          value="{}/{}\n".format(playernumber, maxplayers))
-        em.add_field(name="Map", value=map)
+        em.add_field(name="Map", value=map, inline=False)
         em.add_field(
             name=u"\u2063", value="[Connect](steam://connect/{})\n(starting the game over this link may result in lag)".format(serverip), inline=False)
 
