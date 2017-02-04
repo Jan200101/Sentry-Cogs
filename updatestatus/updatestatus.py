@@ -15,6 +15,11 @@ class UpdateStatus:
     @commands.command()
     async def behind(self):
         """Shows how many commits you are behind"""
+
+        if os.name == 'nt':
+            await self.bot.say("Windows has some error so this is locked down for you for now")
+            return
+
         response = self.bot.loop.run_in_executor(None, self._get_behind)
         result = await wait_for(response, timeout=20)
 
