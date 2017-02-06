@@ -5,6 +5,8 @@ from random import choice, randint
 import datetime
 import time
 
+# Custom Channelinfo command out of my info cog
+
 
 class Channelinfo:
     """Shows Channel infos."""

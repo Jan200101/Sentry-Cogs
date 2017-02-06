@@ -15,8 +15,7 @@ class lenny:
     async def lenny(self, count: int=1):
         """(╯°□°）╯︵ ┻━┻"""
 
-        # edit this number for a higher lenny count (updating will reset the
-        # cog)
+        # max lenny count for easy editing
         maxcount = 15
 
         if count > maxcount:
@@ -24,6 +23,7 @@ class lenny:
             return
 
         # uses lenny.today as a api that returns dicts.
+        # payload etc. given by the community
         gateway = 'http://lenny.today/api/v1/random?limit={}'.format(count)
         payload = {}
         payload['limit'] = 1
@@ -43,11 +43,13 @@ class lenny:
 
             lenny = "".join(lennylist)  # merges the list into a string
 
+            # Replaces * with \* so it wont write in italic EVER
             lenny = lenny.replace("*","\*")
 
             await self.bot.say(lenny)  # says the lennys
             return
         except:
+            # fail save incase a error does happen
             return
 
 

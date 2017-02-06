@@ -41,6 +41,7 @@ class Terminal:
         """Terminal inside Discord"""
 
         # List of blocked commands
+        # TODO remove blacklist
         blacklist = []
 
         if command.find("&") != -1:

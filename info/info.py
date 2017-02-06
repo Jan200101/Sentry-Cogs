@@ -4,6 +4,8 @@ from random import choice, randint
 import datetime
 import time
 
+# This is basicly the *info commands from general with more info.
+
 
 class Info:
     """Shows Client, Channel and Server infos to the user."""

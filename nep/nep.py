@@ -13,6 +13,7 @@ class Nep:
     async def Nep(self):
         """Displays a random Nep."""
 
+        # TODO make bigger list
         nep = ["http://i.imgur.com/13hoMVJ.jpg",
                "http://i.imgur.com / kIzXdwN.jpg",
                "http://i.imgur.com/DICh64t.jpg",

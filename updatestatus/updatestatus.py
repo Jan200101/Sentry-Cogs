@@ -49,7 +49,8 @@ class UpdateStatus:
 
         sleep(1)
 
-        branch = os.popen(r'LC_ALL=C git rev-parse --abbrev-ref HEAD').read().strip()
+        branch = os.popen(
+            r'LC_ALL=C git rev-parse --abbrev-ref HEAD').read().strip()
 
         # checks if local is out of date, needs the fetch first
         status = os.popen(r'LC_ALL=C git status -uno').read().strip()

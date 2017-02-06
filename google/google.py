@@ -2,6 +2,8 @@ from google import search
 from random import randint
 from discord.ext import commands
 
+# attempt at remaking the google cog out of the now dead community repo
+
 
 class google:
     """Get any info quickly"""

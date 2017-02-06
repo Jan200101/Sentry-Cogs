@@ -52,7 +52,7 @@ class GameServer:
         try:
             server = valve.source.a2s.ServerQuerier(serverc)
             try:
-                info = server.get_info() # workaround for old version ADD GIT SUPPORT 26
+                info = server.get_info()  # workaround for old version ADD GIT SUPPORT 26
             except:
                 info = server.info()
 

@@ -5,6 +5,8 @@ from cogs.utils.chat_formatting import box,  pagify, escape_mass_mentions
 from random import choice, randint
 import datetime
 
+# embeds messages so you can use them without being a coder
+
 
 class EmbedSay:
     """Makes the bot say things for in embeds"""
