@@ -25,7 +25,7 @@ class EmbedSay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(title=str(
+        data = discord.Embed(description=str(
             text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
@@ -50,7 +50,7 @@ class EmbedSay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(title=str(
+        data = discord.Embed(description=str(
             text), colour=discord.Colour(value=colour))
 
         if ctx.message.author.avatar_url:
@@ -83,7 +83,7 @@ class EmbedSay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(title=str(
+        data = discord.Embed(description=str(
             text), colour=discord.Colour(value=colour))
 
         try:
@@ -107,7 +107,7 @@ class EmbedSay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(title=str(
+        data = discord.Embed(description=str(
             text), colour=discord.Colour(value=color))
 
         if ctx.message.author.avatar_url:
@@ -136,7 +136,7 @@ class EmbedSay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(title=str(
+        data = discord.Embed(description=str(
             text), colour=discord.Colour(value=color))
 
         if ctx.message.author.avatar_url:
@@ -170,7 +170,7 @@ class EmbedSay:
         empty = u"\u2063"
         emptyrand = empty * randnum
 
-        data = discord.Embed(title=str(
+        data = discord.Embed(description=str(
             text), colour=discord.Colour(value=color))
 
         try:
