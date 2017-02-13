@@ -1,7 +1,7 @@
 from discord.ext import commands
 from cogs.utils import checks
 from cogs.utils.chat_formatting import pagify, box
-from subprocess import check_output, CalledProcessError
+from subprocess import Popen, CalledProcessError, PIPE, STDOUT
 from platform import system, release
 from __main__ import settings
 from os import name
@@ -41,25 +41,37 @@ class Terminal:
         """Terminal inside Discord"""
 
         # List of blocked commands
-        # TODO remove blacklist
+        # Keeping Blacklist and Whitelist for other usets
+        # Make sure commands are in lowercase
         blacklist = []
+        whitelist = []
+
 
         if command.find("&") != -1:
             command = command.split("&")[0]
 
+        if whitelist:
+            for x in whitelist:
+                if command.lower().find(x) == -1:
+                    await self.bot.say("'{}' is on the command whitelist".format(command))
+                    return
+
         for x in blacklist:
             if command.lower().find(x) != -1:
-                await self.bot.say("You cannot execute '{}'".format(command))
+                await self.bot.say("'{}' is on the command blacklist".format(command))
                 return
 
         if command.lower().find("apt-get") != -1 and command.lower().find("-y") == -1:
             command = "{} -y".format(command)
 
         try:
-            output = check_output(command, shell=True)
+            output = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT).communicate()[0]
             error = False
         except CalledProcessError as e:
-            output = e.output
+            try:
+                output = e.output
+            except:
+                output = b'a error has occured'
             error = True
 
         # Decode to unicode for full character support
@@ -68,9 +80,6 @@ class Terminal:
         if shell == "" and not error:
             # in the case no output is given but no error has happened
             return
-        elif shell == "" and error:
-            # debug error. Some commands like sudo will resolve to this
-            shell = "a error has occured"
 
         for page in pagify(shell, shorten_by=20):
             await self.bot.say(box(page, 'Prolog'))
