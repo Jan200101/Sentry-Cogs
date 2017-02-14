@@ -4,6 +4,7 @@ from cogs.utils.chat_formatting import pagify, box
 from subprocess import Popen, CalledProcessError, PIPE, STDOUT
 from platform import system, release
 from os import name, popen
+from os.path import expanduser
 
 
 class Terminal:
@@ -39,7 +40,7 @@ class Terminal:
         """Terminal inside Discord"""
 
         # List of blocked commands
-        # Keeping Blacklist and Whitelist for other usets
+        # Keeping Blacklist and Whitelist for other usetscmd
         # Make sure commands are in lowercase
         blacklist = []
         whitelist = []
@@ -78,20 +79,11 @@ class Terminal:
 
         try:
             # getting user directory
-            if name == 'nt':
-                userdir = popen('echo %USERPROFILE%').read().strip()
-            else:
-                userdir = '~'
+            userdir = expanduser("~")
 
             # main command routine
-            # try in the case userdir is bugged or invalid
-            try:
-                output = Popen(command, cwd=userdir, shell=True, stdout=PIPE,
-                               stderr=STDOUT).communicate()[0]
-            except:
-                output = Popen(command, shell=True, stdout=PIPE,
-                               stderr=STDOUT).communicate()[0]
-
+            output = Popen(command, cwd=userdir, shell=True,
+                           stdout=PIPE, stderr=STDOUT).communicate()[0]
             error = False
         except CalledProcessError as e:
             # error routine in the worst cases
