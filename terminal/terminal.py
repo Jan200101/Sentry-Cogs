@@ -4,7 +4,7 @@ from cogs.utils.chat_formatting import pagify, box
 from subprocess import Popen, CalledProcessError, PIPE, STDOUT
 from platform import system, release
 from __main__ import settings
-from os import name
+from os import name, popen
 import time
 
 
@@ -79,9 +79,21 @@ class Terminal:
             await self.bot.say(box(contin, 'Prolog'))
 
         try:
+            # getting user directory
+            if name == 'nt':
+                userdir = popen('echo %USERPROFILE%').read().strip()
+            else:
+                userdir = '~'
+
             # main command routine
-            output = Popen(command, shell=True, stdout=PIPE,
-                           stderr=STDOUT).communicate()[0]
+            # try in the case userdir is bugged or invalid
+            try:
+                output = Popen(command, cwd=userdir, shell=True, stdout=PIPE,
+                               stderr=STDOUT).communicate()[0]
+            except:
+                output = Popen(command, shell=True, stdout=PIPE,
+                               stderr=STDOUT).communicate()[0]
+
             error = False
         except CalledProcessError as e:
             # error routine in the worst cases
