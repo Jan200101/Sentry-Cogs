@@ -3,9 +3,7 @@ from cogs.utils import checks
 from cogs.utils.chat_formatting import pagify, box
 from subprocess import Popen, CalledProcessError, PIPE, STDOUT
 from platform import system, release
-from __main__ import settings
 from os import name, popen
-import time
 
 
 class Terminal:
