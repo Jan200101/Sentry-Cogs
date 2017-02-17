@@ -73,8 +73,7 @@ class EmbedSay:
             try:
                 await self.bot.delete_message(ctx.message)
             except:
-                await self.bot.say("I do not have the `Manage Messages` permissions")
-                return
+                await self.bot.send_message(ctx.message.author, 'Could not delete your message on ' + ctx.message.server.name)
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -159,8 +158,7 @@ class EmbedSay:
             try:
                 await self.bot.delete_message(ctx.message)
             except:
-                await self.bot.say("I do not have the `Manage Messages` permissions")
-                return
+                await self.bot.send_message(ctx.message.author, 'Could not delete your message on ' + ctx.message.server.name)
 
         color = color.replace("#", "")
         color = color.replace("0x", "")
@@ -225,8 +223,7 @@ class EmbedSay:
             try:
                 await self.bot.delete_message(ctx.message)
             except:
-                await self.bot.say("I do not have the `Manage Messages` permissions")
-                return
+                await self.bot.send_message(ctx.message.author, 'Could not delete your message on ' + ctx.message.server.name)
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -294,8 +291,7 @@ class EmbedSay:
             try:
                 await self.bot.delete_message(ctx.message)
             except:
-                await self.bot.say("I do not have the `Manage Messages` permissions")
-                return
+                await self.bot.send_message(ctx.message.author, 'Could not delete your message on ' + ctx.message.server.name)
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
