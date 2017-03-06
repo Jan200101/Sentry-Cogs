@@ -63,7 +63,7 @@ def get_credentials():  # Gets your google credentials to get the calendars with
     return credentials
 
 
-class Playtest:
+class CSGOPlaytest:
     """Playtest Commands.\n"""
 
     def __init__(self, bot):
@@ -286,6 +286,6 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    n = Playtest(bot)
+    n = CSGOPlaytest(bot)
     bot.add_cog(n)
     bot.loop.create_task(n.reload_playtest())
