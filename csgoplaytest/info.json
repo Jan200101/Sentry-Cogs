@@ -4,5 +4,6 @@
     "NAME" : "csgoplaytest",
     "SHORT" : "csgo playtesting calendar",
     "DESCRIPTION" : "csgo playtesting calendar",
+    "REQUIREMENTS" : ["python-dateutil","google-api-python-client"],
     "TAGS": ["csgo","playtest","tophattwaffle"]
 }

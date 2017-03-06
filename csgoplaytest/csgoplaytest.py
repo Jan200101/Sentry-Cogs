@@ -111,7 +111,7 @@ class CSGOPlaytest:
                 x = x.replace("T", " ")
                 x = x.replace("-06:00", "")
                 time = datetime.datetime.strptime(
-                    x, '%Y-%m-%d %H:%M:%S')
+                    x, '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=6)
 
 
         if not time:
@@ -286,6 +286,6 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    n = CSGOPlaytest(bot)
+    n = Playtest(bot)
     bot.add_cog(n)
     bot.loop.create_task(n.reload_playtest())
