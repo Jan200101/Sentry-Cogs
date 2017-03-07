@@ -24,8 +24,8 @@ try:
 except ImportError:
     flags = None
 
-__VERSION__ = "0.3.0\n"
-__VERSION__ += "Readded it to repo"
+__VERSION__ = "0.3.1\n"
+__VERSION__ += "Fixed some stuff"
 
 __AUTHOR__ = 'Sentry'
 
@@ -70,8 +70,6 @@ class CSGOPlaytest:
         self.bot = bot
         self.settings = dataIO.load_json('data/playtest/settings.json')
         self.refresh_rate = self.settings['REFRESH_RATE']
-        if settings.owner != "137268543874924544":
-            raise Exception("This cog wasnt made for one server only and has no use for you")
 
     async def get_playtest(self):
 
@@ -101,17 +99,25 @@ class CSGOPlaytest:
                     'dateTime', event['start'].get('date'))
                 eve = event['summary']
 
-                description = event['description']
-                description = description.replace("Discord Name:", "**Discord Name:**")
-                description = description.replace("Map Images:", "**Map Images:**")
-                description = description.replace("Workshop Link:", "**Workshop Link:**")
-                description = description.replace("Steam Group Event:", "**Steam Group Event:**")
+                descriptionsplit = event['description'].split('|')
+
+                try:
+                    description = "Author : **{}**\n".format(descriptionsplit[0].strip())
+                    description += "Images : **[{}]({})**\n".format(descriptionsplit[2].strip()[-5:],descriptionsplit[2].strip())
+                    description += "Workshop link : **[{}]({})**\n".format(descriptionsplit[3].strip()[-9:], descriptionsplit[3].strip())
+                    description += "Moderator : **{}**\n".format(descriptionsplit[5].strip())
+                    description += "Notes : **{}**\n".format(descriptionsplit[6].strip())
+                except:
+                    description = '|'.join(descriptionsplit)
 
                 x = start
                 x = x.replace("T", " ")
                 x = x.replace("-06:00", "")
-                time = datetime.datetime.strptime(
-                    x, '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=6)
+                try:
+                    time = datetime.datetime.strptime(
+                        x, '%Y-%m-%d %H:%M:%S')
+                except:
+                    time = None
 
 
         if not time:
@@ -122,7 +128,7 @@ class CSGOPlaytest:
             description = "None"
 
         x = time.strftime("**%d %b %Y**\nat %H:%M CT")
-        z = relativedelta(time, datetime.datetime.utcnow())
+        z = relativedelta(time - datetime.timedelta(hours=6), datetime.datetime.utcnow())
 
         color = "585858"
         color = int(color, 16)
@@ -178,6 +184,8 @@ class CSGOPlaytest:
             name="Description", value=description, inline=False)
         data.add_field(
             name=u"\u2063", value="[**Playtest Calendar**](http://playtesting.tophattwaffle.com/)", inline=False)
+
+        data.set_thumbnail(url=descriptionsplit[1])
 
         return data
 
@@ -286,6 +294,6 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    n = Playtest(bot)
+    n = CSGOPlaytest(bot)
     bot.add_cog(n)
     bot.loop.create_task(n.reload_playtest())
