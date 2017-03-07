@@ -1,29 +1,27 @@
-import discord
+from discord import Embed, Colour
 from discord.ext import commands
 from __main__ import send_cmd_help
 import valve.source.a2s
 from socket import gethostbyname_ex
-
-
-def validate_ip(s):
-    a = s.split('.')
-    if len(a) != 4:
-        return False
-    for x in a:
-        if not x.isdigit():
-            return False
-        i = int(x)
-        if i < 0 or i > 255:
-            return False
-    return True
-
 
 class GameServer:
 
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
+    def validate_ip(self, s):
+        a = s.split('.')
+        if len(a) != 4:
+            return False
+        for x in a:
+            if not x.isdigit():
+                return False
+            i = int(x)
+            if i < 0 or i > 255:
+                return False
+        return True
+
+    @commands.command(pass_context=True,aliases=['gameserver'])
     async def getserver(self, ctx, serverip: str):
         """Get infos about a gameserver"""
 
@@ -45,7 +43,7 @@ class GameServer:
             serverc = [str(serverc[0]), int(serverc[1])]
         serverc = tuple(serverc)
 
-        if not validate_ip(str(servercheck)):
+        if not self.validate_ip(str(servercheck)):
             await send_cmd_help(ctx)
             return
 
@@ -86,7 +84,7 @@ class GameServer:
             vac = "disabled"
         os = str(info.values['platform'])
 
-        em = discord.Embed(colour=discord.Colour.green())
+        em = Embed(colour=Colour.green())
         em.add_field(name="Game", value=game)
         em.add_field(name="Gamemode", value=gamemode)
         em.add_field(name="servername", value=servername, inline=False)
