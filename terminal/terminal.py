@@ -20,20 +20,6 @@ class Terminal:
 
         await self.bot.say(box(system() + "\n" + release(), 'Bash'))
 
-    @commands.command()
-    @checks.is_owner()
-    async def osname(self):
-        """Displays your current Operating System name"""
-
-        await self.bot.say(box(system(), 'Bash'))
-
-    @commands.command(alias=["osver"])
-    @checks.is_owner()
-    async def osversion(self):
-        """Displays your current Operating System version"""
-
-        await self.bot.say(box(release(), 'Bash'))
-
     @commands.command(pass_context=True, aliases=["cmd", "terminal"])
     @checks.is_owner()
     async def shell(self, ctx, *, command: str):
@@ -93,9 +79,11 @@ class Terminal:
                 output = b'a error has occured'
             error = True
 
-        # Decode to unicode for full character support
-        # Printint this in the console may result in errors
-        shell = output.decode('utf_8')
+        # Fallback incase UTF doesnt like to function, which is very unlikely
+        try:
+            shell = output.decode('utf_8')
+        except:
+            shell = output.decode('ascii')
 
         if shell == "" and not error:
             # in the case no output is given but no error has happened
