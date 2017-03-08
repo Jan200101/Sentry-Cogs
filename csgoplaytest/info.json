@@ -1,9 +1,0 @@
-{
-    "AUTHOR" : "Sentry",
-    "INSTALL_MSG" : "Thanks for using this cog.\nIts main usage is for a csgo playtest server.\nJoin if you want to",
-    "NAME" : "csgoplaytest",
-    "SHORT" : "csgo playtesting calendar",
-    "DESCRIPTION" : "csgo playtesting calendar",
-    "REQUIREMENTS" : ["python-dateutil","google-api-python-client"],
-    "TAGS": ["csgo","playtest","tophattwaffle"]
-}
