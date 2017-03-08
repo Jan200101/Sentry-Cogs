@@ -57,10 +57,10 @@ class google:
                 "Current max search result is {}".format(self.maxresults))
             await send_cmd_help(ctx)
         elif maxresults > 10:
-            await self.bot.say('Cannot set max search results higher then 10')
+            await self.bot.say('`Cannot set max search results higher then 10`')
             return
         elif maxresults < 1:
-            await self.bot.say('Cannot set max search results lower then 0')
+            await self.bot.say('`Cannot set max search results lower then 0`')
             return
         else:
             self.maxresults = maxresults
