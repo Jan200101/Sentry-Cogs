@@ -64,7 +64,7 @@ class google:
             return
         else:
             self.maxresults = maxresults
-            self.settings['REFRESH_RATE'] = self.maxresults
+            self.settings['MAXRESULTS'] = self.maxresults
             dataIO.save_json('data/google/settings.json', self.settings)
             message = '`Changed max search results to {} `'.format(
                 self.maxresults)
