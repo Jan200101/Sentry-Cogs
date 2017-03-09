@@ -1,10 +1,10 @@
 from discord.ext import commands
 from cogs.utils import checks
+from cogs.utils.dataIO import dataIO
 from cogs.utils.chat_formatting import pagify, box
 from subprocess import Popen, CalledProcessError, PIPE, STDOUT
 from platform import system, release
-from os import name, popen
-from os.path import expanduser
+from os import name, path, makedirs
 
 
 class Terminal:
@@ -12,6 +12,8 @@ class Terminal:
 
     def __init__(self, bot):
         self.bot = bot
+        self.blacklist = dataIO.load_json('data/terminal/blacklist.json')
+        self.whitelist = dataIO.load_json('data/terminal/whitelist.json')
 
     @commands.command()
     @checks.is_owner()
@@ -25,23 +27,17 @@ class Terminal:
     async def shell(self, ctx, *, command: str):
         """Terminal inside Discord"""
 
-        # List of blocked commands
-        # Keeping Blacklist and Whitelist for other usetscmd
-        # Make sure commands are in lowercase
-        blacklist = []
-        whitelist = []
-
         if command.find("&") != -1:
             command = command.split("&")[0]
 
-        if whitelist:
-            for x in whitelist:
-                if command.lower().find(x) == -1:
+        if self.whitelist:
+            for x in self.whitelist:
+                if command.lower().find(x.lower()) == -1:
                     await self.bot.say("'{}' is on the command whitelist".format(command))
                     return
 
-        for x in blacklist:
-            if command.lower().find(x) != -1:
+        for x in self.blacklist:
+            if command.lower().find(x.lower()) != -1:
                 await self.bot.say("'{}' is on the command blacklist".format(command))
                 return
 
@@ -65,7 +61,7 @@ class Terminal:
 
         try:
             # getting user directory
-            userdir = expanduser("~")
+            userdir = path.expanduser("~")
 
             # main command routine
             output = Popen(command, cwd=userdir, shell=True,
@@ -92,6 +88,26 @@ class Terminal:
         for page in pagify(shell, shorten_by=20):
             await self.bot.say(box(page, 'Prolog'))
 
+def check_folder():
+    if not path.exists("data/terminal"):
+        print("Creating data/terminal folder...")
+        makedirs("data/terminal")
+
+
+def check_file():
+    whitelist = []
+    f = "data/terminal/whitelist.json"
+    if not dataIO.is_valid_json(f):
+        print("Creating default whitelist.json...")
+        dataIO.save_json(f, whitelist)
+
+    blacklist = []
+    k = "data/terminal/blacklist.json"
+    if not dataIO.is_valid_json(k):
+        print("Creating default blacklist.json...")
+        dataIO.save_json(k, blacklist)
 
 def setup(bot):
+    check_folder()
+    check_file()
     bot.add_cog(Terminal(bot))
