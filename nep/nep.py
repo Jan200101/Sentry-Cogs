@@ -1,35 +1,28 @@
 import discord
 from discord.ext import commands
 from random import choice
-
+from cogs.utils.dataIO import dataIO
+from os import path, makedirs
 
 class Nep:
     "Nep Nep"
 
     def __init__(self, bot):
         self.bot = bot
+        self.nep = dataIO.load_json('data/nep/images.json')
+        self.nepsay = dataIO.load_json('data/nep/text.json')
 
     @commands.command(no_pm=True, aliases=["nep"])
     async def Nep(self):
         """Displays a random Nep."""
 
-        # TODO make bigger list
-        nep = ["http://i.imgur.com/13hoMVJ.jpg",
-               "http://i.imgur.com / kIzXdwN.jpg",
-               "http://i.imgur.com/DICh64t.jpg",
-               "http://i.imgur.com/nMp3NMp.png",
-               "http://i.imgur.com/MMf1YfR.png",
-               "http://i.imgur.com/CGABJEs.jpg",
-               "http://i.imgur.com/GRz1oCo.jpg"]
+        nep = choice(self.nep)
 
-        nep = choice(nep)
+        nepsay = choice(self.nepsay)
 
-        nepsay = ["Nep!!11", "Neeeeeeepppppp",
-                  "Neeeeeeeeeeeeeeeeeeeeeeepppppppppp",
-                  "Nep Nep :P", "*intense nepping*",
-                  "I ran out of Nep so here is some more"]
-
-        nepsay = choice(nepsay)
+        if not nep or not nepsay:
+            await self.bot.say('Something went wrong')
+            return
 
         colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
@@ -44,6 +37,40 @@ class Nep:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
+def check_folder():  # Paddo is great
+    if not path.exists("data/nep"):
+        print("Creating data/nep folder...")
+        makedirs("data/nep")
+
+
+def check_file():
+    images = ["http://i.imgur.com/13hoMVJ.jpg",
+              "http://i.imgur.com / kIzXdwN.jpg",
+              "http://i.imgur.com/DICh64t.jpg",
+              "http://i.imgur.com/nMp3NMp.png",
+              "http://i.imgur.com/MMf1YfR.png",
+              "http://i.imgur.com/CGABJEs.jpg",
+              "http://i.imgur.com/GRz1oCo.jpg"]
+
+    i = "data/nep/images.json"
+    if not dataIO.is_valid_json(i):
+        print("Creating images.json...")
+        dataIO.save_json(i, images)
+
+    text = ["Nep!!11",
+            "Neeeeeeepppppp",
+            "Neeeeeeeeeeeeeeeeeeeeeeepppppppppp",
+            "Nep Nep :P",
+            "*intense nepping*",
+            "I ran out of Nep so here is some more"]
+
+    l = "data/nep/text.json"
+    if not dataIO.is_valid_json(l):
+        print("Creating text.json...")
+        dataIO.save_json(l, text)
+
 
 def setup(bot):
+    check_folder()
+    check_file()
     bot.add_cog(Nep(bot))
