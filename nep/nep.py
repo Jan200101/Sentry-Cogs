@@ -24,8 +24,10 @@ class Nep:
 
         nep = choice(nep)
 
-        nepsay = ["Nep!!11", "Neeeeeeepppppp", "Neeeeeeeeeeeeeeeeeeeeeeepppppppppp",
-                  "Nep Nep :P", "*intense nepping*", "I ran out of Nep so here is some more"]
+        nepsay = ["Nep!!11", "Neeeeeeepppppp",
+                  "Neeeeeeeeeeeeeeeeeeeeeeepppppppppp",
+                  "Nep Nep :P", "*intense nepping*",
+                  "I ran out of Nep so here is some more"]
 
         nepsay = choice(nepsay)
 

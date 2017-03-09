@@ -9,7 +9,8 @@ from __main__ import send_cmd_help
 
 # attempt at remaking the google cog out of the now dead community repo
 
-class google:
+
+class GoodGoogle:
     """Get any info quickly"""
 
     def __init__(self, bot):
@@ -18,7 +19,7 @@ class google:
         self.maxresults = self.settings['MAXRESULTS']
 
     @commands.command()
-    async def google(self, searchterm:str):
+    async def google(self, searchterm: str):
         """Search things on the Internet"""
 
         maxsearch = self.maxresults
@@ -46,7 +47,7 @@ class google:
             await self.bot.send_cmd_help(ctx)
 
     @googlesettings.command(name="maxresults", pass_context=True)
-    async def _maxresults_googlesettings(self, ctx, maxresults:int=0):
+    async def _maxresults_googlesettings(self, ctx, maxresults: int=0):
         """Set the amount of results appearing"""
 
         if not self.maxresults:  # If statement incase someone removes it or sets it to 0
@@ -85,7 +86,8 @@ def check_file():
         print("Creating default settings.json...")
         dataIO.save_json(f, data)
 
+
 def setup(bot):
     check_folder()
     check_file()
-    bot.add_cog(google(bot))
+    bot.add_cog(GoodGoogle(bot))

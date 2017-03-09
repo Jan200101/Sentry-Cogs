@@ -44,7 +44,7 @@ class lenny:
             lenny = "".join(lennylist)  # merges the list into a string
 
             # Replaces * with \* so it wont write in italic EVER
-            lenny = lenny.replace("*","\*")
+            lenny = lenny.replace("*", "\*")
 
             await self.bot.say(lenny)  # says the lennys
             return
