@@ -33,19 +33,20 @@ class Nep:
 
         try:
             await self.bot.say(embed=data)
+            print(nep)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
 def check_folder():  # Paddo is great
     if not path.exists("data/nep"):
-        print("Creating data/nep folder...")
+        print("[Nep]Creating data/nep folder...")
         makedirs("data/nep")
 
 
 def check_file():
     images = ["http://i.imgur.com/13hoMVJ.jpg",
-              "http://i.imgur.com / kIzXdwN.jpg",
+              "http://i.imgur.com/kIzXdwN.jpg",
               "http://i.imgur.com/DICh64t.jpg",
               "http://i.imgur.com/nMp3NMp.png",
               "http://i.imgur.com/MMf1YfR.png",
@@ -54,19 +55,20 @@ def check_file():
 
     i = "data/nep/images.json"
     if not dataIO.is_valid_json(i):
-        print("Creating images.json...")
+        print("[Nep]Creating default images.json...")
         dataIO.save_json(i, images)
 
     text = ["Nep!!11",
             "Neeeeeeepppppp",
             "Neeeeeeeeeeeeeeeeeeeeeeepppppppppp",
-            "Nep Nep :P",
-            "*intense nepping*",
-            "I ran out of Nep so here is some more"]
+            "Nep Nep",
+            "I ran out of Nep so here is some more",
+            "Nep²",
+            "Nep³"]
 
     l = "data/nep/text.json"
     if not dataIO.is_valid_json(l):
-        print("Creating text.json...")
+        print("[Nep]Creating default text.json...")
         dataIO.save_json(l, text)
 
 

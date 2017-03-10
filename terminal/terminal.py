@@ -104,20 +104,20 @@ class Terminal:
 
 def check_folder():
     if not path.exists("data/terminal"):
-        print("Creating data/terminal folder...")
+        print("[Terminal]Creating data/terminal folder...")
         makedirs("data/terminal")
 
 def check_file():
     whitelist = []
     f = "data/terminal/whitelist.json"
     if not dataIO.is_valid_json(f):
-        print("Creating default whitelist.json...")
+        print("[Terminal]Creating default whitelist.json...")
         dataIO.save_json(f, whitelist)
 
     blacklist = []
     k = "data/terminal/blacklist.json"
     if not dataIO.is_valid_json(k):
-        print("Creating default blacklist.json...")
+        print("[Terminal]Creating default blacklist.json...")
         dataIO.save_json(k, blacklist)
 
 def setup(bot):

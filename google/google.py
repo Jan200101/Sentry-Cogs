@@ -47,7 +47,7 @@ class GoodGoogle:
             await self.bot.send_cmd_help(ctx)
 
     @googlesettings.command(name="maxresults", pass_context=True)
-    async def _maxresults_googlesettings(self, ctx, maxresults: int=0):
+    async def _googlesettings(self, ctx, maxresults: int=0):
         """Set the amount of results appearing"""
 
         if not self.maxresults:  # If statement incase someone removes it or sets it to 0
@@ -74,7 +74,7 @@ class GoodGoogle:
 
 def check_folder():  # Paddo is great
     if not path.exists("data/google"):
-        print("Creating data/google folder...")
+        print("[Google]Creating data/google folder...")
         makedirs("data/google")
 
 
@@ -83,7 +83,7 @@ def check_file():
     data['MAXRESULTS'] = 3
     f = "data/google/settings.json"
     if not dataIO.is_valid_json(f):
-        print("Creating default settings.json...")
+        print("[Google]Creating default settings.json...")
         dataIO.save_json(f, data)
 
 
