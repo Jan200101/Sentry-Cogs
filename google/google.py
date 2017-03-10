@@ -86,7 +86,6 @@ def check_file():
         print("[Google]Creating default settings.json...")
         dataIO.save_json(f, data)
 
-
 def setup(bot):
     check_folder()
     check_file()
