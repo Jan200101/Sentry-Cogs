@@ -19,7 +19,7 @@ class GoodGoogle:
         self.maxresults = self.settings['MAXRESULTS']
 
     @commands.command()
-    async def google(self, searchterm: str):
+    async def google(self, *, searchterm: str):
         """Search things on the Internet"""
 
         maxsearch = self.maxresults
