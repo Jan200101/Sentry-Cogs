@@ -12,8 +12,6 @@ class Terminal:
 
     def __init__(self, bot):
         self.bot = bot
-        self.blacklist = dataIO.load_json('data/terminal/blacklist.json')
-        self.whitelist = dataIO.load_json('data/terminal/whitelist.json')
 
     @commands.command()
     @checks.is_owner()
@@ -27,18 +25,34 @@ class Terminal:
     async def shell(self, ctx, *, command: str):
         """Terminal inside Discord"""
 
+        try:
+            blacklist = dataIO.load_json('data/terminal/blacklist.json')
+        except:
+            await self.bot.say('Blacklist corrupt.\nReplacing it...\n')
+            blacklist = []
+            check_folder()
+            check_file()
+
+        try:
+            whitelist = dataIO.load_json('data/terminal/whitelist.json')
+        except:
+            await self.bot.say('Whitelist corrupt.\nReplacing it...\n')
+            whitelist = []
+            check_folder()
+            check_file()
+
         if command.find("&") != -1:
             command = command.split("&")[0]
 
-        if self.whitelist:
-            for x in self.whitelist:
+        if whitelist:
+            for x in whitelist:
                 if command.lower().find(x.lower()) == -1:
-                    await self.bot.say("'{}' is on the command whitelist".format(command))
+                    await self.bot.say(box("'{}' isnt on the command whitelist".format(command), 'Prolog'))
                     return
 
-        for x in self.blacklist:
+        for x in blacklist:
             if command.lower().find(x.lower()) != -1:
-                await self.bot.say("'{}' is on the command blacklist".format(command))
+                await self.bot.say(box("'{}' is on the command blacklist".format(command), 'Prolog'))
                 return
 
         if command.lower().find("apt-get install") != -1 and command.lower().find("-y") == -1:
@@ -75,7 +89,7 @@ class Terminal:
                 output = b'a error has occured'
             error = True
 
-        # Fallback incase UTF doesnt like to function, which is very unlikely
+        # Fallback incase unicode doesnt like to function, which is very unlikely
         try:
             shell = output.decode('utf_8')
         except:
@@ -92,7 +106,6 @@ def check_folder():
     if not path.exists("data/terminal"):
         print("Creating data/terminal folder...")
         makedirs("data/terminal")
-
 
 def check_file():
     whitelist = []
