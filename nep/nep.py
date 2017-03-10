@@ -33,7 +33,6 @@ class Nep:
 
         try:
             await self.bot.say(embed=data)
-            print(nep)
         except:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
