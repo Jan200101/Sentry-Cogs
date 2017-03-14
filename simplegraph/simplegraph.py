@@ -18,6 +18,7 @@ class SimpleGraph:
 
     @commands.command()
     async def reset(self):
+        """Reset all values"""
 
         self.position = self.normalposition
         self.size = self.normalsize
@@ -26,6 +27,7 @@ class SimpleGraph:
 
     @commands.command(pass_context=True)
     async def move(self, ctx, x:int=0, y:int=0):
+        """Move the coordinates (set command comming)"""
 
         if x == 0 and y == 0:
             await send_cmd_help(ctx)
@@ -48,7 +50,8 @@ class SimpleGraph:
 
     @commands.command()
     async def show(self):
-
+        """Print out a graph"""
+        
         if self.position == {'x':0, 'y':0}:
             await self.bot.say('```Move the line first using [p]move```')
             return
