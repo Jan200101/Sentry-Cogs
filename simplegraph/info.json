@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "Sentry",
+    "INSTALL_MSG" : "Thanks for installing SimpleGraph\nThe newest graph you made is always stored under data\\sgraph\\temp incase you need it.",
+    "NAME" : "simplegraph",
+    "SHORT" : "2D graph creator in Discord",
+    "DESCRIPTION" : "2D graph creator in Discord",
+    "REQUIREMENTS" : ["matplotlib"],
+    "TAGS": ["graph","2d","math"]
+}
