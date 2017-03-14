@@ -4,5 +4,5 @@
     "NAME" : "updatestatus",
     "SHORT" : "red update status",
     "DESCRIPTION" : "red update status",
-    "TAGS": ["update","red"]
+    "TAGS": ["update","red","git","status"]
 }
