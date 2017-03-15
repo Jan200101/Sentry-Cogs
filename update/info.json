@@ -1,0 +1,8 @@
+{
+    "AUTHOR" : "Sentry",
+    "INSTALL_MSG" : "Thank your for installing my update cog,\nUse [p]update to update you bot\n(Scraps any changes you made to it).\nWill merge with updatestatus soon",
+    "NAME" : "update",
+    "SHORT" : "red updater",
+    "DESCRIPTION" : "red updater",
+    "TAGS": ["update","red","git"]
+}

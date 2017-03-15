@@ -41,15 +41,15 @@ class UpdateStatus:
 
     def _get_behind(self):
 
-        os.popen(r'LC_ALL=C git fetch')
+        if os.name != 'nt':
+            os.popen('LC_ALL=C')
+
+        os.popen(r'git fetch')
 
         sleep(1)
 
-        branch = os.popen(
-            r'LC_ALL=C git rev-parse --abbrev-ref HEAD').read().strip()
-
         # checks if local is out of date, needs the fetch first
-        status = os.popen(r'LC_ALL=C git status -uno').read().strip()
+        status = os.popen(r'git status -uno').read().strip()
 
         if status.find("Your branch is up-to-date") != -1:
             behind = "Your bot is up to date"
@@ -70,13 +70,17 @@ class UpdateStatus:
         return embed
 
     def _get_travis(self):
-        branch = os.popen(r'LC_ALL=Cgit rev-parse --abbrev-ref HEAD')
+
+        if os.name != 'nt':
+            os.popen('LC_ALL=C')
+
+        branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
         branch = branch.read().strip()
 
-        allbranches = os.popen(r'LC_ALL=C git branch')
+        allbranches = os.popen(r'git branch')
         allbranches = allbranches.read().strip()
 
-        url = os.popen(r'LC_ALL=C git config --get remote.origin.url')
+        url = os.popen(r'git config --get remote.origin.url')
         url = url.read().strip()
         if url.endswith(".git"):
             url = url[:-4]
