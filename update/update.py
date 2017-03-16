@@ -20,7 +20,10 @@ class Update:
         await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
         answer = await self.bot.wait_for_message(timeout=10, author=ctx.message.author)
 
-        if answer.content.lower().strip() != 'yes' or not answer:
+        if answer == None:
+            await self.bot.say('Canceling Update')
+            return
+        elif answer.content.lower().strip() != 'yes':
             await self.bot.say('Canceling Update')
             return
 
