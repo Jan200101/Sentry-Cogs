@@ -15,39 +15,43 @@ class Responder:
         self.author = self.settings['user']
         self.message = self.settings['message']
 
-    @commands.group(pass_context=True)
+    @commands.group(aliases=['responsesettings'], pass_context=True)
     @checks.admin()
-    async def responsesettings(self, ctx):
+    async def responderettings(self, ctx):
         """Allows you to change settings of this cog"""
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @responsesettings.command(name='user', pass_context=True)
+    @responderettings.command(name='user', pass_context=True)
     @checks.admin()
     async def _user(self, ctx, user:discord.Member=None):
         """Set the users that can trigger the message"""
 
         if user is None:
+            name = list(set([x.name for x in self.bot.get_all_members() if x.id in self.author]))
             await send_cmd_help(ctx)
-            if self.author:
-                list = ', '.join(self.author)
+            if name:
+                userlist = ', '.join(name)
             else:
-                list = "No one"
-            await self.bot.say(box(list))
+                userlist = "No one"
+            await self.bot.say(box(userlist))
             return
 
         authors = self.author
 
-        if user.id in authors:
-            await self.bot.say('removed {}'.format(user))
+        if user.bot:
+            await self.bot.say('`Cannot add Bots`')
+            return
+        elif user.id in authors:
             authors.remove(user.id)
+            await self.bot.say('`removed {}`'.format(user))
         else:
-            await self.bot.say('added {}'.format(user))
             authors.append(user.id)
+            await self.bot.say('`added {}`'.format(user))
 
         dataIO.save_json('data/repeat/settings.json', self.settings)
 
-    @responsesettings.command(name="message", pass_context=True)
+    @responderettings.command(name="message", pass_context=True)
     @checks.admin()
     async def _message(self, ctx, *, message:str=None):
         """Set the message"""
