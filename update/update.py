@@ -1,18 +1,20 @@
 import discord
 import os
 from time import sleep
+from cogs.utils import checks
 from discord.ext import commands
 from asyncio import wait_for
 from requests import get
 
 
-class UpdateStatus:
-    """See infos about your current red installation"""
+class Update:
+    """See git infos about your current red installation"""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
+    @checks.is_owner()
     async def behind(self):
         """Shows how many commits you are behind"""
 
@@ -27,8 +29,9 @@ class UpdateStatus:
             await self.bot.say("a error happend")
 
     @commands.command(aliases=["travis-ci"], hidden=True)
+    @checks.is_owner()
     async def travis(self):
-        """Shows travis status of your reds installation"""
+        """Shows travis status of your bot installation"""
         response = self.bot.loop.run_in_executor(None, self._get_travis)
         result = await wait_for(response, timeout=20)
 
@@ -43,7 +46,7 @@ class UpdateStatus:
     @commands.command(pass_context=True)
     @checks.is_owner()
     async def update(self, ctx):
-        """Shows how many commits you are behind"""
+        """Updates your bot if it can"""
 
         await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
         answer = await self.bot.wait_for_message(timeout=10, author=ctx.message.author)
@@ -186,5 +189,5 @@ def check_folder():
 
 def setup(bot):
     check_folder()
-    n = UpdateStatus(bot)
+    n = Update(bot)
     bot.add_cog(n)
