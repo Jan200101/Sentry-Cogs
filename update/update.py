@@ -24,12 +24,13 @@ class Update:
             await self.bot.say('Canceling Update')
             return
 
-        result = self._update
+        response = self.bot.loop.run_in_executor(None, self._update)
+        result = await wait_for(response, timeout=20)
 
         await self.bot.say(embed=result)
 
 
-    async def _update(self):
+    def _update(self):
 
         if os.name != 'nt':
             os.popen('LC_ALL=C')
