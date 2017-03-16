@@ -14,7 +14,7 @@ class Update:
 
     @commands.command(pass_context=True)
     @checks.is_owner()
-    async def update(self):
+    async def update(self, ctx):
         """Shows how many commits you are behind"""
 
         await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
