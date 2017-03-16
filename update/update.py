@@ -28,11 +28,18 @@ class Update:
             await self.bot.say("a error happend")
 
     def _update(self):
+        await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
+        answer = await self.bot.wait_for_message(timeout=10, author=ctx.message.author)
+
+        if answer.content.lower().strip() != 'yes':
+            await self.bot.say('Canceling Update')
+            return
+
 
         if os.name != 'nt':
             os.popen('LC_ALL=C')
 
-        os.popen(r'git fetch')
+        os.popen(r'git reset --hard')
         os.popen(r'git stash')
 
         sleep(1)
