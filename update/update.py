@@ -14,7 +14,7 @@ class Update:
 
     @commands.command(pass_context=True)
     @checks.is_owner()
-    async def update(self, ctx):
+    async def update(self):
         """Shows how many commits you are behind"""
 
         await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
@@ -24,6 +24,12 @@ class Update:
             await self.bot.say('Canceling Update')
             return
 
+        result = self._update
+
+        await self.bot.say(embed=result)
+
+
+    async def _update(self):
 
         if os.name != 'nt':
             os.popen('LC_ALL=C')
@@ -47,18 +53,15 @@ class Update:
         elif status.find("Your branch is behind") != -1:
             behind = "Update unsuccessfull"
             color = discord.Colour.red()
+
         else:
             behind = "Unable to check if out of date"  # just here in the worst case
             color = discord.Colour.orange()
 
-        result = discord.Embed(title=behind,
+        embed = discord.Embed(title=behind,
                               colour=color)
 
-
-
-        await self.bot.say(embed=result)
-
-
+        return embed
 
 def check_folder():
     if not os.path.exists(".git"):
