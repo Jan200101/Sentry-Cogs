@@ -12,22 +12,11 @@ class Update:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(pass_context=True)
     @checks.is_owner()
-    async def update(self):
+    async def update(self, ctx):
         """Shows how many commits you are behind"""
 
-        response = self.bot.loop.run_in_executor(None, self._update)
-        result = await wait_for(response, timeout=20)
-
-        try:
-            await self.bot.say(embed=result)
-        except discord.HTTPException:
-            await self.bot.say("Could not embed")
-        except:
-            await self.bot.say("a error happend")
-
-    def _update(self):
         await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
         answer = await self.bot.wait_for_message(timeout=10, author=ctx.message.author)
 
@@ -58,15 +47,18 @@ class Update:
         elif status.find("Your branch is behind") != -1:
             behind = "Update unsuccessfull"
             color = discord.Colour.red()
-
         else:
             behind = "Unable to check if out of date"  # just here in the worst case
             color = discord.Colour.orange()
 
-        embed = discord.Embed(title=behind,
+        result = discord.Embed(title=behind,
                               colour=color)
 
-        return embed
+
+
+        await self.bot.say(embed=result)
+
+
 
 def check_folder():
     if not os.path.exists(".git"):
