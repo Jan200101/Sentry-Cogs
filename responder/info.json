@@ -1,6 +1,6 @@
 {
     "AUTHOR" : "Sentry",
-    "INSTALL_MSG" : "Thanks for installing Responder.",
+    "INSTALL_MSG" : "Thanks for installing Responder.Use [p]responderetting to change things",
     "NAME" : "responder",
     "SHORT" : "Make custom Responses to every message of certain users you set",
     "DESCRIPTION" : "Make custom Responses to every message of certain users you set",
