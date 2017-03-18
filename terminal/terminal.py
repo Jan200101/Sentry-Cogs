@@ -25,8 +25,6 @@ class Terminal:
     async def shell(self, ctx, *, command: str):
         """Terminal inside Discord"""
 
-        cd = getcwd()
-
         try:
             blacklist = dataIO.load_json('data/terminal/blacklist.json')
         except:
@@ -58,7 +56,7 @@ class Terminal:
                 return
 
         if command.lower().find("%red%") != -1:
-            command = command.replace("%red%", cd)
+            command = command.replace("%red%", getcwd())
 
         if command.lower().find("apt-get install") != -1 and command.lower().find("-y") == -1:
             command = "{} -y".format(command)
