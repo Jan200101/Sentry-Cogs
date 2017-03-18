@@ -4,7 +4,7 @@ from cogs.utils.dataIO import dataIO
 from cogs.utils.chat_formatting import pagify, box
 from subprocess import Popen, CalledProcessError, PIPE, STDOUT
 from platform import system, release
-from os import name, path, makedirs
+from os import name, path, makedirs, getcwd
 
 
 class Terminal:
@@ -24,6 +24,8 @@ class Terminal:
     @checks.is_owner()
     async def shell(self, ctx, *, command: str):
         """Terminal inside Discord"""
+
+        cd = getcwd()
 
         try:
             blacklist = dataIO.load_json('data/terminal/blacklist.json')
@@ -54,6 +56,9 @@ class Terminal:
             if command.lower().find(x.lower()) != -1:
                 await self.bot.say(box("'{}' is on the command blacklist".format(command), 'Prolog'))
                 return
+
+        if command.lower().find("%red%") != -1:
+            command = command.replace("%red%", cd)
 
         if command.lower().find("apt-get install") != -1 and command.lower().find("-y") == -1:
             command = "{} -y".format(command)
