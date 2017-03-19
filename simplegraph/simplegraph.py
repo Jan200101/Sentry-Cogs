@@ -14,8 +14,15 @@ class SimpleGraph:
         self.normalposition = {'x':0, 'y':0}
         self.position = self.normalposition
 
-    @commands.command()
-    async def reset(self):
+    @commands.group(aliases=['graph','sgraph'], pass_context=True)
+    @checks.admin()
+    async def simplegraph(self, ctx):
+        """2d graph creator in discord"""
+        if ctx.invoked_subcommand is None:
+            await self.bot.send_cmd_help(ctx)
+
+    @simplegraph.command(name='reset')
+    async def _reset(self):
         """Reset all values"""
 
         self.position = self.normalposition
@@ -23,22 +30,25 @@ class SimpleGraph:
 
         await self.bot.say('Reset values')
 
-    @commands.command(pass_context=True)
-    async def move(self, ctx, x:int=None, y:int=None):
-        """Move the coordinates (set command comming)"""
+    @simplegraph.command(name='set', pass_context=True)
+    async def _set_position(self, ctx, x:int=None, y:int=None):
+        """Set Coordinates"""
 
         if x == None and y == None:
             await send_cmd_help(ctx)
             await self.bot.say('```Current Position\nX:{}\nY:{}```'.format(self.position['x'], self.position['y']))
             return
 
-        self.position['x'] = x
-        self.position['y'] = y
-        
+        if x != None:
+            self.position['x'] = x
+
+        if y != None:
+            self.position['y'] = y
+
         await self.bot.say('Set coordinates to\n```X:{}\nY:{}```'.format(self.position['x'], self.position['y']))
 
-    @commands.command()
-    async def show(self):
+    @simplegraph.command(name='graph')
+    async def _show(self):
         """Print out a graph"""
 
         if self.position == {'x':0, 'y':0}:
