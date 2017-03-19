@@ -12,9 +12,7 @@ class SimpleGraph:
         self.bot = bot
         self.settings = dataIO.load_json('data/sgraph/settings.json')
         self.normalposition = {'x':0, 'y':0}
-        self.normalsize =  self.settings['GRIDSIZE']
         self.position = self.normalposition
-        self.size = self.normalsize
 
     @commands.command()
     async def reset(self):
@@ -26,32 +24,23 @@ class SimpleGraph:
         await self.bot.say('Reset values')
 
     @commands.command(pass_context=True)
-    async def move(self, ctx, x:int=0, y:int=0):
+    async def move(self, ctx, x:int=None, y:int=None):
         """Move the coordinates (set command comming)"""
 
-        if x == 0 and y == 0:
+        if x == None and y == None:
             await send_cmd_help(ctx)
             await self.bot.say('```Current Position\nX:{}\nY:{}```'.format(self.position['x'], self.position['y']))
             return
 
-        if self.size['w'] - self.size['w'] * 2 <= self.position['x'] + x <= self.size['w']:
-            self.position = {'x':self.position['x'] + x, 'y':self.position['y']}
-        else:
-            await self.bot.say('You cannot go past `X {}` and `Y {}` or `X {}` and `Y {}`'.format(self.size['w'], self.size['h'], self.size['w'] - self.size['w'] * 2, self.size['h'] - self.size['h'] * 2))
-            return
-
-        if self.size['h'] - self.size['h'] * 2 <= self.position['y'] + y <= self.size['h']:
-            self.position = {'x':self.position['x'],'y':self.position['y'] + y}
-        else:
-            await self.bot.say('You cannot go past `X {}` and `Y {}` or `X {}` and `Y {}`'.format(self.size['w'], self.size['h'], self.size['w'] - self.size['w'] * 2, self.size['h'] - self.size['h'] * 2))
-            return
-
-        await self.bot.say('Move to\n```X:{}\nY:{}```'.format(self.position['x'], self.position['y']))
+        self.position['x'] = x
+        self.position['y'] = y
+        
+        await self.bot.say('Set coordinates to\n```X:{}\nY:{}```'.format(self.position['x'], self.position['y']))
 
     @commands.command()
     async def show(self):
         """Print out a graph"""
-        
+
         if self.position == {'x':0, 'y':0}:
             await self.bot.say('```Move the line first using [p]move```')
             return
@@ -94,15 +83,7 @@ def check_folder():  # Paddo is great
         makedirs("data/sgraph/temp")
 
 
-def check_file():
-    data = {}
-    data['GRIDSIZE'] = {'h':10, 'w':10}
-    f = "data/sgraph/settings.json"
-    if not dataIO.is_valid_json(f):
-        print("[SimpleGraph]Creating default settings.json...")
-        dataIO.save_json(f, data)
 
 def setup(bot):
     check_folder()
-    check_file()
     bot.add_cog(SimpleGraph(bot))
