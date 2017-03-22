@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from random import choice, randint
 import datetime
-import time
 
 # This is basicly the *info commands from general with more info.
 
@@ -285,8 +284,7 @@ class Info:
         data.add_field(name="Emojis", value=len(server.emojis))
         if server.afk_channel:
             data.add_field(name="Afk Channel", value=str(server.afk_channel))
-            data.add_field(name="Afk Timeout",
-                           value="{} ms".format(server.afk_timeout))
+            data.add_field(name="Afk Timeout", value="{0[0]} hours {0[1]} minutes {0[2]} seconds ".format(str(datetime.timedelta(seconds=server.afk_timeout)).split(':')))
 
         data.add_field(name="Verification Level",
                        value=str(server.verification_level))
@@ -328,24 +326,24 @@ class Info:
     async def getserverinvite(self, ctx):
         """Get a invite to the current server"""
 
-        colour = ''.join([choice('0123456789ABCDEF') for x in range(6)])
-        colour = int(colour, 16)
+        colour=''.join([choice('0123456789ABCDEF') for x in range(6)])
+        colour=int(colour, 16)
 
         try:
-            invite = await self.bot.create_invite(ctx.message.server)
+            invite=await self.bot.create_invite(ctx.message.server)
         except:
             await self.bot.say("I do not have the `Create Instant Invite` Permission")
             return
 
-        server = ctx.message.server
+        server=ctx.message.server
 
-        randnum = randint(1, 10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
+        randnum=randint(1, 10)
+        empty=u"\u2063"
+        emptyrand=empty * randnum
 
-        data = discord.Embed(
+        data=discord.Embed(
             colour=discord.Colour(value=colour))
-        data.add_field(name=server.name, value=invite, inline=False)
+        data.add_field(name=server.name, value=[LINK](invite), inline=False)
 
         if server.icon_url:
             data.set_thumbnail(url=server.icon_url)
@@ -365,16 +363,16 @@ class Info:
                                "use the build in join command instead`")
             return
 
-        invite = self.bot.oauth_url
-        server = ctx.message.server
+        invite=self.bot.oauth_url
+        server=ctx.message.server
 
-        randnum = randint(1, 10)
-        empty = u"\u2063"
-        emptyrand = empty * randnum
+        randnum=randint(1, 10)
+        empty=u"\u2063"
+        emptyrand=empty * randnum
 
-        data = discord.Embed(colour=server.me.colour)
+        data=discord.Embed(colour=server.me.colour)
         data.add_field(name="{} #{}".format(
-            server.me.name, server.me.discriminator), value=invite, inline=False)
+            server.me.name, server.me.discriminator), value=[LINK](invite), inline=False)
 
         if server.me.avatar_url:
             data.set_thumbnail(url=server.me.avatar_url)
