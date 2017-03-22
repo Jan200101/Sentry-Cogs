@@ -55,8 +55,11 @@ class Terminal:
                 await self.bot.say(box("'{}' is on the command blacklist".format(command), 'Prolog'))
                 return
 
-        if command.lower().find("%red%") != -1:
+        if command.lower().find("%red%") != -1 and os.name == 'nx':
             command = command.replace("%red%", getcwd())
+        elif command.lower().find("$red"):
+            command = command.replace("$red", getcwd())
+
 
         if command.lower().find("apt-get install") != -1 and command.lower().find("-y") == -1:
             command = "{} -y".format(command)
