@@ -343,7 +343,7 @@ class Info:
 
         data=discord.Embed(
             colour=discord.Colour(value=colour))
-        data.add_field(name=server.name, value=[LINK](invite), inline=False)
+        data.add_field(name=server.name, value='[LINK]({})'.format(invite), inline=False)
 
         if server.icon_url:
             data.set_thumbnail(url=server.icon_url)
@@ -372,7 +372,7 @@ class Info:
 
         data=discord.Embed(colour=server.me.colour)
         data.add_field(name="{} #{}".format(
-            server.me.name, server.me.discriminator), value=[LINK](invite), inline=False)
+            server.me.name, server.me.discriminator), value='[LINK]({})'.format(invite), inline=False)
 
         if server.me.avatar_url:
             data.set_thumbnail(url=server.me.avatar_url)
