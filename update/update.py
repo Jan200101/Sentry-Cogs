@@ -65,121 +65,220 @@ class Update:
 
     def _get_behind(self):
 
-        if os.name != 'nt':
-            os.popen('LC_ALL=C')
+        if os.name != 'nt': # Enforcing language on any system that isnt Windows
+            os.popen(r'LC_ALL=C git fetch')
 
-        os.popen(r'git fetch')
+            sleep(1)
 
-        sleep(1)
+            # checks if local is out of date, needs the fetch first
+            status = os.popen(r'LC_ALL=C git status -uno').read().strip()
 
-        # checks if local is out of date, needs the fetch first
-        status = os.popen(r'git status -uno').read().strip()
+            if status.find("Your branch is up-to-date") != -1:
+                behind = "Your bot is up to date"
+                color = discord.Colour.green()
 
-        if status.find("Your branch is up-to-date") != -1:
-            behind = "Your bot is up to date"
-            color = discord.Colour.green()
+            elif status.find("Your branch is behind") != -1:
+                behind = "Your bot is out of date by {} commits".format(
+                    "".join([str(s) for s in status.split() if s.isdigit()]))  # finds the number of commits behind and adds it
+                color = discord.Colour.red()
 
-        elif status.find("Your branch is behind") != -1:
-            behind = "Your bot is out of date by {} commits".format(
-                "".join([str(s) for s in status.split() if s.isdigit()]))  # finds the number of commits behind and adds it
-            color = discord.Colour.red()
+            else:
+                behind = "Unable to check if out of date"  # just here in the worst case
+                color = discord.Colour.orange()
+
+            embed = discord.Embed(title=behind,
+                                  colour=color)
+
+            return embed
 
         else:
-            behind = "Unable to check if out of date"  # just here in the worst case
-            color = discord.Colour.orange()
+            os.popen(r'git fetch')
 
-        embed = discord.Embed(title=behind,
-                              colour=color)
+            sleep(1)
 
-        return embed
+            # checks if local is out of date, needs the fetch first
+            status = os.popen(r'git status -uno').read().strip()
+
+            if status.find("Your branch is up-to-date") != -1:
+                behind = "Your bot is up to date"
+                color = discord.Colour.green()
+
+            elif status.find("Your branch is behind") != -1:
+                behind = "Your bot is out of date by {} commits".format(
+                    "".join([str(s) for s in status.split() if s.isdigit()]))  # finds the number of commits behind and adds it
+                color = discord.Colour.red()
+
+            else:
+                behind = "Unable to check if out of date"  # just here in the worst case
+                color = discord.Colour.orange()
+
+            embed = discord.Embed(title=behind,
+                                  colour=color)
+
+            return embed
 
     def _get_travis(self):
 
         if os.name != 'nt':
-            os.popen('LC_ALL=C')
+            branch = os.popen(r'LC_ALL=C git rev-parse --abbrev-ref HEAD')
+            branch = branch.read().strip()
 
-        branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
-        branch = branch.read().strip()
+            allbranches = os.popen(r'LC_ALL=C git branch')
+            allbranches = allbranches.read().strip()
 
-        allbranches = os.popen(r'git branch')
-        allbranches = allbranches.read().strip()
+            url = os.popen(r'LC_ALL=C git config --get remote.origin.url')
+            url = url.read().strip()
+            if url.endswith(".git"):
+                url = url[:-4]
 
-        url = os.popen(r'git config --get remote.origin.url')
-        url = url.read().strip()
-        if url.endswith(".git"):
-            url = url[:-4]
+            # formats the url and branch together to get the branches repo link
+            branchurl = "{}/tree/{}".format(url, branch)
 
-        # formats the url and branch together to get the branches repo link
-        branchurl = "{}/tree/{}".format(url, branch)
+            repo_name = url.split("/")[-1]
 
-        repo_name = url.split("/")[-1]
+            author_name = url.split("/")[-2]
 
-        author_name = url.split("/")[-2]
+            # sees if the branch currently in use is the default branch
+            if allbranches.find("* " + branch) != -1:
+                defaultbranch = True
+            else:
+                defaultbranch = False
 
-        # sees if the branch currently in use is the default branch
-        if allbranches.find("* " + branch) != -1:
-            defaultbranch = True
+            # generates the travis status image based on repo and branch
+            travisbuildstatus = "{}.png?branch={}".format(
+                url.replace("github.com", "api.travis-ci.org"), branch)
+
+            if defaultbranch:
+                embed = discord.Embed(title="travis-ci build status of {} by {}".format(repo_name, author_name),
+                                      colour=discord.Colour.orange(),
+                                      url=branchurl)
+            else:
+
+                embed = discord.Embed(title="travis-ci build status of {} in {} by {}".format(branch, repo_name, author_name),
+                                      colour=discord.Colour.orange(),
+                                      url=branchurl)
+
+            # makes a quick test if the image is even accessable if not gives out a
+            # error
+            request = get(travisbuildstatus)
+            if request.status_code == 200:
+                embed.set_image(url=travisbuildstatus)
+            else:
+                embed.add_field(
+                    name="Could not reach travis page of", value=str(repo_name))
+
+            return embed
         else:
-            defaultbranch = False
+            branch = os.popen(r'git rev-parse --abbrev-ref HEAD')
+            branch = branch.read().strip()
 
-        # generates the travis status image based on repo and branch
-        travisbuildstatus = "{}.png?branch={}".format(
-            url.replace("github.com", "api.travis-ci.org"), branch)
+            allbranches = os.popen(r'git branch')
+            allbranches = allbranches.read().strip()
 
-        if defaultbranch:
-            embed = discord.Embed(title="travis-ci build status of {} by {}".format(repo_name, author_name),
-                                  colour=discord.Colour.orange(),
-                                  url=branchurl)
-        else:
+            url = os.popen(r'git config --get remote.origin.url')
+            url = url.read().strip()
+            if url.endswith(".git"):
+                url = url[:-4]
 
-            embed = discord.Embed(title="travis-ci build status of {} in {} by {}".format(branch, repo_name, author_name),
-                                  colour=discord.Colour.orange(),
-                                  url=branchurl)
+            # formats the url and branch together to get the branches repo link
+            branchurl = "{}/tree/{}".format(url, branch)
 
-        # makes a quick test if the image is even accessable if not gives out a
-        # error
-        request = get(travisbuildstatus)
-        if request.status_code == 200:
-            embed.set_image(url=travisbuildstatus)
-        else:
-            embed.add_field(
-                name="Could not reach travis page of", value=str(repo_name))
+            repo_name = url.split("/")[-1]
 
-        return embed
+            author_name = url.split("/")[-2]
+
+            # sees if the branch currently in use is the default branch
+            if allbranches.find("* " + branch) != -1:
+                defaultbranch = True
+            else:
+                defaultbranch = False
+
+            # generates the travis status image based on repo and branch
+            travisbuildstatus = "{}.png?branch={}".format(
+                url.replace("github.com", "api.travis-ci.org"), branch)
+
+            if defaultbranch:
+                embed = discord.Embed(title="travis-ci build status of {} by {}".format(repo_name, author_name),
+                                      colour=discord.Colour.orange(),
+                                      url=branchurl)
+            else:
+
+                embed = discord.Embed(title="travis-ci build status of {} in {} by {}".format(branch, repo_name, author_name),
+                                      colour=discord.Colour.orange(),
+                                      url=branchurl)
+
+            # makes a quick test if the image is even accessable if not gives out a
+            # error
+            request = get(travisbuildstatus)
+            if request.status_code == 200:
+                embed.set_image(url=travisbuildstatus)
+            else:
+                embed.add_field(
+                    name="Could not reach travis page of", value=str(repo_name))
+
+            return embed
 
     def _update(self):
 
         if os.name != 'nt':
-            os.popen('LC_ALL=C')
+            os.popen(r'LC_ALL=C git reset --hard')
+            os.popen(r'LC_ALL=C git stash')
 
-        os.popen(r'git reset --hard')
-        os.popen(r'git stash')
+            sleep(1)
 
-        sleep(1)
+            os.popen(r'LC_ALL=C git pull')
 
-        os.popen(r'git pull')
+            sleep(1)
 
-        sleep(1)
+            # checks if local is out of date, needs the fetch first
+            status = os.popen(r'LC_ALL=C git status -uno').read().strip()
 
-        # checks if local is out of date, needs the fetch first
-        status = os.popen(r'git status -uno').read().strip()
+            if status.find("Your branch is up-to-date") != -1:
+                behind = "Update successfull"
+                color = discord.Colour.green()
 
-        if status.find("Your branch is up-to-date") != -1:
-            behind = "Update successfull"
-            color = discord.Colour.green()
+            elif status.find("Your branch is behind") != -1:
+                behind = "Update unsuccessfull"
+                color = discord.Colour.red()
 
-        elif status.find("Your branch is behind") != -1:
-            behind = "Update unsuccessfull"
-            color = discord.Colour.red()
+            else:
+                behind = "Unable to check if out of date"  # just here in the worst case
+                color = discord.Colour.orange()
 
+            embed = discord.Embed(title=behind,
+                                  colour=color)
+
+            return embed
         else:
-            behind = "Unable to check if out of date"  # just here in the worst case
-            color = discord.Colour.orange()
 
-        embed = discord.Embed(title=behind,
-                              colour=color)
+            os.popen(r'git reset --hard')
+            os.popen(r'git stash')
 
-        return embed
+            sleep(1)
+
+            os.popen(r'git pull')
+
+            sleep(1)
+
+            # checks if local is out of date, needs the fetch first
+            status = os.popen(r'git status -uno').read().strip()
+
+            if status.find("Your branch is up-to-date") != -1:
+                behind = "Update successfull"
+                color = discord.Colour.green()
+
+            elif status.find("Your branch is behind") != -1:
+                behind = "Update unsuccessfull"
+                color = discord.Colour.red()
+
+            else:
+                behind = "Unable to check if out of date"  # just here in the worst case
+                color = discord.Colour.orange()
+
+            embed = discord.Embed(title=behind,
+                                  colour=color)
+
+            return embed
 
 def check_folder():
     if not os.path.exists(".git"):
