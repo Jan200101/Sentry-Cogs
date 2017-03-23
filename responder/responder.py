@@ -44,18 +44,17 @@ class Responder:
             await self.bot.say(box(userlist))
             return
 
-        authors = self.author
-
         if user.bot:
             await self.bot.say('`Cannot add Bots`')
             return
-        elif user.id in authors:
-            authors.remove(user.id)
+        elif user.id in self.author:
+            self.author.remove(user.id)
             await self.bot.say('`removed \'{}\'`'.format(user))
         else:
-            authors.append(user.id)
+            self.author.append(user.id)
             await self.bot.say('`added \'{}\'`'.format(user))
 
+        self.settings['user'] = self.author
         dataIO.save_json('data/responder/settings.json', self.settings)
 
     @respondersettings.command(name="message", pass_context=True)
@@ -90,24 +89,26 @@ class Responder:
             self.enabled = True
             await self.bot.say('`enabled responder`')
 
+        self.settings['enabled'] = self.enabled
+
         dataIO.save_json('data/responder/settings.json', self.settings)
 
     @respondersettings.command(name="timeout", pass_context=True)
-    async def _timeout(self, ctx, timeout: int=None):
+    async def _timeout(self, ctx, time: int=None):
         """Set the amount of time passing before reacting again\n"""
 
         if -1 >= self.timeout:  # If statement incase someone removes it or sets it to 0
             self.timeout = 0
 
-        if timeout == None:
+        if time == None:
             message = box(
                 "Current max search result is {}".format(self.timeout))
             await send_cmd_help(ctx)
-        elif timeout < 0:
+        elif time < 0:
             await self.bot.say('`Cannot set timeout lower then 0`')
             return
         else:
-            self.timeout = timeout
+            self.timeout = time
             self.settings['timeout'] = self.timeout
             dataIO.save_json('data/responder/settings.json', self.settings)
             message = '`Changed timeout to {} `'.format(
@@ -115,13 +116,13 @@ class Responder:
         await self.bot.say(message)
 
     async def on_message(self, message):
+        await sleep(self.timeout)
         if self.enabled == True:
             if message.author.id in self.author:
                 for x in self.bot.settings.prefixes:
                     if not message.content.startswith(x):
                         if not message.author.bot:
                             await self.bot.send_message(message.channel, self.message)
-                            await sleep(self.timeout)
 
 
 def check_folder():
