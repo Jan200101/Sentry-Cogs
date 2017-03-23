@@ -47,7 +47,7 @@ class GoodGoogle:
             await self.bot.send_cmd_help(ctx)
 
     @googlesettings.command(name="maxresults", pass_context=True)
-    async def _googlesettings(self, ctx, maxresults: int=0):
+    async def _maxresults(self, ctx, maxresults: int=0):
         """Set the amount of results appearing"""
 
         if not self.maxresults:  # If statement incase someone removes it or sets it to 0

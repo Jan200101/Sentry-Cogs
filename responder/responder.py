@@ -20,6 +20,7 @@ class Responder:
         self.message = self.settings['message']
         self.enabled = self.settings['enabled']
         self.timeout = self.settings['timeout']
+        self.message_trigger = self.settings['message_trigger']
 
     @commands.group(aliases=['responsesettings'], pass_context=True)
     @checks.admin()
@@ -115,12 +116,41 @@ class Responder:
                 self.timeout)
         await self.bot.say(message)
 
+    @respondersettings.group(name='filter', pass_context=True)
+    @checks.admin()
+    async def _filter(self, ctx):
+        """filter triggers out"""
+
+        await self.bot.send_cmd_help(ctx)
+
+
+    @_filter.command(pass_context=True)
+    @checks.admin()
+    async def commands(self, ctx):
+        """Make commands not Trigger the message"""
+
+        if self.message_trigger == True:
+            self.message_trigger = False
+            await self.bot.say('`Commands can now not trigger responses`')
+        elif self.message_trigger == False:
+            self.message_trigger = True
+            await self.bot.say('`Commands can now trigger responses`')
+        else:
+            self.message_trigger = True
+            await self.bot.say('`Commands can now trigger responses`')
+
+        self.settings['message_trigger'] = self.message_trigger
+
+        dataIO.save_json('data/responder/settings.json', self.settings)
+
+
     async def on_message(self, message):
         if self.enabled == True:
             commands = []
-            for x in self.bot.settings.prefixes:
-                for z in self.bot.commands:
-                    commands.append(x + z)
+            if self.message_trigger:
+                for x in self.bot.settings.prefixes:
+                    for z in self.bot.commands:
+                        commands.append(x + z)
             if message.author.id in self.author and not message.content.startswith(tuple(commands)) and not message.author.bot:
                 await sleep(self.timeout)
                 await self.bot.send_message(message.channel, self.message)
@@ -135,6 +165,7 @@ def check_folder():
 def check_file():
     data = {}
     data['enabled'] = True
+    data['message_trigger'] = True
     data['timeout'] = 0
     data['user'] = []
     data['message'] = "Placeholder Message"
