@@ -37,7 +37,7 @@ class Nep:
             await self.bot.say("I need the `Embed links` permission "
                                "to send this")
 
-def check_folder():  # Paddo is great
+def check_folder():
     if not path.exists("data/nep"):
         print("[Nep]Creating data/nep folder...")
         makedirs("data/nep")
