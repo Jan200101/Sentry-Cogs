@@ -116,13 +116,14 @@ class Responder:
         await self.bot.say(message)
 
     async def on_message(self, message):
-        await sleep(self.timeout)
         if self.enabled == True:
-            if message.author.id in self.author:
-                for x in self.bot.settings.prefixes:
-                    if not message.content.startswith(x):
-                        if not message.author.bot:
-                            await self.bot.send_message(message.channel, self.message)
+            commands = []
+            for x in self.bot.settings.prefixes:
+                for z in self.bot.commands:
+                    commands.append(x + z)
+            if message.author.id in self.author and not message.content.startswith(tuple(commands)) and not message.author.bot:
+                await sleep(self.timeout)
+                await self.bot.send_message(message.channel, self.message)
 
 
 def check_folder():
