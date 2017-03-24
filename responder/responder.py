@@ -16,7 +16,7 @@ class Responder:
     def __init__(self, bot):
         self.bot = bot
         self.settings = dataIO.load_json('data/responder/settings.json')
-        self.author = self.settings['user']
+        self.users = self.settings['user']
         self.message = self.settings['message']
         self.enabled = self.settings['enabled']
         self.timeout = self.settings['timeout']
@@ -35,8 +35,9 @@ class Responder:
         """Set the users that can trigger the message"""
 
         if user is None:
-            name = list(
-                set([x.name for x in self.bot.get_all_members() if x.id in self.author]))
+            name = []
+            for x in self.users:
+                name.append(str(await self.bot.get_user_info(x)))
             await send_cmd_help(ctx)
             if name:
                 userlist = ', '.join(name)
@@ -48,14 +49,14 @@ class Responder:
         if user.bot:
             await self.bot.say('`Cannot add Bots`')
             return
-        elif user.id in self.author:
-            self.author.remove(user.id)
+        elif user.id in self.users:
+            self.users.remove(user.id)
             await self.bot.say('`removed \'{}\'`'.format(user))
         else:
-            self.author.append(user.id)
+            self.users.append(user.id)
             await self.bot.say('`added \'{}\'`'.format(user))
 
-        self.settings['user'] = self.author
+        self.settings['user'] = self.users
         dataIO.save_json('data/responder/settings.json', self.settings)
 
     @respondersettings.command(name="message", pass_context=True)
@@ -151,7 +152,7 @@ class Responder:
                 for x in self.bot.settings.prefixes:
                     for z in self.bot.commands:
                         commands.append(x + z)
-            if message.author.id in self.author and not message.content.startswith(tuple(commands)) and not message.author.bot:
+            if message.author.id in self.users and not message.content.startswith(tuple(commands)) and not message.author.bot:
                 await sleep(self.timeout)
                 await self.bot.send_message(message.channel, self.message)
 
