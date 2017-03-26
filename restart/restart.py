@@ -47,6 +47,7 @@ class Restart:
 
     def __unload(self):
         if oldrestart:
+            print('Restoring old restart command')
             self.bot.add_command(oldrestart)
 
 def setup(bot):
@@ -55,7 +56,7 @@ def setup(bot):
     oldrestart = bot.get_command("restart")
 
     if oldrestart:
+        print('Replacing old restart command (restores on unload)')
         bot.remove_command(oldrestart.name)
 
-    bot.say("Beep Boop, Load")
     bot.add_cog(Restart(bot))

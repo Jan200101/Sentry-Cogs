@@ -3,5 +3,6 @@
     "INSTALL_MSG" : "Thank you for installing restart\nThis shutdown command replaces the buildin restart command\nfor the case that you dont use the Launcher.\nIf you do use the launcher dont load this cog",
     "NAME" : "restart",
     "SHORT" : "adds a command to restart Red",
-    "DESCRIPTION" : "adds a command to restart Red"
+    "DESCRIPTION" : "adds a command to restart Red",
+    "TAGS": ["restart","tool","administrator","usefull"]
 }
