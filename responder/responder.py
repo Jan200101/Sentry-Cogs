@@ -15,6 +15,7 @@ class Responder:
 
     def __init__(self, bot):
         self.bot = bot
+        self.processingresponse = False
         self.settings = dataIO.load_json('data/responder/settings.json')
         self.users = self.settings['user']
         self.message = self.settings['message']
@@ -102,15 +103,15 @@ class Responder:
     async def _timeout(self, ctx, time: int=None):
         """Set the amount of time passing before reacting again\n"""
 
-        if -1 >= self.timeout:  # If statement incase someone removes it or sets it to 0
+        if 0 >= self.timeout:  # If statement incase someone removes it or sets it to 0
             self.timeout = 0
 
         if time == None:
             message = box(
                 "Current max search result is {}".format(self.timeout))
             await send_cmd_help(ctx)
-        elif time < 0:
-            await self.bot.say('`Cannot set timeout lower then 0`')
+        elif time < 1:
+            await self.bot.say('`Cannot set timeout lower then 1`')
             return
         else:
             self.timeout = time
@@ -150,14 +151,19 @@ class Responder:
 
     async def on_message(self, message):
         if self.enabled == True:
-            commands = []
-            if self.message_trigger:
-                for x in self.bot.settings.prefixes:
-                    for z in self.bot.commands:
-                        commands.append(x + z)
-            if message.author.id in self.users and not message.content.startswith(tuple(commands)) and not message.author.bot:
-                await sleep(self.timeout)
-                await self.bot.send_message(message.channel, self.message)
+            if self.processingresponse == False:
+                self.processingresponse = True
+                commands = []
+                if not self.message_trigger:
+                    for x in self.bot.settings.prefixes:
+                        for z in self.bot.commands:
+                            commands.append(x + z)
+
+                if message.author.id in self.users and not message.content.startswith(tuple(commands)) and not message.author.bot:
+                    await self.bot.send_message(message.channel, self.message)
+                    await sleep(self.timeout)
+
+                self.processingresponse = False
 
 
 def check_folder():
@@ -170,7 +176,7 @@ def check_file():
     data = {}
     data['enabled'] = True
     data['message_trigger'] = True
-    data['timeout'] = 0
+    data['timeout'] = 1
     data['user'] = []
     data['message'] = "Placeholder Message"
     f = "data/responder/settings.json"
