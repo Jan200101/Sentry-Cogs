@@ -42,13 +42,12 @@ class Update:
         except:
             await self.bot.say("a error happend")
 
-
     @commands.command(pass_context=True)
     @checks.is_owner()
     async def update(self, ctx):
         """Updates your bot if it can"""
 
-        await self.bot.say('This will get rid of any edits you havent saved. Continue ? (yes/no)')
+        await self.bot.say('This command will update red to its latest version.\nAny changes your previously had made are going to get overwritten (Custom cogs dont count)\n Get rid of any edits you havent saved. Continue ? (yes/no)')
         answer = await self.bot.wait_for_message(timeout=10, author=ctx.message.author)
 
         if answer == None:
@@ -65,7 +64,7 @@ class Update:
 
     def _get_behind(self):
 
-        if os.name != 'nt': # Enforcing language on any system that isnt Windows
+        if os.name != 'nt':  # Enforcing language on any system that isnt Windows
             os.popen(r'LC_ALL=C git fetch')
 
             sleep(1)
@@ -279,6 +278,7 @@ class Update:
                                   colour=color)
 
             return embed
+
 
 def check_folder():
     if not os.path.exists(".git"):
