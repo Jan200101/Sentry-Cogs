@@ -12,7 +12,7 @@ class Nep:
         self.nep = dataIO.load_json('data/nep/images.json')
         self.nepsay = dataIO.load_json('data/nep/text.json')
 
-    @commands.command(no_pm=True, aliases=["nep"])
+    @commands.command(aliases=["nep"])
     async def Nep(self):
         """Displays a random Nep."""
 
