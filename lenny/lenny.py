@@ -1,8 +1,10 @@
 import discord
 from discord.ext import commands
+from cogs.utils.chat_formatting import escape
 import aiohttp
 import asyncio
 import sys
+
 
 
 class lenny:
@@ -27,7 +29,7 @@ class lenny:
         gateway = 'http://lenny.today/api/v1/random?limit={}'.format(count)
         payload = {}
         payload['limit'] = 1
-        headers = {'user-agent': 'Red-cog/1.0'}
+        headers = {'user-agent': 'Python-Red-cog/1.0'}
 
         session = aiohttp.ClientSession()
         async with session.get(gateway, params=payload, headers=headers) as r:
@@ -43,8 +45,7 @@ class lenny:
 
             lenny = "".join(lennylist)  # merges the list into a string
 
-            # Replaces * with \* so it wont write in italic EVER
-            lenny = lenny.replace("*", "\*")
+            lenny = escape(lenny, mass_mentions=True, formatting=True)
 
             await self.bot.say(lenny)  # says the lennys
             return
