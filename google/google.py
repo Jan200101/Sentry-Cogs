@@ -10,7 +10,7 @@ from __main__ import send_cmd_help
 # attempt at remaking the google cog out of the now dead community repo
 
 
-class GoodGoogle:
+class SimpleGoogle:
     """Get any info quickly"""
 
     def __init__(self, bot):
@@ -89,4 +89,4 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    bot.add_cog(GoodGoogle(bot))
+    bot.add_cog(SimpleGoogle(bot))
