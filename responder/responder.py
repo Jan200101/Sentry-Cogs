@@ -39,7 +39,8 @@ class Responder:
             name = []
             for x in self.users:
                 if x in [u.id for u in self.bot.get_all_members()]:
-                    name.append('{0.name}#{0.discriminator} ({0.id})'.format([u for u in self.bot.get_all_members() if u.id == x][0]))
+                    name.append('{0.name}#{0.discriminator} ({0.id})'.format(
+                        [u for u in self.bot.get_all_members() if u.id == x][0]))
                 else:
                     name.append('{0.name}#{0.discriminator} ({0.id})'.format(await self.bot.get_user_info(x)))
             await send_cmd_help(ctx)
@@ -128,7 +129,6 @@ class Responder:
 
         await self.bot.send_cmd_help(ctx)
 
-
     @_filter.command(pass_context=True)
     @checks.admin()
     async def commands(self, ctx):
@@ -147,7 +147,6 @@ class Responder:
         self.settings['message_trigger'] = self.message_trigger
 
         dataIO.save_json('data/responder/settings.json', self.settings)
-
 
     async def on_message(self, message):
         if self.enabled == True:
