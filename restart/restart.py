@@ -14,12 +14,6 @@ class Restart:
 
     @commands.command(pass_context=True)
     @checks.is_owner()
-    async def ttest(self, ctx):
-
-        await self.bot.say("This is `oldrestart`\n{}".format(oldrestart))
-
-    @commands.command(pass_context=True)
-    @checks.is_owner()
     async def restart(self, ctx):
         """Attempts to restart Red.
         Makes it attempt to start a new instance of red
@@ -36,7 +30,10 @@ class Restart:
             await self.bot.say("Restarting now.")
             print("Restarting Red...")
             time.sleep(1)
-            cd = "{}/{}".format(os.getcwd(), sys.argv[0])
+            if os.getcwd() in sys.argv[0]
+                cd = "{}/{}".format(" ".join(sys.argv))
+            else:
+                cd = "{}/{}".format(os.getcwd(), " ".join(sys.argv))
             child = subprocess.Popen(["{} {}".format(sys.executable, cd)],shell=True,stdout=subprocess.PIPE)
             output,error = child.communicate()
             print("Output\n{}\nError\n{}\n".format(output, error))
