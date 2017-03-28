@@ -55,11 +55,10 @@ class Terminal:
                 await self.bot.say(box("'{}' is on the command blacklist".format(command), 'Prolog'))
                 return
 
-        if command.lower().find("%red%") != -1 and os.name == 'nx':
+        if command.lower().find("%red%") != -1 and name == 'nt':
             command = command.replace("%red%", getcwd())
-        elif command.lower().find("$red"):
+        elif command.lower().find("$red") != -1:
             command = command.replace("$red", getcwd())
-
 
         if command.lower().find("apt-get install") != -1 and command.lower().find("-y") == -1:
             command = "{} -y".format(command)
@@ -95,7 +94,8 @@ class Terminal:
                 output = b'a error has occured'
             error = True
 
-        # Fallback incase unicode doesnt like to function, which is very unlikely
+        # Fallback incase unicode doesnt like to function, which is very
+        # unlikely
         try:
             shell = output.decode('utf_8')
         except:
@@ -108,10 +108,12 @@ class Terminal:
         for page in pagify(shell, shorten_by=20):
             await self.bot.say(box(page, 'Prolog'))
 
+
 def check_folder():
     if not path.exists("data/terminal"):
         print("[Terminal]Creating data/terminal folder...")
         makedirs("data/terminal")
+
 
 def check_file():
     whitelist = []
@@ -125,6 +127,7 @@ def check_file():
     if not dataIO.is_valid_json(k):
         print("[Terminal]Creating default blacklist.json...")
         dataIO.save_json(k, blacklist)
+
 
 def setup(bot):
     check_folder()
