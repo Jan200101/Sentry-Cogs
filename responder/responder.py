@@ -36,6 +36,7 @@ class Responder:
         """Set the users that can trigger the message"""
 
         if user is None:
+            await send_cmd_help(ctx)
             name = []
             for x in self.users:
                 if x in [u.id for u in self.bot.get_all_members()]:
@@ -43,7 +44,6 @@ class Responder:
                         [u for u in self.bot.get_all_members() if u.id == x][0]))
                 else:
                     name.append('{0.name}#{0.discriminator} ({0.id})'.format(await self.bot.get_user_info(x)))
-            await send_cmd_help(ctx)
             if name:
                 userlist = ', '.join(name)
             else:
