@@ -51,7 +51,7 @@ class Responder:
             await self.bot.say(box(userlist))
             return
 
-        if user.bot:
+        if user.bot and self.bot.user.bot:
             await self.bot.say('`Cannot add Bots`')
             return
         elif user.id in self.users:
@@ -153,12 +153,12 @@ class Responder:
             if self.processingresponse == False:
                 self.processingresponse = True
                 commands = []
-                if not self.message_trigger:
+                if not self.message_trigger and self.bot.user.bot:
                     for x in self.bot.settings.prefixes:
                         for z in self.bot.commands:
                             commands.append(x + z)
 
-                if message.author.id in self.users and not message.content.startswith(tuple(commands)) and not message.author.bot:
+                if message.author.id in self.users and not message.content.startswith(tuple(commands)):
                     await self.bot.send_message(message.channel, self.message)
                     await sleep(self.timeout)
 
