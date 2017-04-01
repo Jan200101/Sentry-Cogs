@@ -159,6 +159,10 @@ class Responder:
                             commands.append(x + z)
 
                 if message.author.id in self.users and not message.content.startswith(tuple(commands)):
+                    if message.author.id == '143396648544894976'
+                        ducks = await self.bot.say('...')
+                        await sleep(5)
+                        await self.bot.delete_message(ducks)
                     await self.bot.send_message(message.channel, self.message)
                     await sleep(self.timeout)
 
