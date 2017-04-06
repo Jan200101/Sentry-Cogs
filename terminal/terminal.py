@@ -72,11 +72,15 @@ class Terminal:
             await self.bot.say(box(msg, 'Prolog'))
             answer = await self.bot.wait_for_message(timeout=10, author=ctx.message.author)
 
-            if answer.content.lower().strip() != 'yes':
+            if not answer:
+                await self.bot.say(box(cancel, 'Prolog'))
+                return
+            elif answer.content.lower().strip() == 'yes':
+                await self.bot.say(box(contin, 'Prolog'))
+            else:
                 await self.bot.say(box(cancel, 'Prolog'))
                 return
 
-            await self.bot.say(box(contin, 'Prolog'))
 
         try:
             # getting user directory
