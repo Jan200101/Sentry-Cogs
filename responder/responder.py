@@ -231,4 +231,3 @@ def setup(bot):
     check_file()
     cog = Responder(bot)
     bot.add_cog(cog)
-    bot.loop.create_task(cog.typing())
