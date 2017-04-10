@@ -21,7 +21,10 @@ class Responder:
         self.message = self.settings['message']
         self.enabled = self.settings['enabled']
         self.timeout = self.settings['timeout']
+        self.timeout_after = self.timeout['after']
+        self.timeout_before = self.timeout['before']
         self.message_trigger = self.settings['message_trigger']
+        self.send_typing = []
 
     @commands.group(aliases=['responsesettings'], pass_context=True)
     @checks.admin()
@@ -100,26 +103,59 @@ class Responder:
 
         dataIO.save_json('data/responder/settings.json', self.settings)
 
-    @respondersettings.command(name="timeout", pass_context=True)
-    async def _timeout(self, ctx, time: int=None):
-        """Set the amount of time passing before reacting again\n"""
+    @respondersettings.group(name='timeout', pass_context=True)
+    @checks.admin()
+    async def _timeout(self, ctx):
+        """Change timeout before the message gets send and how long it cannot send another message"""
 
-        if 0 >= self.timeout:  # If statement incase someone removes it or sets it to 0
-            self.timeout = 0
+        if ctx.invoked_subcommand is None or \
+                isinstance(ctx.invoked_subcommand, commands.Group):
+            await send_cmd_help(ctx)
+
+    @_timeout.command(name='after', pass_context=True)
+    async def _after(self, ctx, time: int=None):
+        """Amount of time before another message can be send."""
+
+        # If statement incase someone removes it or sets it to 1
+        if 0 >= self.timeout_after:
+            self.timeout_after = 1
 
         if time == None:
             message = box(
-                "Current max search result is {}".format(self.timeout))
+                "Current timeout after response is {}".format(self.timeout_after))
             await send_cmd_help(ctx)
         elif time < 1:
-            await self.bot.say('`Cannot set timeout lower then 1`')
+            await self.bot.say('`Cannot set timeout after lower then 1`')
             return
         else:
-            self.timeout = time
-            self.settings['timeout'] = self.timeout
+            self.timeout_after = time
+            self.settings['timeout']['after'] = self.timeout_after
             dataIO.save_json('data/responder/settings.json', self.settings)
-            message = '`Changed timeout to {} `'.format(
-                self.timeout)
+            message = '`Changed timeout after to {} `'.format(
+                self.timeout_after)
+        await self.bot.say(message)
+
+    @_timeout.command(name="before", pass_context=True)
+    async def _before(self, ctx, time: int=None):
+        """Amount of time before a response is send out."""
+
+        # If statement incase someone removes it or sets it to 0
+        if 0 > self.timeout_before:
+            self.timeout_before = 0
+
+        if time == None:
+            message = box(
+                "Current timeout before response is {}".format(self.timeout_before))
+            await send_cmd_help(ctx)
+        elif time < 0:
+            await self.bot.say('`Cannot set timeout before lower then 0`')
+            return
+        else:
+            self.timeout_before = time
+            self.settings['timeout']['before'] = self.timeout_before
+            dataIO.save_json('data/responder/settings.json', self.settings)
+            message = '`Changed timeout before to {} `'.format(
+                self.timeout_before)
         await self.bot.say(message)
 
     @respondersettings.group(name='filter', pass_context=True)
@@ -127,7 +163,9 @@ class Responder:
     async def _filter(self, ctx):
         """filter triggers out"""
 
-        await self.bot.send_cmd_help(ctx)
+        if ctx.invoked_subcommand is None or \
+                isinstance(ctx.invoked_subcommand, commands.Group):
+            await send_cmd_help(ctx)
 
     @_filter.command(pass_context=True)
     @checks.admin()
@@ -150,23 +188,31 @@ class Responder:
 
     async def on_message(self, message):
         if self.enabled == True:
-            if self.processingresponse == False:
+            if self.processingresponse == False and message.author.id in self.users:
                 self.processingresponse = True
+
                 commands = []
                 if not self.message_trigger and self.bot.user.bot:
                     for x in self.bot.settings.prefixes:
                         for z in self.bot.commands:
                             commands.append(x + z)
 
-                if message.author.id in self.users and not message.content.startswith(tuple(commands)):
-                    if message.author.id == '143396648544894976'
-                        ducks = await self.bot.say('...')
-                        await sleep(5)
-                        await self.bot.delete_message(ducks)
+                if not message.content.startswith(tuple(commands)):
+                    self.send_typing.append(message.channel)
+                    await sleep(self.timeout_before)
                     await self.bot.send_message(message.channel, self.message)
-                    await sleep(self.timeout)
+                    self.send_typing.remove(message.channel)
+                    await sleep(1)
 
                 self.processingresponse = False
+
+    async def typing(self):
+        await sleep(2)
+        while self == self.bot.get_cog('playtest'):
+            if self.send_typing:
+                await self.bot.say(self.send_typing)
+                for channel in self.send_typing:
+                    self.bot.send_typing(channel)
 
 
 def check_folder():
@@ -179,7 +225,9 @@ def check_file():
     data = {}
     data['enabled'] = True
     data['message_trigger'] = True
-    data['timeout'] = 1
+    data['timeout'] = {}
+    data['timeout']['after'] = 1
+    data['timeout']['before'] = 0
     data['user'] = []
     data['message'] = "Placeholder Message"
     f = "data/responder/settings.json"
@@ -191,4 +239,6 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    bot.add_cog(Responder(bot))
+    cog = Responder(bot)
+    bot.add_cog(cog)
+    bot.loop.create_task(cog.typing())
