@@ -198,21 +198,11 @@ class Responder:
                             commands.append(x + z)
 
                 if not message.content.startswith(tuple(commands)):
-                    self.send_typing.append(message.channel)
                     await sleep(self.timeout_before)
                     await self.bot.send_message(message.channel, self.message)
-                    self.send_typing.remove(message.channel)
-                    await sleep(1)
+                    await sleep(self.timeout_after)
 
                 self.processingresponse = False
-
-    async def typing(self):
-        await sleep(2)
-        while self == self.bot.get_cog('playtest'):
-            if self.send_typing:
-                await self.bot.say(self.send_typing)
-                for channel in self.send_typing:
-                    self.bot.send_typing(channel)
 
 
 def check_folder():
