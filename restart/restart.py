@@ -30,10 +30,10 @@ class Restart:
             await self.bot.say("Restarting now.")
             print("Restarting Red...")
             time.sleep(1)
-            if os.getcwd() in sys.argv[0]
-                cd = "{}/{}".format(" ".join(sys.argv))
+            if os.getcwd() in sys.argv[0]:
+                cd = "{}".format(" ".join(sys.argv))
             else:
-                cd = "{}/{}".format(os.getcwd(), " ".join(sys.argv))
+                cd = "{}/red.py {}".format(os.getcwd(), sys.argv[1])
             child = subprocess.Popen(["{} {}".format(sys.executable, cd)],shell=True,stdout=subprocess.PIPE)
             output,error = child.communicate()
             print("Output\n{}\nError\n{}\n".format(output, error))
