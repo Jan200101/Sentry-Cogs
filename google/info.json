@@ -5,6 +5,6 @@
     "SHORT" : "google quickly for things",
     "DESCRIPTION" : "google quickly for things",
     "REQUIREMENTS" : ["google","search"],
-    "TAGS": ["google"]
+    "TAGS": ["google"],
     "HIDDEN" : true
 }

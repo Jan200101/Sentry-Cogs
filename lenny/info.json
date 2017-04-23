@@ -4,6 +4,6 @@
     "NAME" : "lenny",
     "SHORT" : "a one command lenny generator",
     "DESCRIPTION" : "a one command lenny generator",
-    "TAGS": ["lenny","fun","memes"]
+    "TAGS": ["lenny","fun","memes"],
     "HIDDEN" : true
 }

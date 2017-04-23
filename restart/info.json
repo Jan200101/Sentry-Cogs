@@ -4,6 +4,6 @@
     "NAME" : "restart",
     "SHORT" : "adds a command to restart Red",
     "DESCRIPTION" : "adds a command to restart Red",
-    "TAGS": ["restart","tool","administrator","usefull"]
+    "TAGS": ["restart","tool","administrator","usefull"],
     "HIDDEN" : true
 }

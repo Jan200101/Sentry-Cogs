@@ -5,6 +5,6 @@
     "DISABLED" : false,
     "NAME" : "Channelinfo",
     "INSTALL_MSG" : "Thanks for installing my Channelinfo command",
-    "TAGS": ["information","info","useful"]
+    "TAGS": ["information","info","useful"],
     "HIDDEN" : true
 }

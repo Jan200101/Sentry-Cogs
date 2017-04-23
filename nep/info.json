@@ -4,6 +4,6 @@
     "NAME" : "nep",
     "SHORT" : "Displays a Nep *Nep itensifies*",
     "DESCRIPTION" : "Displays a Nep :D",
-    "TAGS": ["nep","fun","anime","memes"]
+    "TAGS": ["nep","fun","anime","memes"],
     "HIDDEN" : true
 }

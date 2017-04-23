@@ -5,6 +5,6 @@
     "SHORT" : "2D graph creator in Discord",
     "DESCRIPTION" : "2D graph creator in Discord",
     "REQUIREMENTS" : ["matplotlib"],
-    "TAGS": ["graph","2d","math"]
+    "TAGS": ["graph","2d","math"],
     "HIDDEN" : true
 }

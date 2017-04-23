@@ -4,6 +4,6 @@
     "NAME" : "responder",
     "SHORT" : "Make custom Responses to every message of certain users you set",
     "DESCRIPTION" : "Make custom Responses to every message of certain users you set",
-    "TAGS": ["response","fun","message"]
+    "TAGS": ["response","fun","message"],
     "HIDDEN" : true
 }
