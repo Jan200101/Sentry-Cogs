@@ -6,4 +6,5 @@
     "DESCRIPTION" : "google quickly for things",
     "REQUIREMENTS" : ["google","search"],
     "TAGS": ["google"]
+    "HIDDEN" : true
 }

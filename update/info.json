@@ -5,4 +5,5 @@
     "SHORT" : "red updater and update status",
     "DESCRIPTION" : "red updater and update status",
     "TAGS": ["update","red","git","status"]
+    "HIDDEN" : true
 }

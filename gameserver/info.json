@@ -6,4 +6,5 @@
     "DESCRIPTION" : "Fetch game servers in Discord",
     "REQUIREMENTS" : ["python-valve"],
     "TAGS": ["source","engine","steam","server","game","csgo","tf2"]
+    "HIDDEN" : true
 }

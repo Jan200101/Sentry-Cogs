@@ -6,4 +6,5 @@
     "NAME" : "Bottlespin",
     "INSTALL_MSG" : "Thanks for installing my bottle spinning command",
     "TAGS": ["bottle","spin","fun"]
+    "HIDDEN" : true
 }

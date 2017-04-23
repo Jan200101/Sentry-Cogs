@@ -6,4 +6,5 @@
     "DESCRIPTION" : "2D graph creator in Discord",
     "REQUIREMENTS" : ["matplotlib"],
     "TAGS": ["graph","2d","math"]
+    "HIDDEN" : true
 }
